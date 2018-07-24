@@ -28,7 +28,7 @@ public class UploadPicRESTController {
     
     @RequestMapping(method = RequestMethod.POST)
     public String uploadFile(@RequestParam("uploadedFiles") MultipartFile uploadedFileRef) throws IOException{
-        if(uploadedFileRef.isEmpty()){
+        if(uploadedFileRef.isEmpty() && uploadedFileRef.getOriginalFilename().substring(uploadedFileRef.getOriginalFilename().lastIndexOf('.')+1).equals("jpeg")){
             String fileName = uploadedFileRef.getOriginalFilename();
             String path = "D:/" + fileName;
             byte[] bytes = uploadedFileRef.getBytes() ;

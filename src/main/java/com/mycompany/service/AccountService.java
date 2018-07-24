@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface AccountService {
     List<Account> findAllWithDetail();
+    Account findByAccount(String userName);
     Account findById(Long id);
     List<Account> findAll();
     Account save(Account account);

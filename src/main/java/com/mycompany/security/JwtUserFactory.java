@@ -24,7 +24,7 @@ public final class JwtUserFactory {
                 account.getPassword(),
                 mapToGrantedAuthorities(temp),
                 account.getActivation(),
-                new Date()
+                new Date(0)
         );
     }
 

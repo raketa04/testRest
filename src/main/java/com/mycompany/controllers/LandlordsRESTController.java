@@ -7,20 +7,19 @@ package com.mycompany.controllers;
 
 import com.mycompany.dto.AccountDto;
 import com.mycompany.resurse.Account;
+import com.mycompany.security.JwtTokenUtil;
 import com.mycompany.service.AccountService;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import static org.springframework.http.RequestEntity.method;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
 /**
  *
  * @author ADMIN
@@ -31,32 +30,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("user")
-public class AccountRESTController {
+@RequestMapping("landlord")
+public class LandlordsRESTController {
     
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
     private AccountService accountService;
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
     
-    @GetMapping("all")
-    public ResponseEntity<List<AccountDto>> getAllLandors() {
-        List<AccountDto> list = list = accountService.findAll().stream()
-                .map(authority -> modelMapper.map(authority ,AccountDto.class))
-                .collect(Collectors.toList());
-        return new ResponseEntity<>(list, HttpStatus.OK);
+    @Value("${jwt.header}")
+    private String tokenHeader;
+
+    @GetMapping("authorization")
+    public ResponseEntity<AccountDto> authorization(HttpServletRequest request) {
+        String authToken = request.getHeader(tokenHeader);
+        final String token = authToken.substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        AccountDto account = modelMapper.map(accountService.findByAccount(username), AccountDto.class);
+        return new ResponseEntity<>(account, HttpStatus.OK);
     }
     
-    @RequestMapping(value ="add", method = RequestMethod.GET)
+    @RequestMapping(value ="add", method = RequestMethod.POST)
     public ResponseEntity<AccountDto> addNewUser(@RequestBody AccountDto accountDto) {
         accountDto.setPassword(new BCryptPasswordEncoder().encode(accountDto.getPassword()));
         Account account = accountService.save(modelMapper.map(accountDto, Account.class));
         return new ResponseEntity<>(modelMapper.map(account,AccountDto.class), HttpStatus.OK);
     }
     
-    @GetMapping("{id}")
-    public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
-        Account list = accountService.findById(id);
-        return new ResponseEntity<>(list, HttpStatus.OK);
+    @RequestMapping(value ="update", method = RequestMethod.PUT)
+    public ResponseEntity<AccountDto> updateUser(@RequestBody AccountDto accountDto) {
+        if(accountDto.getPassword() != null) accountDto.setPassword(new BCryptPasswordEncoder().encode(accountDto.getPassword()));
+        Account account = accountService.save(modelMapper.map(accountDto, Account.class));
+        return new ResponseEntity<>(modelMapper.map(account,AccountDto.class), HttpStatus.OK);
     }
+    
 }

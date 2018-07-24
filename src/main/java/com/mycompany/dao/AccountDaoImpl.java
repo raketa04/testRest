@@ -11,8 +11,6 @@ package com.mycompany.dao;
  */
 
 import com.mycompany.resurse.Account;
-import com.mycompany.resurse.Authority;
-import com.mycompany.resurse.Landlords;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -45,7 +43,14 @@ public class AccountDaoImpl implements AccountDao{
            entityManager.persist(account);
         }
         else{
-            entityManager.merge(account);
+            Account updateAccount = entityManager.find(Account.class,account.getIdAccount());
+            if(!updateAccount.getPassword().equals(account.getPassword())) updateAccount.setPassword(account.getPassword());
+            if(!updateAccount.getLandlord().getLastName().equals(account.getLandlord().getLastName())) updateAccount.getLandlord().setLastName(account.getLandlord().getLastName());
+            if(!updateAccount.getLandlord().getFirstName().equals(account.getLandlord().getFirstName())) updateAccount.getLandlord().setFirstName(account.getLandlord().getFirstName());
+            if(!updateAccount.getLandlord().getPatronymic().equals(account.getLandlord().getPatronymic())) updateAccount.getLandlord().setPatronymic(account.getLandlord().getPatronymic());
+            if(!updateAccount.getLandlord().getPhone().equals(account.getLandlord().getPhone())) updateAccount.getLandlord().setPhone(account.getLandlord().getPhone());
+            if(!updateAccount.getLandlord().getClining() == account.getLandlord().getClining()) updateAccount.getLandlord().setClining(account.getLandlord().getClining());
+            entityManager.merge(updateAccount);
         }
         return account;  
     }

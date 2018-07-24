@@ -25,14 +25,22 @@ public class LandlordsDaoImpl implements LandlordsDao{
     private EntityManager entityManager;	
 	
     @Override
-    public Landlords findByid(Long id) {
+    public Landlords findByid(int id) {
 	return entityManager.find(Landlords.class, id);
     }
+
+    @Override
+    public Landlords findByIdAccount(int idAccount) {
+        String hql = "FROM Landlords where account =" + idAccount;
+        System.out.println(hql);
+        return entityManager.createQuery(hql,Landlords.class).getResultList().get(0);
+    }
+    
     
     @SuppressWarnings("unchecked")
     @Override
     public List<Landlords> findAll() {
-	String hql = "FROM landlords";
+	String hql = "FROM Landlords";
         System.out.println(hql);
 	List<Landlords> resultList =  entityManager.createQuery(hql,Landlords.class).getResultList();
 	return resultList;

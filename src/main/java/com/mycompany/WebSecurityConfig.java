@@ -1,5 +1,7 @@
 package com.mycompany;
 
+import com.mycompany.resurse.Authority;
+import com.mycompany.resurse.AuthorityName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -98,26 +100,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(
                 HttpMethod.POST,
                 authenticationPath
-                
-            )
+            );
 
-            // allow anonymous resource requests
-            .and()
-            .ignoring()
-            .antMatchers(
-                HttpMethod.GET,
-                "/aut/all",    
-                "/",
-                "/*.html",
-                "/favicon.ico",
-                "/**/*.html",
-                "/**/*.css",
-                "/**/*.js"
-            )
-
-            // Un-secure H2 Database (for testing purposes, H2 console shouldn't be unprotected in production)
-            .and()
-            .ignoring()
-            .antMatchers("/h2-console/**/**");
     }
 }

@@ -5,9 +5,7 @@
  */
 package com.mycompany.resurse;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import javax.persistence.Table;
 
@@ -35,7 +34,7 @@ public class Account implements Serializable{
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_account")
-    int idAccount = -1;
+    private int idAccount = -1;
     
     @Column (name = "login")
     private String login;
@@ -46,16 +45,16 @@ public class Account implements Serializable{
     
     @ManyToOne
     @JoinColumn(name = "type_role")
-    Authority type_role;
+    private Authority type_role;
     
     @Column (name = "activation")
     private boolean activation;
     
     // Add table tenant !!!!!!!1
 
-    /*@OneToMany(mappedBy = "account", cascade=CascadeType.ALL,    orphanRemoval=true)
-    Set<Landlords> landlord = new HashSet<Landlords>();
-    */
+    @OneToOne(mappedBy = "account", cascade=CascadeType.ALL,    orphanRemoval=true)
+    private Landlords landlord;
+    
     public int getIdAccount() {
         return idAccount;
     }
@@ -88,34 +87,26 @@ public class Account implements Serializable{
         this.activation = activation;
     }
 
-    /*
-    public Set<Landlords> getLandlord() {
+
+    public Landlords getLandlord() {
         return landlord;
     }
 
-    public void setLandlord(Set<Landlords> landlord) {
+    public void setLandlord(Landlords landlord) {
         this.landlord = landlord;
     }
        
-    public void addLandlord(Landlords landlords){
-        landlords.setAccount(this);
-        getLandlord().add(landlords);
-    }
-    public void removeLandlord(Landlords landlords){
-        getLandlord().remove(landlords);
-    }
-    */ 
     
     public Account() {
     }
 
-    public Account(int idAccount, String login, String password, Authority typeRole, boolean activation) {
+    public Account(int idAccount, String login, String password, Authority typeRole, boolean activation, Landlords landlord) {
         this.idAccount = idAccount;
         this.login = login;
         this.password = password;
         this.type_role = typeRole;
         this.activation = activation;
-        //this.landlord = landlord;
+        this.landlord = landlord;
     }
 
     public Authority getAuthority() {

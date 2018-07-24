@@ -7,6 +7,9 @@ package com.mycompany.resurse;
 
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+import javax.persistence.CascadeType;
 import static javax. persistence. GenerationType. IDENTITY;
 
 import javax.persistence.Entity;
@@ -15,7 +18,10 @@ import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -24,77 +30,172 @@ import javax.persistence.ManyToOne;
 @Entity
 @Table(name = "Placement")
 public class Placement implements Serializable{
-    /**
-	 * 
-	 */
-    int idPlacement, apartment, room;
-    String city, street, house;
-    Landlords landlord;
-    
+
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_placement")
+    private int idPlacement;
+    
+    @Column (name = "street")
+    private String street;
+    
+    @Column (name = "house")
+    private String house;
+    
+    @Column (name = "apartment")
+    private int apartment;
+    
+    @Column (name = "room")
+    private int room; 
+    
+    @Column (name = "isActive")
+    private boolean isActive;
+    
+    @Column (name = "pay_day")
+    private float payDay;
+    
+    @Column (name = "pay_month")
+    private float payMonth;
+    
+    @ManyToMany
+    @JoinTable(name = "Placement_has_comforts",
+            joinColumns = @JoinColumn (name = "Placement_id_placement"),
+            inverseJoinColumns = @JoinColumn(name = "comforts_idcomforts"))
+    private Set<Comforts> comfortses = new HashSet<>();
+    
+    @ManyToOne
+    @JoinColumn(name="landlord")
+    private Landlords landlord;
+
+    @ManyToOne
+    @JoinColumn(name="city")
+    private City city;
+    
+    @OneToMany (mappedBy = "placement",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Pictuteres> pictutereses= new HashSet<>();
+    
     public int getIdPlacement() {
         return idPlacement;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public String getHouse() {
+        return house;
+    }
+
+    public int getApartment() {
+        return apartment;
+    }
+
+    public int getRoom() {
+        return room;
+    }
+
+    public boolean isIsActive() {
+        return isActive;
+    }
+
+    public float getPayDay() {
+        return payDay;
+    }
+
+    public float getPayMonth() {
+        return payMonth;
+    }
+
+    public City getCity() {
+        return city;
+    }
+    
+    public Set<Comforts> getComfortses() {
+        return comfortses;
+    }
+
+    public Landlords getLandlord() {
+        return landlord;
     }
 
     public void setIdPlacement(int idPlacement) {
         this.idPlacement = idPlacement;
     }
 
-    @Column (name = "city")
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    @Column (name = "street")
-    public String getStreet() {
-        return street;
-    }
-
     public void setStreet(String street) {
         this.street = street;
-    }
-
-    @Column (name = "house")
-    public String getHouse() {
-        return house;
     }
 
     public void setHouse(String house) {
         this.house = house;
     }
 
-    @Column (name = "apartment")
-    public int getApartment() {
-        return apartment;
-    }
-
     public void setApartment(int apartment) {
         this.apartment = apartment;
-    }
-
-    @Column (name = "room")
-    public int getRoom() {
-        return room;
     }
 
     public void setRoom(int room) {
         this.room = room;
     }
 
-    //@ManyToOne
-    //@JoinColumn(name="landlords")
-    public Landlords getLandlords() {
-        return landlord;
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
     }
 
-    public void setLandlords(Landlords landlord) {
+    public void setPayDay(float payDay) {
+        this.payDay = payDay;
+    }
+
+    public void setPayMonth(float payMonth) {
+        this.payMonth = payMonth;
+    }
+
+    public void setComfortses(Set<Comforts> comfortses) {
+        this.comfortses = comfortses;
+    }
+
+    public void setLandlord(Landlords landlord) {
         this.landlord = landlord;
     }
 
+    public void setCity(City city) {
+        this.city = city;
+    }   
+
+    public Set<Pictuteres> getPictutereses() {
+        return pictutereses;
+    }
+
+    public void setPictutereses(Set<Pictuteres> pictutereses) {
+        this.pictutereses = pictutereses;
+    }
+
+    public void addPictuteres(Pictuteres pictuteres){
+        pictuteres.setPlacement(this);
+        getPictutereses().add(pictuteres);
+    }
+    public void removePlacement(Pictuteres pictuteres){
+        getPictutereses().remove(pictuteres);
+    }
+    
+    public Placement(int idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Landlords landlord, City city) {
+        this.idPlacement = idPlacement;
+        this.street = street;
+        this.house = house;
+        this.apartment = apartment;
+        this.room = room;
+        this.isActive = isActive;
+        this.payDay = payDay;
+        this.payMonth = payMonth;
+        this.landlord = landlord;
+        this.city = city;
+    }
+
+    public Placement() {
+    }
+
+   
+    
+    
+    
 }
