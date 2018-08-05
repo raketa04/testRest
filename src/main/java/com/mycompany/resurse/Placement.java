@@ -34,7 +34,7 @@ public class Placement implements Serializable{
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_placement")
-    private int idPlacement;
+    private Integer idPlacement = null;
     
     @Column (name = "street")
     private String street;
@@ -57,6 +57,12 @@ public class Placement implements Serializable{
     @Column (name = "pay_month")
     private float payMonth;
     
+    @Column (name = "children")
+    private Integer childern;
+    
+    @Column (name = "adults")
+    private Integer adults;
+    
     @ManyToMany
     @JoinTable(name = "Placement_has_comforts",
             joinColumns = @JoinColumn (name = "Placement_id_placement"),
@@ -74,7 +80,10 @@ public class Placement implements Serializable{
     @OneToMany (mappedBy = "placement",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Pictuteres> pictutereses= new HashSet<>();
     
-    public int getIdPlacement() {
+    @OneToMany (mappedBy = "placement",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Lease> leases= new HashSet<>();
+    
+    public Integer getIdPlacement() {
         return idPlacement;
     }
 
@@ -102,6 +111,16 @@ public class Placement implements Serializable{
         return payDay;
     }
 
+    public Integer getChildern() {
+        return childern;
+    }
+
+    public Integer getAdults() {
+        return adults;
+    }
+    
+    
+
     public float getPayMonth() {
         return payMonth;
     }
@@ -117,8 +136,10 @@ public class Placement implements Serializable{
     public Landlords getLandlord() {
         return landlord;
     }
+    
+    
 
-    public void setIdPlacement(int idPlacement) {
+    public void setIdPlacement(Integer idPlacement) {
         this.idPlacement = idPlacement;
     }
 
@@ -154,6 +175,15 @@ public class Placement implements Serializable{
         this.comfortses = comfortses;
     }
 
+    public void setAdults(Integer adults) {
+        this.adults = adults;
+    }
+
+    public void setChildern(Integer childern) {
+        this.childern = childern;
+    }
+
+    
     public void setLandlord(Landlords landlord) {
         this.landlord = landlord;
     }
@@ -177,9 +207,24 @@ public class Placement implements Serializable{
     public void removePlacement(Pictuteres pictuteres){
         getPictutereses().remove(pictuteres);
     }
-    
-    public Placement(int idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Landlords landlord, City city) {
-        this.idPlacement = idPlacement;
+
+    public Set<Lease> getLeases() {
+        return leases;
+    }
+
+    public void setLeases(Set<Lease> leases) {
+        this.leases = leases;
+    }
+
+    public void addLease(Lease lease){
+        lease.setPlacement(this);
+        getLeases().add(lease);
+    }
+    public void removeLease(Lease lease){
+        getLeases().remove(lease);
+    }
+
+    public Placement(String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer childern, Integer adults, Landlords landlord, City city) {
         this.street = street;
         this.house = house;
         this.apartment = apartment;
@@ -187,15 +232,15 @@ public class Placement implements Serializable{
         this.isActive = isActive;
         this.payDay = payDay;
         this.payMonth = payMonth;
+        this.childern = childern;
+        this.adults = adults;
         this.landlord = landlord;
         this.city = city;
     }
+    
+    
 
     public Placement() {
     }
-
-   
-    
-    
     
 }

@@ -21,4 +21,6 @@ public interface PlacementService {
     List<Placement> findByComforts(Set<Comforts> comfortses);
     Placement findById(int id);
     Placement save(Placement placement);
+    boolean delete(Placement placement);
+    Placement invertState(Placement placement);
 }

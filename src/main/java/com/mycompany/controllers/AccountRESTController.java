@@ -30,8 +30,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("landlord")
-public class LandlordsRESTController {
+@RequestMapping("account")
+public class AccountRESTController {
     
     @Autowired
     private ModelMapper modelMapper;
@@ -43,7 +43,7 @@ public class LandlordsRESTController {
     @Value("${jwt.header}")
     private String tokenHeader;
 
-    @GetMapping("authorization")
+    @GetMapping("login")
     public ResponseEntity<AccountDto> authorization(HttpServletRequest request) {
         String authToken = request.getHeader(tokenHeader);
         final String token = authToken.substring(7);
@@ -52,18 +52,23 @@ public class LandlordsRESTController {
         return new ResponseEntity<>(account, HttpStatus.OK);
     }
     
+    @RequestMapping(value ="activation", method = RequestMethod.POST)
+    public ResponseEntity<String> activation(@RequestBody AccountDto accountDto) {
+        String result = accountService.activate(modelMapper.map(accountDto, Account.class));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
     @RequestMapping(value ="add", method = RequestMethod.POST)
-    public ResponseEntity<AccountDto> addNewUser(@RequestBody AccountDto accountDto) {
+    public ResponseEntity<Integer> addNewUser(@RequestBody AccountDto accountDto) {
         accountDto.setPassword(new BCryptPasswordEncoder().encode(accountDto.getPassword()));
-        Account account = accountService.save(modelMapper.map(accountDto, Account.class));
-        return new ResponseEntity<>(modelMapper.map(account,AccountDto.class), HttpStatus.OK);
+        int id = accountService.save(modelMapper.map(accountDto, Account.class));
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
     
     @RequestMapping(value ="update", method = RequestMethod.PUT)
-    public ResponseEntity<AccountDto> updateUser(@RequestBody AccountDto accountDto) {
+    public ResponseEntity<Integer> updateUser(@RequestBody AccountDto accountDto) {
         if(accountDto.getPassword() != null) accountDto.setPassword(new BCryptPasswordEncoder().encode(accountDto.getPassword()));
-        Account account = accountService.save(modelMapper.map(accountDto, Account.class));
-        return new ResponseEntity<>(modelMapper.map(account,AccountDto.class), HttpStatus.OK);
+        int id = accountService.save(modelMapper.map(accountDto, Account.class));
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
     
 }

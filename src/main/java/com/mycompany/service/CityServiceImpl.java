@@ -41,5 +41,10 @@ public class CityServiceImpl implements CityService{
     public City remove(City city) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public List<City> findByName(String name) {
+        return cityDao.findByName(name);
+    }
     
 }

@@ -33,7 +33,7 @@ public class City implements Serializable{
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_city")
-    private int idCity;
+    private Integer idCity = null;
 
     @Column(name = "name_city")
     private String nameCity;
@@ -45,7 +45,7 @@ public class City implements Serializable{
     @OneToMany(mappedBy = "city", cascade=CascadeType.ALL,    orphanRemoval=true)
     private Set<Placement> placements = new HashSet<>();
 
-    public int getIdCity() {
+    public Integer getIdCity() {
         return idCity;
     }
 
@@ -57,7 +57,7 @@ public class City implements Serializable{
         return region;
     }
 
-    public void setIdCity(int idCity) {
+    public void setIdCity(Integer idCity) {
         this.idCity = idCity;
     }
 

@@ -15,13 +15,13 @@ import javax.validation.constraints.NotNull;
 
 public class CityDto{
 
-    private int id = -1;
+    private Integer id = null;
     @NotNull
     private String name;
     @NotNull
     RegionDto region;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -33,7 +33,7 @@ public class CityDto{
         return region;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -45,7 +45,7 @@ public class CityDto{
         this.region = region;
     }
 
-    public CityDto(int id, String name, RegionDto region) {
+    public CityDto(Integer id, String name, RegionDto region) {
         this.id = id;
         this.name = name;
         this.region = region;

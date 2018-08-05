@@ -26,7 +26,7 @@ public class Pictuteres {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_pic_placement")
-    private int idPicPlacement;
+    private Integer idPicPlacement = null;
     
     @Column (name = "adress_pic")
     private String adressPic;
@@ -35,7 +35,7 @@ public class Pictuteres {
     @JoinColumn (name = "placement")
     private Placement placement;
 
-    public Pictuteres(int idPicPlacement, String adressPic, Placement placement) {
+    public Pictuteres(Integer idPicPlacement, String adressPic, Placement placement) {
         this.idPicPlacement = idPicPlacement;
         this.adressPic = adressPic;
         this.placement = placement;
@@ -44,7 +44,7 @@ public class Pictuteres {
     public Pictuteres() {
     }
 
-    public int getIdPicPlacement() {
+    public Integer getIdPicPlacement() {
         return idPicPlacement;
     }
 
@@ -56,7 +56,7 @@ public class Pictuteres {
         return placement;
     }
 
-    public void setIdPicPlacement(int idPicPlacement) {
+    public void setIdPicPlacement(Integer idPicPlacement) {
         this.idPicPlacement = idPicPlacement;
     }
 

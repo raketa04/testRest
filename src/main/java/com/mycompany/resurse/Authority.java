@@ -16,24 +16,21 @@ public class Authority  implements Serializable {
 
     @Id
     @Column(name = "id_autority")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authority_seq")
-    @SequenceGenerator(name = "authority_seq", sequenceName = "authority_seq", allocationSize = 1)
-    private int id;
+    
+    private Integer id = null;
 
     @Column(name = "name")
-    @NotNull
     @Enumerated(EnumType.STRING)
     private AuthorityName name;
 
-    @OneToMany(mappedBy = "type_role",cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("type_role")
+    @OneToMany(mappedBy = "type_role", cascade = CascadeType.ALL,orphanRemoval = true)
     Set<Account> account = new HashSet<>();
     
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -44,18 +41,6 @@ public class Authority  implements Serializable {
     public void setName(AuthorityName name) {
         this.name = name;
     }
-    
-    
-    
-    /*
-    public Account getUser() {
-        return account.iterator().next();
-    }
-
-    public void setUser(Account account) {
-        this.account.add(account);
-    }
-    */
 
     public void setAccount(Set<Account> account) {
         this.account = account;
@@ -66,7 +51,7 @@ public class Authority  implements Serializable {
     }
     
     public void addAccount(Account account){
-        account.setAuthority(this);
+        account.setType_role(this);
         getAccount().add(account);
     }
     public void removeAccount(Account account){

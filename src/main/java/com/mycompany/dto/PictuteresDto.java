@@ -10,10 +10,10 @@ package com.mycompany.dto;
  * @author ADMIN
  */
 public class PictuteresDto {
-    private int idPicPlacement = -1;
+    private Integer idPicPlacement = null;
     private String adressPic;
 
-    public PictuteresDto(int idPicPlacement, String adressPic) {
+    public PictuteresDto(Integer idPicPlacement, String adressPic) {
         this.idPicPlacement = idPicPlacement;
         this.adressPic = adressPic;
     }
@@ -25,7 +25,7 @@ public class PictuteresDto {
         return adressPic;
     }
 
-    public int getIdPicPlacement() {
+    public Integer getIdPicPlacement() {
         return idPicPlacement;
     }
 
@@ -33,7 +33,7 @@ public class PictuteresDto {
         this.adressPic = adressPic;
     }
 
-    public void setIdPicPlacement(int idPicPlacement) {
+    public void setIdPicPlacement(Integer idPicPlacement) {
         this.idPicPlacement = idPicPlacement;
     }
     

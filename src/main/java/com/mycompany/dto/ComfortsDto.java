@@ -16,10 +16,10 @@ import java.io.Serializable;
 
 public class ComfortsDto implements Serializable {
     
-    int idComforts = -1;
-    String name;
+    private Integer idComforts = null;
+    private String name;
     
-    public ComfortsDto(int idComforts, String name) {
+    public ComfortsDto(Integer idComforts, String name) {
         this.idComforts = idComforts;
         this.name = name;
     }
@@ -27,11 +27,11 @@ public class ComfortsDto implements Serializable {
     public ComfortsDto() {
     }
 
-    public int getIdComforts() {
+    public Integer getIdComforts() {
         return idComforts;
     }
 
-    public void setIdComforts(int idComforts) {
+    public void setIdComforts(Integer idComforts) {
         this.idComforts = idComforts;
     }
 

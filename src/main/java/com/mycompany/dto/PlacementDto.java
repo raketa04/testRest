@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class PlacementDto {
 
-    private int idPlacement = -1;
+    private Integer idPlacement = null;
 
     private String street;
 
@@ -29,12 +29,20 @@ public class PlacementDto {
     private float payDay;
 
     private float payMonth;
+
+    private Integer childern;
+
+    private float adults;
     
     private Set<ComfortsDto> comfortses = new HashSet<>();
 
     private CityDto city;
+    
+    private LandlordDto landlord;
+    
+    private LeaseDto lease;
 
-    public PlacementDto(int idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, CityDto city) {
+    public PlacementDto(Integer idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer childern, float adults, CityDto city, LandlordDto landlord, LeaseDto lease) {
         this.idPlacement = idPlacement;
         this.street = street;
         this.house = house;
@@ -43,14 +51,20 @@ public class PlacementDto {
         this.isActive = isActive;
         this.payDay = payDay;
         this.payMonth = payMonth;
+        this.childern = childern;
+        this.adults = adults;
         this.city = city;
+        this.landlord = landlord;
+        this.lease = lease;
     }
+
+    
 
     public PlacementDto() {
     }
 
     
-    public int getIdPlacement() {
+    public Integer getIdPlacement() {
         return idPlacement;
     }
 
@@ -82,6 +96,14 @@ public class PlacementDto {
         return payMonth;
     }
 
+    public float getAdults() {
+        return adults;
+    }
+
+    public Integer getChildern() {
+        return childern;
+    }
+    
     public Set<ComfortsDto> getComfortses() {
         return comfortses;
     }
@@ -90,7 +112,7 @@ public class PlacementDto {
         return city;
     }
 
-    public void setIdPlacement(int idPlacement) {
+    public void setIdPlacement(Integer idPlacement) {
         this.idPlacement = idPlacement;
     }
 
@@ -122,6 +144,14 @@ public class PlacementDto {
         this.payMonth = payMonth;
     }
 
+    public void setAdults(float adults) {
+        this.adults = adults;
+    }
+
+    public void setChildern(Integer childern) {
+        this.childern = childern;
+    }
+
     public void setComfortses(Set<ComfortsDto> comfortses) {
         this.comfortses = comfortses;
     }
@@ -129,6 +159,24 @@ public class PlacementDto {
     public void setCity(CityDto city) {
         this.city = city;
     }
+
+    public LandlordDto getLandlord() {
+        return landlord;
+    }
+
+    public void setLandlord(LandlordDto landlord) {
+        this.landlord = landlord;
+    }
+
+    public LeaseDto getLease() {
+        return lease;
+    }
+
+    public void setLease(LeaseDto lease) {
+        this.lease = lease;
+    }
+    
+    
     
     
 }

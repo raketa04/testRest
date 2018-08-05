@@ -99,7 +99,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .ignoring()
             .antMatchers(
                 HttpMethod.POST,
-                authenticationPath
+                authenticationPath,
+                "/account/add",
+                "/account/activation"
             );
 
     }

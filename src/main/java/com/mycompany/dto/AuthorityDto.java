@@ -18,16 +18,16 @@ import javax.validation.constraints.Null;
 public class AuthorityDto {
     
     @Null
-    private int id;
+    private Integer id = null;
     @NotNull
     @Enumerated(EnumType.STRING)
     private AuthorityName name;
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

@@ -17,7 +17,7 @@ public final class JwtUserFactory {
 
     public static JwtUser create(Account account) {
         ArrayList<Authority> temp = new ArrayList<Authority>();
-        temp.add(account.getAuthority());
+        temp.add(account.getType_role());
         return new JwtUser(
                 account.getIdAccount(),
                 account.getLogin(),

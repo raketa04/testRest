@@ -29,7 +29,7 @@ public class Region implements Serializable {
     @Column(name = "id_Region")
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "authority_seq")
     @SequenceGenerator(name = "authority_seq", sequenceName = "authority_seq", allocationSize = 1)
-    private int id;
+    private Integer id;
 
     @Column(name = "name_Region")
     private String name;
@@ -37,7 +37,7 @@ public class Region implements Serializable {
     @OneToMany(mappedBy = "region", cascade = CascadeType.ALL, orphanRemoval = true)
     Set<City> city = new HashSet<>();
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -49,7 +49,7 @@ public class Region implements Serializable {
         return city;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

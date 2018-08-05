@@ -12,10 +12,18 @@ package com.mycompany.dto;
  */
 public class RegionDto {
     
-    private int id = -1;
+    private Integer id = null;
     private String name;
 
-    public int getId() {
+    public RegionDto() {
+    }
+
+    public RegionDto(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Integer getId() {
         return id;
     }
 
@@ -23,7 +31,7 @@ public class RegionDto {
         return name;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

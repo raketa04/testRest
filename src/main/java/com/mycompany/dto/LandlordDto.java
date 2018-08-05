@@ -13,7 +13,7 @@ package com.mycompany.dto;
  */
 public class LandlordDto {
 
-    private long idLandlords = -1;
+    private Integer idLandlords = null;
     private String lastName; 
     private String firstName;
     private String patronymic;
@@ -25,11 +25,11 @@ public class LandlordDto {
     }
     
     
-    public long getIdLandlords() {
+    public Integer getIdLandlords() {
         return idLandlords;
     }
     
-    public void setIdLandlords(long idLandlords) {
+    public void setIdLandlords(Integer idLandlords) {
         this.idLandlords = idLandlords;
     }
     public String getLastName() {
@@ -69,7 +69,7 @@ public class LandlordDto {
         return clining;
     }
 
-    public LandlordDto(long idLandlords, String lastName, String firstName, String patronymic, String phone, boolean clining) {
+    public LandlordDto(Integer idLandlords, String lastName, String firstName, String patronymic, String phone, boolean clining) {
         this.idLandlords = idLandlords;
         this.lastName = lastName;
         this.firstName = firstName;

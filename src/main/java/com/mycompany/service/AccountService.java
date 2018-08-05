@@ -17,6 +17,7 @@ public interface AccountService {
     Account findByAccount(String userName);
     Account findById(Long id);
     List<Account> findAll();
-    Account save(Account account);
+    int save(Account account);
     Account delete(Account account);
+    String activate(Account account); 
 }

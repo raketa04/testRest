@@ -32,7 +32,7 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public Account save(Account account) {
+    public int save(Account account) {
         return  AccountDao.save(account);
     }
 
@@ -49,5 +49,10 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public Account findByAccount(String userName) {
         return  AccountDao.findByAccount(userName);
+    }
+
+    @Override
+    public String activate(Account account) {
+        return AccountDao.activate(account);
     }
 }

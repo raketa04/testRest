@@ -10,6 +10,7 @@ import com.mycompany.resurse.City;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +54,15 @@ public class CityDaoImpl implements CityDao{
     @Override
     public City remove(City city) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<City> findByName(String name) {
+        String hql = "FROM City Where nameCity Like :name" ;
+        Query query = entityManager.createQuery(hql,City.class);
+        query.setParameter("name", name + "%");
+	List<City> resultList =  query.getResultList();
+	return resultList;
     }
     
 }

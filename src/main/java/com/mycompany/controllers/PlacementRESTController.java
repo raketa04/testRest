@@ -91,13 +91,25 @@ public class PlacementRESTController {
     }
     @RequestMapping(value ="add", method = RequestMethod.POST)
     public ResponseEntity<PlacementDto> addNewPlacement(@RequestBody PlacementDto placementDto) {
-        Placement account = placementService.save(modelMapper.map(placementDto, Placement.class));
-        return new ResponseEntity<>(modelMapper.map(account,PlacementDto.class), HttpStatus.OK);
+        Placement placement = placementService.save(modelMapper.map(placementDto, Placement.class));
+        return new ResponseEntity<>(modelMapper.map(placement,PlacementDto.class), HttpStatus.OK);
     }
     
     @RequestMapping(value ="update", method = RequestMethod.PUT)
-    public ResponseEntity<PlacementDto> updateUser(@RequestBody PlacementDto placementDto) {
-        Placement account = placementService.save(modelMapper.map(placementDto, Placement.class));
-        return new ResponseEntity<>(modelMapper.map(account,PlacementDto.class), HttpStatus.OK);
+    public ResponseEntity<PlacementDto> updatePlacement(@RequestBody PlacementDto placementDto) {
+        Placement placement = placementService.save(modelMapper.map(placementDto, Placement.class));
+        return new ResponseEntity<>(modelMapper.map(placement,PlacementDto.class), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value ="delete", method = RequestMethod.DELETE)
+    public ResponseEntity<PlacementDto> deletePlacement(@RequestBody PlacementDto placementDto) {
+        Placement placement = placementService.save(modelMapper.map(placementDto, Placement.class));
+        return new ResponseEntity<>(modelMapper.map(placement,PlacementDto.class), HttpStatus.OK);
+    }
+    
+    @RequestMapping(value ="invert_state", method = RequestMethod.POST)
+    public ResponseEntity<PlacementDto> invertStatePlacement(@RequestBody PlacementDto placementDto) {
+        Placement placement = placementService.invertState(modelMapper.map(placementDto, Placement.class));
+        return new ResponseEntity<>(modelMapper.map(placement,PlacementDto.class), HttpStatus.OK);
     }
 }

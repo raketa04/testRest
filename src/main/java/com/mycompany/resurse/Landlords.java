@@ -37,7 +37,7 @@ public class Landlords {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_landlords")
-    private long idLandlords =-1;
+    private Integer idLandlords = null;
     
     @Column (name = "last_name")
     private String lastName; 
@@ -61,11 +61,11 @@ public class Landlords {
     @OneToMany(mappedBy = "landlord", cascade=CascadeType.ALL,    orphanRemoval=true)
     private Set<Placement> placements = new HashSet<>();
 
-    public long getIdLandlords() {
+    public Integer getIdLandlords() {
         return idLandlords;
     }
     
-    public void setIdLandlords(long idLandlords) {
+    public void setIdLandlords(Integer idLandlords) {
         this.idLandlords = idLandlords;
     }
     public String getLastName() {
@@ -109,7 +109,7 @@ public class Landlords {
     }
 
     
-    public Landlords(long idLandlords, String lastName, String firstName, String patronymic, String phone, Account account, boolean clining) {
+    public Landlords(Integer idLandlords, String lastName, String firstName, String patronymic, String phone, Account account, boolean clining) {
         this.idLandlords = idLandlords;
         this.lastName = lastName;
         this.firstName = firstName;
@@ -118,8 +118,6 @@ public class Landlords {
         this.account = account;
         this.clining = clining;
     }
-    
-    
 
     public Set<Placement> getPlacements() {
         return placements;

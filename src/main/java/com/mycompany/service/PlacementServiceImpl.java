@@ -51,5 +51,15 @@ public class PlacementServiceImpl implements PlacementService{
     public Placement save(Placement placement) {
         return placementDao.save(placement);
     }
+
+    @Override
+    public boolean delete(Placement placement) {
+        return placementDao.delete(placement);
+    }
+
+    @Override
+    public Placement invertState(Placement placement) {
+        return placementDao.invertState(placement);
+    }
     
 }

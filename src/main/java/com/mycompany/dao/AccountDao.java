@@ -15,5 +15,6 @@ import java.util.List;
 public interface AccountDao {
     Account findByAccount(String userName);
     List<Account> findAll();
-    Account save(Account account);   
+    int save(Account account); 
+    String activate(Account account); 
 }

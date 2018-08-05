@@ -15,6 +15,7 @@ import java.util.List;
 public interface CityDao {
     City findById(int id);
     List<City> findAll();
+    List<City> findByName(String name);
     City save(City city);
     City remove(City city);
 }

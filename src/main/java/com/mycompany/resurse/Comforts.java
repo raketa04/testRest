@@ -30,10 +30,10 @@ public class Comforts implements Serializable {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_comforts")
-    int idComforts;
+    private Integer idComforts = null;
     
     @Column (name = "name")
-    String name;
+    private String name;
     
     @ManyToMany
     @JoinTable(name = "Placement_has_comforts",
@@ -41,7 +41,7 @@ public class Comforts implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "Placement_id_placement"))
     public Set<Placement> placements = new HashSet<>();
     
-    public Comforts(int idComforts, String name) {
+    public Comforts(Integer idComforts, String name) {
         this.idComforts = idComforts;
         this.name = name;
     }
@@ -50,11 +50,11 @@ public class Comforts implements Serializable {
     }
 
     
-    public int getIdComforts() {
+    public Integer getIdComforts() {
         return idComforts;
     }
 
-    public void setIdComforts(int idComforts) {
+    public void setIdComforts(Integer idComforts) {
         this.idComforts = idComforts;
     }
 
