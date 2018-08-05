@@ -15,7 +15,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Column;
 import javax.persistence.JoinColumn;
 
+
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 /*
@@ -30,12 +32,12 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @Table(name = "landlords")
-public class Landlords implements Serializable{
+public class Landlords {
 
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_landlords")
-    private long idLandlords;
+    private long idLandlords =-1;
     
     @Column (name = "last_name")
     private String lastName; 
@@ -49,16 +51,16 @@ public class Landlords implements Serializable{
     @Column (name = "phone")
     private String phone;
     
-    /*@JoinColumn(name="account")
-    private Account account;*/
+    @OneToOne
+    @JoinColumn(name="account")
+    private Account account;
     
-    @OneToMany(mappedBy = "landlords", cascade=CascadeType.ALL,    orphanRemoval=true)
+    @Column(name = "clining")
+    private boolean clining;
+    
+    @OneToMany(mappedBy = "landlord", cascade=CascadeType.ALL,    orphanRemoval=true)
     private Set<Placement> placements = new HashSet<>();
-    
-    public Landlords() {
-    }
-    
-    
+
     public long getIdLandlords() {
         return idLandlords;
     }
@@ -94,16 +96,30 @@ public class Landlords implements Serializable{
     public void setPhone(String phone) {
         this.phone = phone;
     }
+
+    public boolean getClining() {
+        return clining;
+    }
+
+    public void setClining(boolean clining) {
+        this.clining = clining;
+    }
+
+    public Landlords() {
+    }
+
     
-    public Landlords(int idLandlords, String lastName, String firstName, String patronymic, String phone, Account account, Set<Placement> placements) {
+    public Landlords(long idLandlords, String lastName, String firstName, String patronymic, String phone, Account account, boolean clining) {
         this.idLandlords = idLandlords;
         this.lastName = lastName;
         this.firstName = firstName;
         this.patronymic = patronymic;
         this.phone = phone;
-        //this.account = account;
-        this.placements = placements;
+        this.account = account;
+        this.clining = clining;
     }
+    
+    
 
     public Set<Placement> getPlacements() {
         return placements;
@@ -114,13 +130,13 @@ public class Landlords implements Serializable{
     }
     
     public void addPlacement(Placement placement){
-        placement.setLandlords(this);
+        placement.setLandlord(this);
         getPlacements().add(placement);
     }
     public void removePlacement(Placement placement){
         getPlacements().remove(placement);
     }
-    /*
+    
     public Account getAccount() {
         return account;
     }
@@ -128,7 +144,7 @@ public class Landlords implements Serializable{
     public void setAccount(Account account) {
         this.account = account;
     }
-    */    
+       
     @Override
     public String toString() {
         return idLandlords + lastName + firstName + patronymic; //To change body of generated methods, choose Tools | Templates.

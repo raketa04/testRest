@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * @author ADMIN
  */
 @Service
-public class AccountServiceImp implements AccountService{
+public class AccountServiceImpl implements AccountService{
 
     @Autowired
     AccountDao AccountDao;
@@ -45,4 +45,9 @@ public class AccountServiceImp implements AccountService{
     public List<Account> findAll() {
         return  AccountDao.findAll();
     } 
+
+    @Override
+    public Account findByAccount(String userName) {
+        return  AccountDao.findByAccount(userName);
+    }
 }

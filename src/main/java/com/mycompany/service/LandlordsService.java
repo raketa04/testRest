@@ -15,7 +15,8 @@ import java.util.List;
 public interface  LandlordsService {
     List<Landlords> findAll();
     List<Landlords> findAllWithDetail();
-    Landlords findByid(Long id);
+    Landlords findByid(int id);
+    Landlords findByIdAccount(int idAccount);
     boolean save(Landlords landlord);
     boolean delete(Landlords landlord);
 }

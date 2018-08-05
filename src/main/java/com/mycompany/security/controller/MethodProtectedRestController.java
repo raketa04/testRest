@@ -1,4 +1,4 @@
-package org.zerhusen.security.controller;
+package com.mycompany.security.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -16,7 +16,7 @@ public class MethodProtectedRestController {
      * 'ROLE_' prefix on all role names. So 'ADMIN' here is actually stored as 'ROLE_ADMIN' in database!
      **/
     @RequestMapping(method = RequestMethod.GET)
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('LANDLORD')")
     public ResponseEntity<?> getProtectedGreeting() {
         return ResponseEntity.ok("Greetings from admin protected method!");
     }
