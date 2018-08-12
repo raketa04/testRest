@@ -5,9 +5,7 @@
  */
 package com.mycompany.resurse;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import javax.persistence.Table;
 
@@ -35,7 +34,7 @@ public class Account implements Serializable{
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_account")
-    int idAccount = -1;
+    private Integer idAccount = null;
     
     @Column (name = "login")
     private String login;
@@ -43,89 +42,119 @@ public class Account implements Serializable{
     @Column (name = "password")
     private String password;
     
+    @Column (name = "email")
+    private String email;
     
     @ManyToOne
     @JoinColumn(name = "type_role")
-    Authority type_role;
+    private Authority type_role;
     
     @Column (name = "activation")
     private boolean activation;
     
-    // Add table tenant !!!!!!!1
+    @Column (name = "code_activate")
+    private String codeActivate;
 
-    /*@OneToMany(mappedBy = "account", cascade=CascadeType.ALL,    orphanRemoval=true)
-    Set<Landlords> landlord = new HashSet<Landlords>();
-    */
-    public int getIdAccount() {
-        return idAccount;
+    @OneToOne(mappedBy = "account",  cascade = {CascadeType.ALL},  orphanRemoval=true)
+    private Landlords landlord;
+    
+    @OneToOne(mappedBy = "account", cascade=CascadeType.ALL,    orphanRemoval=true)
+    private Tenant tenant;
+
+    
+    public Account() {
     }
 
-    public void setIdAccount(int idAccount) {
+    public Account(Integer idAccount, String login, String password, String email, Authority typeRole, boolean activation, Landlords landlord, Tenant tenant, String codeActivate) {
         this.idAccount = idAccount;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.type_role = typeRole;
+        this.activation = activation;
+        this.landlord = landlord;
+        this.tenant = tenant;
+        this.codeActivate = codeActivate;
+    }
+
+    public Integer getIdAccount() {
+        return idAccount;
+
     }
 
     public String getLogin() {
         return login;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public Authority getType_role() {
+        return type_role;
     }
 
     public boolean getActivation() {
         return activation;
     }
 
+    public Landlords getLandlord() {
+        return landlord;
+    }
+
+    public Tenant getTenant() {
+        return tenant;
+    }
+
+    public void IdAccount(Integer idAccount) {
+        this.idAccount = idAccount;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setType_role(Authority type_role) {
+        this.type_role = type_role;
+    }
+
     public void setActivation(boolean activation) {
         this.activation = activation;
     }
 
-    /*
-    public Set<Landlords> getLandlord() {
-        return landlord;
-    }
-
-    public void setLandlord(Set<Landlords> landlord) {
+    public void setLandlord(Landlords landlord) {
         this.landlord = landlord;
     }
-       
-    public void addLandlord(Landlords landlords){
-        landlords.setAccount(this);
-        getLandlord().add(landlords);
-    }
-    public void removeLandlord(Landlords landlords){
-        getLandlord().remove(landlords);
-    }
-    */ 
     
-    public Account() {
+    public void setTenant(Tenant tenant) {
+        this.tenant = tenant;
+    }
+    
+    public String getEmail() {
+        return email;
     }
 
-    public Account(int idAccount, String login, String password, Authority typeRole, boolean activation) {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getCodeActivate() {
+        return codeActivate;
+    }
+
+    public void setIdAccount(Integer idAccount) {
         this.idAccount = idAccount;
-        this.login = login;
-        this.password = password;
-        this.type_role = typeRole;
-        this.activation = activation;
-        //this.landlord = landlord;
     }
 
-    public Authority getAuthority() {
-        return this.type_role;
+    public void setCodeActivate(String codeActivate) {
+        this.codeActivate = codeActivate;
     }
 
-    public void setAuthority(Authority authority) {
-        this.type_role= authority;
-    }
-   
+     
     
     
 }

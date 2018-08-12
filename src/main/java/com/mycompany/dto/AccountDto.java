@@ -14,89 +14,107 @@ import javax.validation.constraints.Null;
  */
 public class AccountDto {
     @Null
-    int idAccount;
+    private Integer idAccount = null;
     @NotNull
     private String login;
     @NotNull
     private String password;
-    @NotNull
+            
+    private String email;        
     AuthorityDto type_role;
-    @NotNull
     private boolean activation;
+    private String codeActivate; 
     
-    // Add table tenant !!!!!!!1
-
-    /*
-    Set<Landlords> landlord = new HashSet<Landlords>();
-    */
-    public long getIdAccount() {
-        return idAccount;
+    private LandlordDto landlord;
+    
+    private TenantDto tenant;
+   
+    public AccountDto() {
     }
 
-    public void setIdAccount(int idAccount) {
+    public AccountDto(Integer idAccount, String login, String password,String email, AuthorityDto typeRole, boolean activation, LandlordDto landlord, TenantDto tenant, String codeActivate) {
         this.idAccount = idAccount;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.type_role = typeRole;
+        this.activation = activation;
+        this.landlord = landlord;
+        this.tenant = tenant;
+        this.codeActivate = codeActivate;
+    }
+
+    public Integer getIdAccount() {
+        return idAccount;
     }
 
     public String getLogin() {
         return login;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public String getPassword() {
         return password;
+    }
+
+    public AuthorityDto getType_role() {
+        return type_role;
+    }
+
+    public boolean isActivation() {
+        return activation;
+    }
+
+    public LandlordDto getLandlord() {
+        return landlord;
+    }
+
+    public TenantDto getTenant() {
+        return tenant;
+    }
+
+    public String getCodeActivate() {
+        return codeActivate;
+    }
+    
+    public void setIdAccount(Integer idAccount) {
+        this.idAccount = idAccount;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public boolean getActivation() {
-        return activation;
+    public void setType_role(AuthorityDto type_role) {
+        this.type_role = type_role;
     }
 
     public void setActivation(boolean activation) {
         this.activation = activation;
     }
 
-    /*
-    public Set<Landlords> getLandlord() {
-        return landlord;
-    }
-
-    public void setLandlord(Set<Landlords> landlord) {
+    public void setLandlord(LandlordDto landlord) {
         this.landlord = landlord;
     }
-       
-    public void addLandlord(Landlords landlords){
-        landlords.setAccount(this);
-        getLandlord().add(landlords);
+
+    public void setTenant(TenantDto tenant) {
+        this.tenant = tenant;
     }
-    public void removeLandlord(Landlords landlords){
-        getLandlord().remove(landlords);
+
+    public String getEmail() {
+        return email;
     }
-    */ 
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    public void setCodeActivate(String codeActivate) {
+        this.codeActivate = codeActivate;
+    }
     
-    public AccountDto() {
-    }
-
-    public AccountDto(int idAccount, String login, String password, AuthorityDto typeRole, boolean activation) {
-        this.idAccount = idAccount;
-        this.login = login;
-        this.password = password;
-        this.type_role = typeRole;
-        this.activation = activation;
-        //this.landlord = landlord;
-    }
-
-    public AuthorityDto getAuthority() {
-        return this.type_role;
-    }
-
-    public void setAuthority(AuthorityDto authority) {
-        this.type_role= authority;
-    }
-
+    
+    
 }

@@ -31,10 +31,16 @@ public class LandlordsServiceImpl implements LandlordsService{
     }
 
     @Override
-    public Landlords findByid(Long id) {
+    public Landlords findByid(int id) {
         return  landlordsDao.findByid(id);
     }
 
+    @Override
+    public Landlords findByIdAccount(int idAccount) {
+        return  landlordsDao.findByIdAccount(idAccount);
+    }
+
+    
     @Override
     public boolean save(Landlords landlord) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

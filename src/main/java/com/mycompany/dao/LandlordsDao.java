@@ -15,7 +15,8 @@ import java.util.List;
 public interface LandlordsDao {
     List<Landlords> findAll();
     List<Landlords> findAllWithDetail();
-    Landlords findByid(Long id);
+    Landlords findByid(int id);
+    Landlords findByIdAccount(int idAccount);
     Landlords save(Landlords landlord);
     void delete(Landlords landlord);
 }
