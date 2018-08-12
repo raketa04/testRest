@@ -1,5 +1,8 @@
 package com.mycompany.security.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mycompany.dto.AccountDto;
+import com.mycompany.resurse.Account;
 import java.util.Objects;
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,6 +26,8 @@ import com.mycompany.security.JwtAuthenticationRequest;
 import com.mycompany.security.JwtTokenUtil;
 import com.mycompany.security.JwtUser;
 import com.mycompany.security.service.JwtAuthenticationResponse;
+import com.mycompany.service.AccountService;
+import org.modelmapper.ModelMapper;
 
 @RestController
 public class AuthenticationRestController {
@@ -39,18 +44,25 @@ public class AuthenticationRestController {
     @Autowired
     @Qualifier("jwtUserDetailsService")
     private UserDetailsService userDetailsService;
-
+    @Autowired
+    private AccountService accountService;
+    @Autowired
+    private ModelMapper modelMapper;
+    
     @RequestMapping(value = "${jwt.route.authentication.path}", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
+    @JsonView(AccountDto.token.class)
+    public ResponseEntity<AccountDto> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
 
         authenticate(authenticationRequest.getLogin(), authenticationRequest.getPassword());
 
         // Reload password post-security so we can generate the token
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getLogin());
         final String token = jwtTokenUtil.generateToken(userDetails);
-
+        Account account = accountService.findByAccount(authenticationRequest.getLogin());
+        AccountDto accountDto = modelMapper.map(account, AccountDto.class);
+        accountDto.setToken(token);
         // Return the token
-        return ResponseEntity.ok(new JwtAuthenticationResponse(token));
+        return new ResponseEntity<>(accountDto, HttpStatus.OK);
     }
 
     @RequestMapping(value = "${jwt.route.authentication.refresh}", method = RequestMethod.GET)

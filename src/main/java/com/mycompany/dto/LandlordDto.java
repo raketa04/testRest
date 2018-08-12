@@ -5,6 +5,10 @@
  */
 package com.mycompany.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+
 
 
 /**
@@ -13,11 +17,18 @@ package com.mycompany.dto;
  */
 public class LandlordDto {
 
+    @NotNull(groups = {AccountDto.updateLandlord.class,PlacementDto.addPlacment.class})
+    @Null(groups = {AccountDto.addLandlord.class})
+    @JsonView({AccountDto.autarificationOut.class,PlacementDto.getPlacment.class})
     private Integer idLandlords = null;
-    private String lastName; 
-    private String firstName;
-    private String patronymic;
+    @NotNull(groups = {AccountDto.addLandlord.class ,AccountDto.updateLandlord.class})
+    @JsonView({AccountDto.autarificationOut.class,PlacementDto.getPlacment.class})
+    private String FIO;
+    @NotNull(groups = {AccountDto.addLandlord.class ,AccountDto.updateLandlord.class})
+    @JsonView({AccountDto.autarificationOut.class,PlacementDto.getPlacment.class})
     private String phone;
+    @NotNull(groups = {AccountDto.addLandlord.class ,AccountDto.updateLandlord.class})
+    @JsonView({AccountDto.autarificationOut.class,PlacementDto.getPlacment.class})
     private boolean clining;
     
     
@@ -32,27 +43,10 @@ public class LandlordDto {
     public void setIdLandlords(Integer idLandlords) {
         this.idLandlords = idLandlords;
     }
-    public String getLastName() {
-        return lastName;
+    public String getFIO() {
+        return FIO;
     }
     
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-    public String getFirstName() {
-        return firstName;
-    }
-    
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-    public String getPatronymic() {
-        return patronymic;
-    }
-     
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
     public String getPhone() {
         return phone;
     }
@@ -69,19 +63,15 @@ public class LandlordDto {
         return clining;
     }
 
-    public LandlordDto(Integer idLandlords, String lastName, String firstName, String patronymic, String phone, boolean clining) {
+    public void setFIO(String FIO) {
+        this.FIO = FIO;
+    }
+
+    
+    public LandlordDto(Integer idLandlords, String FIO, String phone, boolean clining) {
         this.idLandlords = idLandlords;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.patronymic = patronymic;
+        this.FIO = FIO;
         this.phone = phone;
         this.clining = clining;
-    }
-    
-    
-       
-    @Override
-    public String toString() {
-        return idLandlords + lastName + firstName + patronymic; //To change body of generated methods, choose Tools | Templates.
     }
 }

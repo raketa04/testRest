@@ -27,7 +27,7 @@ import javax.persistence.TemporalType;
 public class Lease {
     @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column (name = "id_tenant")
+    @Column (name = "id_lease")
     private Integer idLease = null;
     
     @Temporal(TemporalType.DATE)

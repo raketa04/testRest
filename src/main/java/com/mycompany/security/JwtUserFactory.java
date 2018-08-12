@@ -20,7 +20,7 @@ public final class JwtUserFactory {
         temp.add(account.getType_role());
         return new JwtUser(
                 account.getIdAccount(),
-                account.getLogin(),
+                account.getEmail(),
                 account.getPassword(),
                 mapToGrantedAuthorities(temp),
                 account.getActivation(),

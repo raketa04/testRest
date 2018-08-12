@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Random;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,56 +35,46 @@ public class AccountDaoImpl implements AccountDao{
     
     @Override
     public Account findByAccount(String userName) {
-        String hql = "FROM Account WHERE login = '" + userName +"'";
+        String hql = "FROM Account WHERE email = '" + userName +"'";
 	List <Account> result =  entityManager.createQuery(hql,Account.class).getResultList();
 	return result.get(0);
     }
 
   
     @Override
-    public int save(Account account) {
+    public Account save(Account account) {
         if(account.getIdAccount() ==  null){
             Random ran = new Random();
             if(account.getLandlord() != null){
-                Landlords landlords = account.getLandlord();
-                account.setLandlord(null);
                 account.setCodeActivate(Integer.toString(ran.nextInt(10))+ Integer.toString(ran.nextInt(10))+Integer.toString(ran.nextInt(10))+Integer.toString(ran.nextInt(10)));
                 entityManager.persist(account);
-                entityManager.flush();
-                landlords.setAccount(account);
-                entityManager.merge(landlords);
+                account.getLandlord().setAccount(account);
+                
             }
-            if(account.getTenant() != null){   
-                Tenant tenant = account.getTenant();
-                account.setTenant(null);
+            if(account.getTenant() != null){   ;
                 account.setCodeActivate(Integer.toString(ran.nextInt(10))+ Integer.toString(ran.nextInt(10))+Integer.toString(ran.nextInt(10))+Integer.toString(ran.nextInt(10)));
                 entityManager.persist(account);
-                entityManager.flush();
-                tenant.setAccount(account);
-                entityManager.merge(tenant);
+                account.getTenant().setAccount(account);
             }
-            
         }
         else{
             Account updateAccount = entityManager.find(Account.class,account.getIdAccount());
             if(updateAccount.getLandlord() != null){
-                if(!updateAccount.getPassword().equals(account.getPassword())) updateAccount.setPassword(account.getPassword());
-                if(!updateAccount.getLandlord().getLastName().equals(account.getLandlord().getLastName())) updateAccount.getLandlord().setLastName(account.getLandlord().getLastName());
-                if(!updateAccount.getLandlord().getFirstName().equals(account.getLandlord().getFirstName())) updateAccount.getLandlord().setFirstName(account.getLandlord().getFirstName());
-                if(!updateAccount.getLandlord().getPatronymic().equals(account.getLandlord().getPatronymic())) updateAccount.getLandlord().setPatronymic(account.getLandlord().getPatronymic());
+                if(!updateAccount.getLandlord().getFIO().equals(account.getLandlord().getFIO())) updateAccount.getLandlord().setFIO(account.getLandlord().getFIO());
                 if(!updateAccount.getLandlord().getPhone().equals(account.getLandlord().getPhone())) updateAccount.getLandlord().setPhone(account.getLandlord().getPhone());
                 if(!updateAccount.getLandlord().getClining() == account.getLandlord().getClining()) updateAccount.getLandlord().setClining(account.getLandlord().getClining());
                 entityManager.merge(updateAccount);
             }
             if(updateAccount.getTenant()!= null){
-                if(!updateAccount.getTenant().getLastName().equals(account.getTenant().getLastName())) updateAccount.getTenant().setLastName(account.getTenant().getLastName());
-                if(!updateAccount.getTenant().getFirstName().equals(account.getTenant().getFirstName())) updateAccount.getTenant().setFirstName(account.getTenant().getFirstName());
-                if(!updateAccount.getTenant().getPatronymic().equals(account.getTenant().getPatronymic())) updateAccount.getTenant().setPatronymic(account.getTenant().getPatronymic());
+                if(!updateAccount.getTenant().getFIO().equals(account.getTenant().getFIO())) updateAccount.getTenant().setFIO(account.getTenant().getFIO());
                 if(!updateAccount.getTenant().getPhone().equals(account.getTenant().getPhone())) updateAccount.getTenant().setPhone(account.getTenant().getPhone());
                 entityManager.merge(updateAccount);
              }
         }
-        return account.getIdAccount();
+        entityManager.flush();
+        entityManager.clear();
+        Account result = entityManager.find(Account.class, account.getIdAccount());
+        return result;
     }
 
     @Override
@@ -97,7 +88,7 @@ public class AccountDaoImpl implements AccountDao{
 
     @Override
     public String activate(Account account) {
-        String hql = "FROM Account WHERE login = '" + account.getLogin() +"'";
+        String hql = "FROM Account WHERE email = '" + account.getEmail() +"'";
 	Account result =  entityManager.createQuery(hql,Account.class).getResultList().get(0);
         if(account.getCodeActivate().equals(result.getCodeActivate())) {
             result.setActivation(true);
@@ -105,6 +96,11 @@ public class AccountDaoImpl implements AccountDao{
             return "Done!";
         }
         else return "Error code activation!";
+    }
+
+    @Override
+    public Account findById(Integer id) {
+        return entityManager.find(Account.class, id);
     }
     
 }

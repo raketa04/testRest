@@ -8,6 +8,7 @@ package com.mycompany.resurse;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -41,9 +43,13 @@ public class Comforts implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "Placement_id_placement"))
     public Set<Placement> placements = new HashSet<>();
     
-    public Comforts(Integer idComforts, String name) {
+    @OneToMany(mappedBy = "comforts", cascade=CascadeType.ALL,    orphanRemoval=true)
+    private Set<ComfortsParametrs> comfortsParametrses = new HashSet<>();
+    
+    public Comforts(Integer idComforts, String name, Set <ComfortsParametrs> comfortsParametrs) {
         this.idComforts = idComforts;
         this.name = name;
+        this.comfortsParametrses = comfortsParametrses;
     }
 
     public Comforts() {
@@ -74,5 +80,19 @@ public class Comforts implements Serializable {
         this.placements = placements;
     }
 
-    
+    public Set<ComfortsParametrs> getComfortsParametrses() {
+        return comfortsParametrses;
+    }
+
+    public void setComfortsParametrses(Set<ComfortsParametrs> comfortsParametrses) {
+        this.comfortsParametrses = comfortsParametrses;
+    }
+
+    public void addComfortsParametrs(ComfortsParametrs comfortsParametrs){
+        comfortsParametrs.setComforts(this);
+        getComfortsParametrses().add(comfortsParametrs);
+    }
+    public void removePlacement(ComfortsParametrs comfortsParametrs){
+        getComfortsParametrses().remove(comfortsParametrs);
+    }
 }

@@ -5,8 +5,11 @@
  */
 package com.mycompany.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.HashSet;
 import java.util.Set;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 
 
@@ -16,54 +19,39 @@ import java.util.Set;
  */
 public class TenantDto {
 
+    @NotNull(groups = {AccountDto.updateTentant.class})
+    @Null(groups = {AccountDto.addTentant.class})
+    @JsonView({AccountDto.autarificationOut.class})
     private Integer idTenant = null;
     
-    private String lastName; 
-    
-    private String firstName;
-
-    private String patronymic;
-
+    @NotNull(groups = {AccountDto.addTentant.class,AccountDto.updateTentant.class})
+    @JsonView({AccountDto.autarificationOut.class})
+    private String FIO;
+    @NotNull(groups = {AccountDto.addTentant.class,AccountDto.updateTentant.class})
+    @JsonView({AccountDto.autarificationOut.class})
     private String phone;
-
-    private AccountDto account;
 
     private Set<LeaseDto> leases = new HashSet<>();
 
     public TenantDto() {
     }
 
-    public TenantDto(Integer idTenant, String lastName, String firstName, String patronymic, String phone, AccountDto account) {
+    public TenantDto(Integer idTenant, String FIO, String phone) {
         this.idTenant = idTenant;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.patronymic = patronymic;
+        this.FIO = FIO;
         this.phone = phone;
-        this.account = account;
     }
 
     public Integer getIdTenant() {
         return idTenant;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getPatronymic() {
-        return patronymic;
+    public String getFIO() {
+        return FIO;
     }
 
     public String getPhone() {
         return phone;
-    }
-
-    public AccountDto getAccount() {
-        return account;
     }
 
     public Set<LeaseDto> getLeases() {
@@ -74,24 +62,12 @@ public class TenantDto {
         this.idTenant = idTenant;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
+    public void setFIO(String FIO) {
+        this.FIO = FIO;
     }
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public void setAccount(AccountDto account) {
-        this.account = account;
     }
 
     public void setLeases(Set<LeaseDto> leases) {

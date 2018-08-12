@@ -58,9 +58,8 @@ public class CityDaoImpl implements CityDao{
 
     @Override
     public List<City> findByName(String name) {
-        String hql = "FROM City Where nameCity Like :name" ;
+        String hql = "FROM City Where nameCity Like '"+ name+ "%'" ;
         Query query = entityManager.createQuery(hql,City.class);
-        query.setParameter("name", name + "%");
 	List<City> resultList =  query.getResultList();
 	return resultList;
     }

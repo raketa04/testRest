@@ -5,6 +5,7 @@
  */
 package com.mycompany.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
 
 

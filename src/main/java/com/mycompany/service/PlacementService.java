@@ -5,6 +5,7 @@
  */
 package com.mycompany.service;
 
+import com.mycompany.dto.Search;
 import com.mycompany.resurse.Comforts;
 import com.mycompany.resurse.Placement;
 import java.util.List;
@@ -16,11 +17,10 @@ import java.util.Set;
  */
 public interface PlacementService {
     List<Placement> findAll();
-    List<Placement> findByRegion(int idRegion);
-    List<Placement> findByCity(int idCity);
     List<Placement> findByComforts(Set<Comforts> comfortses);
+    List<Placement> findByParametr(Search search);
+    Integer findNumberByParametr(Search search);
     Placement findById(int id);
     Placement save(Placement placement);
     boolean delete(Placement placement);
-    Placement invertState(Placement placement);
 }

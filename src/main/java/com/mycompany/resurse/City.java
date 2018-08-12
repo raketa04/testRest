@@ -42,7 +42,7 @@ public class City implements Serializable{
     @JoinColumn(name = "region")
     private Region region;
     
-    @OneToMany(mappedBy = "city", cascade=CascadeType.ALL,    orphanRemoval=true)
+    @OneToMany(mappedBy = "city", cascade=CascadeType.ALL)
     private Set<Placement> placements = new HashSet<>();
 
     public Integer getIdCity() {

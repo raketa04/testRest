@@ -5,6 +5,7 @@
  */
 package com.mycompany.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.mycompany.resurse.AuthorityName;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -16,11 +17,12 @@ import javax.validation.constraints.Null;
  * @author ADMIN
  */
 public class AuthorityDto {
-    
-    @Null
+    @NotNull(groups = {AccountDto.addLandlord.class ,AccountDto.addTentant.class, AccountDto.autarificationIn.class,AccountDto.updateLandlord.class,AccountDto.updateTentant.class,AccountDto.activation.class})
+    @JsonView({AccountDto.autarificationOut.class})
     private Integer id = null;
-    @NotNull
+    @NotNull(groups = {AccountDto.addLandlord.class ,AccountDto.addTentant.class, AccountDto.autarificationIn.class,AccountDto.updateLandlord.class,AccountDto.updateTentant.class,AccountDto.activation.class})
     @Enumerated(EnumType.STRING)
+    @JsonView({AccountDto.autarificationOut.class})
     private AuthorityName name;
 
     public void setId(Integer id) {

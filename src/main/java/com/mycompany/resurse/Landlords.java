@@ -39,14 +39,8 @@ public class Landlords {
     @Column (name = "id_landlords")
     private Integer idLandlords = null;
     
-    @Column (name = "last_name")
-    private String lastName; 
-    
-    @Column (name = "first_name")
-    private String firstName;
-    
-    @Column (name = "patronymic")
-    private String patronymic;
+    @Column (name = "FIO")
+    private String FIO; 
     
     @Column (name = "phone")
     private String phone;
@@ -68,27 +62,14 @@ public class Landlords {
     public void setIdLandlords(Integer idLandlords) {
         this.idLandlords = idLandlords;
     }
-    public String getLastName() {
-        return lastName;
+    public String getFIO() {
+        return FIO;
     }
     
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-    public String getFirstName() {
-        return firstName;
-    }
-    
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-    public String getPatronymic() {
-        return patronymic;
+    public void setFIO(String FIO) {
+        this.FIO = FIO;
     }
      
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
-    }
     public String getPhone() {
         return phone;
     }
@@ -109,11 +90,9 @@ public class Landlords {
     }
 
     
-    public Landlords(Integer idLandlords, String lastName, String firstName, String patronymic, String phone, Account account, boolean clining) {
+    public Landlords(Integer idLandlords, String FIO, String phone, Account account, boolean clining) {
         this.idLandlords = idLandlords;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.patronymic = patronymic;
+        this.FIO = FIO;
         this.phone = phone;
         this.account = account;
         this.clining = clining;
@@ -145,7 +124,7 @@ public class Landlords {
        
     @Override
     public String toString() {
-        return idLandlords + lastName + firstName + patronymic; //To change body of generated methods, choose Tools | Templates.
+        return idLandlords + FIO; //To change body of generated methods, choose Tools | Templates.
     }
     
 }

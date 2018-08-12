@@ -63,13 +63,19 @@ public class Placement implements Serializable{
     @Column (name = "adults")
     private Integer adults;
     
+    @Column (name = "phone_placement")
+    private String phonePlacment;
+    
+    @Column (name = "alternative_phone_placement")
+    private String alternativePhonePlacement;
+    
     @ManyToMany
     @JoinTable(name = "Placement_has_comforts",
             joinColumns = @JoinColumn (name = "Placement_id_placement"),
             inverseJoinColumns = @JoinColumn(name = "comforts_idcomforts"))
     private Set<Comforts> comfortses = new HashSet<>();
     
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name="landlord")
     private Landlords landlord;
 
@@ -224,7 +230,8 @@ public class Placement implements Serializable{
         getLeases().remove(lease);
     }
 
-    public Placement(String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer childern, Integer adults, Landlords landlord, City city) {
+    public Placement(Integer idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer childern, Integer adults, String phonePlacment, String alternativePhonePlacement, Landlords landlord, City city) {
+        this.idPlacement = idPlacement;
         this.street = street;
         this.house = house;
         this.apartment = apartment;
@@ -234,12 +241,28 @@ public class Placement implements Serializable{
         this.payMonth = payMonth;
         this.childern = childern;
         this.adults = adults;
+        this.phonePlacment = phonePlacment;
+        this.alternativePhonePlacement = alternativePhonePlacement;
         this.landlord = landlord;
         this.city = city;
     }
-    
-    
 
+    public String getAlternativePhonePlacement() {
+        return alternativePhonePlacement;
+    }
+
+    public String getPhonePlacment() {
+        return phonePlacment;
+    }
+
+    public void setAlternativePhonePlacement(String alternativePhonePlacement) {
+        this.alternativePhonePlacement = alternativePhonePlacement;
+    }
+
+    public void setPhonePlacment(String phonePlacment) {
+        this.phonePlacment = phonePlacment;
+    } 
+    
     public Placement() {
     }
     

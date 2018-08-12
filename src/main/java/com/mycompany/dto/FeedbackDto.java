@@ -5,6 +5,8 @@
  */
 package com.mycompany.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 /**
  *
  * @author ADMIN
@@ -14,16 +16,14 @@ public class FeedbackDto {
     private Integer idFeedback = null;
     private String text;
     private int rating;
-    private LeaseDto leases;
 
     public FeedbackDto() {
     }
 
-    public FeedbackDto(Integer idFeedback, String text, int rating, LeaseDto leases) {
+    public FeedbackDto(Integer idFeedback, String text, int rating) {
         this.idFeedback = idFeedback;
         this.text = text;
         this.rating = rating;
-        this.leases = leases;
     }
 
     public Integer getIdFeedback() {
@@ -38,10 +38,6 @@ public class FeedbackDto {
         return rating;
     }
 
-    public LeaseDto getLeases() {
-        return leases;
-    }
-
     public void setIdFeedback(Integer idFeedback) {
         this.idFeedback = idFeedback;
     }
@@ -53,11 +49,4 @@ public class FeedbackDto {
     public void setRating(int rating) {
         this.rating = rating;
     }
-
-    public void setLeases(LeaseDto leases) {
-        this.leases = leases;
-    }
-    
-    
-    
 }

@@ -6,6 +6,7 @@
 package com.mycompany.service;
 
 import com.mycompany.dao.PlacementDao;
+import com.mycompany.dto.Search;
 import com.mycompany.resurse.Comforts;
 import com.mycompany.resurse.Placement;
 import java.util.List;
@@ -25,16 +26,6 @@ public class PlacementServiceImpl implements PlacementService{
     @Override
     public List<Placement> findAll() {
         return placementDao.findAll();
-    }
-
-    @Override
-    public List<Placement> findByRegion(int idRegion) {
-        return placementDao.findByRegion(idRegion);
-    }
-
-    @Override
-    public List<Placement> findByCity(int idCity) {
-        return placementDao.findByCity(idCity);
     }
 
     @Override
@@ -58,8 +49,13 @@ public class PlacementServiceImpl implements PlacementService{
     }
 
     @Override
-    public Placement invertState(Placement placement) {
-        return placementDao.invertState(placement);
+    public List<Placement> findByParametr(Search search) {
+        return placementDao.findByParametr(search);
+    }
+
+    @Override
+    public Integer findNumberByParametr(Search search) {
+        return placementDao.findNumberByParametr(search);
     }
     
 }

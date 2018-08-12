@@ -20,13 +20,10 @@ public interface PlacementDao {
     List<Placement> findAll();
     List<Placement> findAllActive();
     List<Placement> findByIdLandlord(int idLandlord);
-    List<Placement> findByRegion(int idRegion);
-    List<Placement> findByCity(int idCity);
     List<Placement> findByComforts(Set<Comforts> comfortses);
-    List<Placement> findByDate(Lease lease);
     List<Placement> findByParametr(Search search);
+    Integer findNumberByParametr(Search search);
     Placement findById(int id);
     Placement save(Placement placement);
     boolean delete(Placement placement);
-    Placement invertState(Placement placement);
 }

@@ -27,12 +27,12 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public Account findById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Account findById(Integer id) {
+        return AccountDao.findById(id);
     }
 
     @Override
-    public int save(Account account) {
+    public Account save(Account account) {
         return  AccountDao.save(account);
     }
 

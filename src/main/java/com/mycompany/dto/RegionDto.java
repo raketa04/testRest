@@ -5,6 +5,8 @@
  */
 package com.mycompany.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
+
 
 /**
  *
@@ -12,7 +14,9 @@ package com.mycompany.dto;
  */
 public class RegionDto {
     
+    @JsonView({PlacementDto.addGetPlacment.class})
     private Integer id = null;
+    @JsonView({PlacementDto.addGetPlacment.class})
     private String name;
 
     public RegionDto() {

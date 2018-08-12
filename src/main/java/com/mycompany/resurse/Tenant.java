@@ -30,17 +30,11 @@ public class Tenant {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_tenant")
-    private Integer idTenant =-1;
+    private Integer idTenant = null;
     
-    @Column (name = "last_name")
-    private String lastName; 
-    
-    @Column (name = "first_name")
-    private String firstName;
-    
-    @Column (name = "patronymic")
-    private String patronymic;
-    
+    @Column (name = "FIO")
+    private String FIO; 
+        
     @Column (name = "phone")
     private String phone;
     
@@ -54,11 +48,9 @@ public class Tenant {
     public Tenant() {
     }
 
-    public Tenant(Integer idTentant, String lastName, String firstName, String patronymic, String phone, Account account) {
+    public Tenant(Integer idTentant, String FIO, String phone, Account account) {
         this.idTenant = idTentant;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.patronymic = patronymic;
+        this.FIO = FIO;
         this.phone = phone;
         this.account = account;
     }
@@ -67,16 +59,8 @@ public class Tenant {
         return idTenant;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getPatronymic() {
-        return patronymic;
+    public String getFIO() {
+        return FIO;
     }
 
     public String getPhone() {
@@ -95,16 +79,8 @@ public class Tenant {
         this.idTenant = idTenant;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public void setPatronymic(String patronymic) {
-        this.patronymic = patronymic;
+    public void setFIO(String FIO) {
+        this.FIO = FIO;
     }
 
     public void setPhone(String phone) {

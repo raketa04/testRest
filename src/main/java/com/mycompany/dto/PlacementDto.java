@@ -5,44 +5,106 @@
  */
 package com.mycompany.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import java.util.HashSet;
 import java.util.Set;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 /**
  *
  * @author ADMIN
  */
 public class PlacementDto {
+    public interface addPlacment{
+    }
 
+    public interface updatePlacment{
+    }
+    
+    public interface deletePlacment{
+    }
+     
+    public interface addGetPlacment{
+    }
+    public interface getPlacment extends addPlacment{
+    }
+    
+    public interface getPlacmentSearach{
+    }
+    
+    public interface getPlacmentTenant{
+    }
+
+    @Null(groups ={addPlacment.class})
+    @NotNull(groups ={updatePlacment.class,})
+    @JsonView({addGetPlacment.class,getPlacmentSearach.class,getPlacmentTenant.class})
     private Integer idPlacement = null;
 
+    @NotNull(groups ={addPlacment.class, updatePlacment.class})
+    @JsonView({addGetPlacment.class,getPlacmentSearach.class,getPlacmentTenant.class})
     private String street;
-
+    
+    @NotNull(groups ={addPlacment.class, updatePlacment.class})
+    @JsonView({addGetPlacment.class,getPlacmentSearach.class,getPlacmentTenant.class})
     private String house;
-
+    
+    @NotNull(groups ={addPlacment.class, updatePlacment.class})
+    @JsonView({addGetPlacment.class,getPlacmentSearach.class,getPlacmentTenant.class})
     private int apartment;
     
+    @NotNull(groups ={addPlacment.class, updatePlacment.class})
+    @JsonView({addGetPlacment.class,getPlacmentSearach.class,getPlacmentTenant.class})
     private int room; 
 
+    @NotNull(groups ={addPlacment.class, updatePlacment.class})
+    @JsonView({addGetPlacment.class})
     private boolean isActive;
     
+    @NotNull(groups ={addPlacment.class, updatePlacment.class})
+    @JsonView({addGetPlacment.class,getPlacmentSearach.class,getPlacmentTenant.class})
     private float payDay;
 
+    @NotNull(groups ={addPlacment.class, updatePlacment.class})
+    @JsonView({addGetPlacment.class,getPlacmentTenant.class})
     private float payMonth;
 
+    @NotNull(groups ={addPlacment.class, updatePlacment.class})
+    @JsonView({addGetPlacment.class,getPlacmentTenant.class})
     private Integer childern;
 
-    private float adults;
+    @NotNull(groups ={addPlacment.class, updatePlacment.class})
+    @JsonView({addGetPlacment.class,getPlacmentTenant.class})
+    private Integer adults;
+
+    @NotNull(groups ={addPlacment.class, updatePlacment.class})
+    @JsonView({addGetPlacment.class,getPlacmentTenant.class})
+    private String phonePlacment;
+
+    @NotNull(groups ={addPlacment.class, updatePlacment.class})
+    @JsonView({addGetPlacment.class,getPlacmentTenant.class})
+    private String alternativePhonePlacement;
     
+    @JsonView({addGetPlacment.class,getPlacmentTenant.class})
     private Set<ComfortsDto> comfortses = new HashSet<>();
 
+    @NotNull(groups ={addPlacment.class})
+    @Null(groups ={updatePlacment.class})
+    @JsonView({addGetPlacment.class,getPlacmentTenant.class})
     private CityDto city;
     
+    @NotNull(groups ={addPlacment.class})
+    @Null(groups ={updatePlacment.class})
+    @JsonView({getPlacment.class,getPlacmentTenant.class})
     private LandlordDto landlord;
     
+    @Null(groups ={addPlacment.class,updatePlacment.class})
     private LeaseDto lease;
 
-    public PlacementDto(Integer idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer childern, float adults, CityDto city, LandlordDto landlord, LeaseDto lease) {
+    public PlacementDto() {
+    }
+
+    public PlacementDto(Integer idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer childern, Integer adults, String phonePlacment, String alternativePhonePlacement, CityDto city, LandlordDto landlord, LeaseDto lease) {
         this.idPlacement = idPlacement;
         this.street = street;
         this.house = house;
@@ -53,14 +115,11 @@ public class PlacementDto {
         this.payMonth = payMonth;
         this.childern = childern;
         this.adults = adults;
+        this.phonePlacment = phonePlacment;
+        this.alternativePhonePlacement = alternativePhonePlacement;
         this.city = city;
         this.landlord = landlord;
         this.lease = lease;
-    }
-
-    
-
-    public PlacementDto() {
     }
 
     
@@ -96,7 +155,7 @@ public class PlacementDto {
         return payMonth;
     }
 
-    public float getAdults() {
+    public Integer getAdults() {
         return adults;
     }
 
@@ -144,7 +203,7 @@ public class PlacementDto {
         this.payMonth = payMonth;
     }
 
-    public void setAdults(float adults) {
+    public void setAdults(Integer adults) {
         this.adults = adults;
     }
 
@@ -175,8 +234,22 @@ public class PlacementDto {
     public void setLease(LeaseDto lease) {
         this.lease = lease;
     }
-    
-    
+
+    public String getAlternativePhonePlacement() {
+        return alternativePhonePlacement;
+    }
+
+    public String getPhonePlacment() {
+        return phonePlacment;
+    }
+
+    public void setAlternativePhonePlacement(String alternativePhonePlacement) {
+        this.alternativePhonePlacement = alternativePhonePlacement;
+    }
+
+    public void setPhonePlacment(String phonePlacment) {
+        this.phonePlacment = phonePlacment;
+    }
     
     
 }

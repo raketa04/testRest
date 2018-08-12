@@ -6,6 +6,7 @@
 package com.mycompany.dao;
 
 import com.mycompany.resurse.Lease;
+import com.mycompany.resurse.Placement;
 import com.mycompany.resurse.Tenant;
 import java.util.List;
 
@@ -16,7 +17,7 @@ import java.util.List;
 public interface LeaseDao {
     List<Lease> findAll();
     Lease findByid(int id);
-    Lease findByTenant(Tenant tenant);
-    Tenant save(Lease lease);
-    void delete(Lease lease);
+    List<Lease> findByTenant(int idTenant);
+    List<Lease> findByPlacment(int idPlacement);
+    Lease add(Lease lease);
 }

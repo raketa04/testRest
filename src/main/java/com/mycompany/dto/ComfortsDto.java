@@ -5,6 +5,7 @@
  */
 package com.mycompany.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import java.io.Serializable;
 
 
@@ -16,12 +17,17 @@ import java.io.Serializable;
 
 public class ComfortsDto implements Serializable {
     
+    @JsonView({PlacementDto.addGetPlacment.class})
     private Integer idComforts = null;
+    @JsonView({PlacementDto.addGetPlacment.class})
     private String name;
+    @JsonView({PlacementDto.addGetPlacment.class})
+    private ComfortsParametrsDto comfortsParametrs;
     
-    public ComfortsDto(Integer idComforts, String name) {
+    public ComfortsDto(Integer idComforts, String name, ComfortsParametrsDto comfortsParametrs) {
         this.idComforts = idComforts;
         this.name = name;
+        this.comfortsParametrs = comfortsParametrs;
     }
 
     public ComfortsDto() {
@@ -41,6 +47,14 @@ public class ComfortsDto implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ComfortsParametrsDto getComfortsParametrs() {
+        return comfortsParametrs;
+    }
+
+    public void setComfortsParametrs(ComfortsParametrsDto comfortsParametrs) {
+        this.comfortsParametrs = comfortsParametrs;
     }
    
 }

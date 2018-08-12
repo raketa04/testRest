@@ -14,16 +14,14 @@ import java.util.Set;
  */
 public class Search {
     CityDto city;   
-    RegionDto region;
     Date start;
     Date end;
     Set <ComfortsDto> comforts ;
     Integer adults;
     Integer children;
 
-    public Search(CityDto city, RegionDto region, Date start, Date end, Set<ComfortsDto> comforts, Integer adults, Integer children) {
+    public Search(CityDto city, Date start, Date end, Set<ComfortsDto> comforts, Integer adults, Integer children) {
         this.city = city;
-        this.region = region;
         this.start = start;
         this.end = end;
         this.comforts = comforts;
@@ -38,9 +36,6 @@ public class Search {
         return city;
     }
 
-    public RegionDto getRegion() {
-        return region;
-    }
 
     public Date getStart() {
         return start;
@@ -64,10 +59,6 @@ public class Search {
 
     public void setCity(CityDto city) {
         this.city = city;
-    }
-
-    public void setRegion(RegionDto region) {
-        this.region = region;
     }
 
     public void setStart(Date start) {

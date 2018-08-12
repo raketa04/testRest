@@ -36,9 +36,6 @@ public class Account implements Serializable{
     @Column (name = "id_account")
     private Integer idAccount = null;
     
-    @Column (name = "login")
-    private String login;
-    
     @Column (name = "password")
     private String password;
     
@@ -65,9 +62,8 @@ public class Account implements Serializable{
     public Account() {
     }
 
-    public Account(Integer idAccount, String login, String password, String email, Authority typeRole, boolean activation, Landlords landlord, Tenant tenant, String codeActivate) {
+    public Account(Integer idAccount, String password, String email, Authority typeRole, boolean activation, Landlords landlord, Tenant tenant, String codeActivate) {
         this.idAccount = idAccount;
-        this.login = login;
         this.password = password;
         this.email = email;
         this.type_role = typeRole;
@@ -80,10 +76,6 @@ public class Account implements Serializable{
     public Integer getIdAccount() {
         return idAccount;
 
-    }
-
-    public String getLogin() {
-        return login;
     }
 
     public String getPassword() {
@@ -108,10 +100,6 @@ public class Account implements Serializable{
 
     public void IdAccount(Integer idAccount) {
         this.idAccount = idAccount;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
     }
 
     public void setPassword(String password) {

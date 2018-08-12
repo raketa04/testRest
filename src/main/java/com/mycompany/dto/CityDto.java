@@ -5,6 +5,7 @@
  */
 package com.mycompany.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import javax.validation.constraints.NotNull;
 
 
@@ -15,10 +16,11 @@ import javax.validation.constraints.NotNull;
 
 public class CityDto{
 
+    @JsonView({PlacementDto.addGetPlacment.class})
     private Integer id = null;
-    @NotNull
+    @JsonView({PlacementDto.addGetPlacment.class})
     private String name;
-    @NotNull
+    @JsonView({PlacementDto.addGetPlacment.class})
     RegionDto region;
 
     public Integer getId() {

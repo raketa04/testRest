@@ -6,6 +6,8 @@
 package com.mycompany.dao;
 
 import com.mycompany.resurse.Feedback;
+import com.mycompany.resurse.Landlords;
+import com.mycompany.resurse.Placement;
 import com.mycompany.resurse.Tenant;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -21,18 +23,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Repository
-public class FeedbackDtoImpl implements FeedbackDao{
+public class FeedbackDaoImpl implements FeedbackDao{
 
     @PersistenceContext	
     private EntityManager entityManager;
     @Override
-    public List<Feedback> findByTenant(Tenant tenant) {
+    public List<Feedback> findByTenant(Integer idTenant) {
         String hql = "FROM Feedback f where f.leases.tenant = :ten";
         Query query = (Query) entityManager.createQuery(hql,Feedback.class);
-        query.setParameter("ten", tenant); 
+        query.setParameter("ten", idTenant); 
 	List<Feedback> result =  query.getResultList();
 	return result;
     }
+    
+    
 
     @Override
     public Feedback save(Feedback feedback) {
@@ -46,6 +50,37 @@ public class FeedbackDtoImpl implements FeedbackDao{
             entityManager.merge(updateFeedback);
         }
         return feedback;
+    }
+
+    @Override
+    public List<Feedback> findAll(int id) {
+        String hql = "FROM Feedback f where f.leases.placement = :placement";
+        Query query = (Query) entityManager.createQuery(hql,Feedback.class);
+        query.setParameter("placement", id); 
+	List<Feedback> result =  query.getResultList();
+	return result;
+    }
+
+    @Override
+    public float findRating(int id) {
+        String hql = "FROM Feedback f where f.leases.placment = :placement";
+        Query query = (Query) entityManager.createQuery(hql,Feedback.class);
+        query.setParameter("placement", id); 
+	List<Feedback> result =  query.getResultList();
+        int sum = 0;
+        for(Feedback feedback:result){
+            sum += feedback.getRating();
+        }
+	return sum/result.size();
+    }
+
+    @Override
+    public List<Feedback> findByPlacement(Integer idPlacment) {
+         String hql = "FROM Feedback f where f.leases.placement = :land";
+        Query query = (Query) entityManager.createQuery(hql,Feedback.class);
+        query.setParameter("land", idPlacment); 
+	List<Feedback> result =  query.getResultList();
+	return result;
     }
     
 }
