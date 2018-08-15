@@ -16,30 +16,30 @@ public class ComfortsParametrsDto {
     @JsonView({PlacementDto.getPlacment.class})
     private Integer idComfortsParametrs = null;
     @JsonView({PlacementDto.getPlacment.class})
-    private String parametrs;
+    private String parametr;
 
     public ComfortsParametrsDto() {
     }
 
-    public ComfortsParametrsDto(Integer idComfortsParametrs, String parametrs) {
+    public ComfortsParametrsDto(Integer idComfortsParametrs, String parametr) {
         this.idComfortsParametrs = idComfortsParametrs;
-        this.parametrs = parametrs;
+        this.parametr = parametr;
     }
 
     public Integer getIdComfortsParametrs() {
         return idComfortsParametrs;
     }
 
-    public String getParametrs() {
-        return parametrs;
+    public String getParametr() {
+        return parametr;
     }
 
     public void setIdComfortsParametrs(Integer idComfortsParametrs) {
         this.idComfortsParametrs = idComfortsParametrs;
     }
 
-    public void setParametrs(String parametrs) {
-        this.parametrs = parametrs;
+    public void setParametr(String parametr) {
+        this.parametr = parametr;
     }
 
     
