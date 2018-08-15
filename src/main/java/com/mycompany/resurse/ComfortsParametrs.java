@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -25,9 +26,10 @@ public class ComfortsParametrs {
     @Column (name = "id_comforts_parametrs")
     private Integer idComfortsParametrs = null;
     
-    @Column (name = "parametr")
+    @Column (name = "parametrs")
     private String parametr;
     
+    @ManyToOne
     @JoinColumn(name = "comforts")
     private Comforts comforts;
 

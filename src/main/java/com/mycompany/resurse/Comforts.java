@@ -46,10 +46,11 @@ public class Comforts implements Serializable {
     @OneToMany(mappedBy = "comforts", cascade=CascadeType.ALL,    orphanRemoval=true)
     private Set<ComfortsParametrs> comfortsParametrses = new HashSet<>();
     
-    public Comforts(Integer idComforts, String name, Set <ComfortsParametrs> comfortsParametrs) {
+    public Comforts(Integer idComforts, String name,Set<Placement> placements, Set <ComfortsParametrs> comfortsParametrs) {
         this.idComforts = idComforts;
         this.name = name;
         this.comfortsParametrses = comfortsParametrses;
+        this.placements = placements;
     }
 
     public Comforts() {
@@ -92,7 +93,7 @@ public class Comforts implements Serializable {
         comfortsParametrs.setComforts(this);
         getComfortsParametrses().add(comfortsParametrs);
     }
-    public void removePlacement(ComfortsParametrs comfortsParametrs){
+    public void removeComfortsParametrs(ComfortsParametrs comfortsParametrs){
         getComfortsParametrses().remove(comfortsParametrs);
     }
 }

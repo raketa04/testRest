@@ -46,13 +46,15 @@ public class AccountDaoImpl implements AccountDao{
         if(account.getIdAccount() ==  null){
             Random ran = new Random();
             if(account.getLandlord() != null){
-                account.setCodeActivate(Integer.toString(ran.nextInt(10))+ Integer.toString(ran.nextInt(10))+Integer.toString(ran.nextInt(10))+Integer.toString(ran.nextInt(10)));
+                //account.setCodeActivate(Integer.toString(ran.nextInt(10))+ Integer.toString(ran.nextInt(10))+Integer.toString(ran.nextInt(10))+Integer.toString(ran.nextInt(10)));
+                account.setCodeActivate("11111");
                 entityManager.persist(account);
                 account.getLandlord().setAccount(account);
                 
             }
             if(account.getTenant() != null){   ;
-                account.setCodeActivate(Integer.toString(ran.nextInt(10))+ Integer.toString(ran.nextInt(10))+Integer.toString(ran.nextInt(10))+Integer.toString(ran.nextInt(10)));
+                //account.setCodeActivate(Integer.toString(ran.nextInt(10))+ Integer.toString(ran.nextInt(10))+Integer.toString(ran.nextInt(10))+Integer.toString(ran.nextInt(10)));
+                account.setCodeActivate("11111");
                 entityManager.persist(account);
                 account.getTenant().setAccount(account);
             }

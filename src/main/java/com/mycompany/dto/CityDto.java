@@ -7,6 +7,7 @@ package com.mycompany.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 
 /**
@@ -16,10 +17,15 @@ import javax.validation.constraints.NotNull;
 
 public class CityDto{
 
+    public interface findCity{
+    }
+    @Null(groups = {findCity.class})
     @JsonView({PlacementDto.addGetPlacment.class})
     private Integer id = null;
+    @NotNull(groups = {findCity.class})
     @JsonView({PlacementDto.addGetPlacment.class})
     private String name;
+    @Null(groups = {findCity.class})
     @JsonView({PlacementDto.addGetPlacment.class})
     RegionDto region;
 
