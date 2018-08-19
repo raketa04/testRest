@@ -83,8 +83,8 @@ public class PlacementRESTController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
-    @RequestMapping(value ="searchNumber", method = RequestMethod.POST)
-    public ResponseEntity<Integer> numberSearchPlacment(@RequestBody Search search) {
+    @RequestMapping(value ="search_number", method = RequestMethod.POST)
+    public ResponseEntity<Long> numberSearchPlacment(@RequestBody Search search) {
         return new ResponseEntity<>(placementService.findNumberByParametr(search), HttpStatus.OK);
     }
         
@@ -106,9 +106,9 @@ public class PlacementRESTController {
     }
     
     @RequestMapping(value ="delete", method = RequestMethod.DELETE)
-    public ResponseEntity<?> deletePlacement(@RequestBody PlacementDto placementDto) {
+    public ResponseEntity<?> deletePlacement(@Validated(PlacementDto.updatePlacment.class) @RequestBody PlacementDto placementDto) {
         boolean b = placementService.delete(modelMapper.map(placementDto, Placement.class));
-        if (b)return new ResponseEntity<>( HttpStatus.OK);
+        if (b) return new ResponseEntity<>( HttpStatus.OK);
         else return new ResponseEntity<>( HttpStatus.BAD_REQUEST);
     }
 }

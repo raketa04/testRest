@@ -19,16 +19,17 @@ import javax.validation.constraints.Null;
  */
 public class TenantDto {
 
+
     @NotNull(groups = {AccountDto.updateTentant.class})
     @Null(groups = {AccountDto.addTentant.class})
-    @JsonView({AccountDto.autarificationOut.class})
+    @JsonView({AccountDto.autarificationOut.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getAddLease.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
     private Integer idTenant = null;
     
     @NotNull(groups = {AccountDto.addTentant.class,AccountDto.updateTentant.class})
-    @JsonView({AccountDto.autarificationOut.class})
+    @JsonView({AccountDto.autarificationOut.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
     private String FIO;
     @NotNull(groups = {AccountDto.addTentant.class,AccountDto.updateTentant.class})
-    @JsonView({AccountDto.autarificationOut.class})
+    @JsonView({AccountDto.autarificationOut.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
     private String phone;
 
     private Set<LeaseDto> leases = new HashSet<>();

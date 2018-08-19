@@ -7,6 +7,8 @@ package com.mycompany.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import java.util.Date;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 
 /**
@@ -15,16 +17,48 @@ import java.util.Date;
  */
 public class LeaseDto {
 
+    public interface addLease{
+        
+    }
+    
+    public interface getAddLease{
+        
+    }
+    public interface getLeasePlacmentTenant{
+        
+    }
+    
+    public interface getLeaseTenant{
+        
+    }
+    
+    public interface getLeasePlacement{
+        
+    }
+    
+    @Null(groups = {addLease.class})
+    @NotNull(groups = {FeedbackDto.addFeedback.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class})
     private Integer idLease = null;
-
+    
+    @NotNull(groups = {addLease.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class})
     private Date startLease;
-
+    
+    @NotNull(groups = {addLease.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class})
     private Date endLease;
 
+    @NotNull(groups = {addLease.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class})
     private TenantDto tenant;
 
+    @NotNull(groups = {addLease.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeaseTenant.class})
     private PlacementDto placement;
 
+    @Null(groups = {addLease.class})
+    @JsonView({getLeasePlacmentTenant.class,getLeasePlacement.class,getLeaseTenant.class})
     private FeedbackDto feedback;
 
     public LeaseDto() {

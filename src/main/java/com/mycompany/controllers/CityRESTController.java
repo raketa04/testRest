@@ -50,7 +50,6 @@ public class CityRESTController {
     }
     
     @RequestMapping(value = "findbyname", method = RequestMethod.POST)
-    @ResponseBody
     //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity <List<CityDto>> getCityByName(@Validated(CityDto.findCity.class)@RequestBody CityDto cityDto) {
         List<CityDto> list = cityService.findByName(cityDto.getName()).stream()

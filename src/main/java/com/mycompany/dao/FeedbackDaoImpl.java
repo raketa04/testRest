@@ -7,6 +7,7 @@ package com.mycompany.dao;
 
 import com.mycompany.resurse.Feedback;
 import com.mycompany.resurse.Landlords;
+import com.mycompany.resurse.Lease;
 import com.mycompany.resurse.Placement;
 import com.mycompany.resurse.Tenant;
 import java.util.List;
@@ -40,8 +41,10 @@ public class FeedbackDaoImpl implements FeedbackDao{
 
     @Override
     public Feedback save(Feedback feedback) {
-        if(feedback.getIdFeedback() == -1){
-           entityManager.persist(feedback);
+        if(feedback.getIdFeedback() == null){
+           Lease lease = entityManager.find(Lease.class, feedback.getLease().getIdLease());
+           lease.setFeedback(feedback);
+           entityManager.merge(lease);
         }
         else{
             Feedback updateFeedback = entityManager.find(Feedback.class,feedback.getIdFeedback());

@@ -35,16 +35,16 @@ public class Feedback {
     private int rating;
     
     @OneToOne(mappedBy = "feedback",cascade = CascadeType.ALL, orphanRemoval = true)
-    private Lease leases;
+    private Lease lease;
 
     public Feedback() {
     }
 
-    public Feedback(Integer idFeedback, String text, int rating, Lease leases) {
+    public Feedback(Integer idFeedback, String text, int rating, Lease lease) {
         this.idFeedback = idFeedback;
         this.text = text;
         this.rating = rating;
-        this.leases = leases;
+        this.lease = lease;
     }
 
     public Integer getIdFeedback() {
@@ -59,8 +59,8 @@ public class Feedback {
         return rating;
     }
 
-    public Lease getLeases() {
-        return leases;
+    public Lease getLease() {
+        return lease;
     }
 
     public void setIdFeedback(Integer idFeedback) {
@@ -75,8 +75,8 @@ public class Feedback {
         this.rating = rating;
     }
 
-    public void setLeases(Lease leases) {
-        this.leases = leases;
+    public void setLease(Lease lease) {
+        this.lease = lease;
     }
     
     

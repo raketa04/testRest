@@ -5,7 +5,7 @@
  */
 package com.mycompany.dto;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.Set;
 
 /**

@@ -101,7 +101,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 HttpMethod.POST,
                 authenticationPath,
                 "/account/add",
-                "/account/activation"
+                "/account/activation",
+                "/placement/search_number",  
+                "/placement/search]"
             );
 
     }

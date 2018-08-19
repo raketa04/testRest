@@ -44,7 +44,7 @@ public class LeaseDaoImpl implements LeaseDao{
 
     @Override
     public List<Lease> findByPlacment(int idPlacement) {
-        String hql = "FROM Lease where placment = " + idPlacement;
+        String hql = "FROM Lease where placement = " + idPlacement;
         System.out.println(hql);
 	List<Lease> resultList =  entityManager.createQuery(hql,Lease.class).getResultList();
         return resultList;

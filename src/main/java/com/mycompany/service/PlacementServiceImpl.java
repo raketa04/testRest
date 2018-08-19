@@ -54,7 +54,7 @@ public class PlacementServiceImpl implements PlacementService{
     }
 
     @Override
-    public Integer findNumberByParametr(Search search) {
+    public Long findNumberByParametr(Search search) {
         return placementDao.findNumberByParametr(search);
     }
     

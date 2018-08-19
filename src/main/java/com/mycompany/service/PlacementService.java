@@ -19,7 +19,7 @@ public interface PlacementService {
     List<Placement> findAll();
     List<Placement> findByComforts(Set<Comforts> comfortses);
     List<Placement> findByParametr(Search search);
-    Integer findNumberByParametr(Search search);
+    Long findNumberByParametr(Search search);
     Placement findById(int id);
     Placement save(Placement placement);
     boolean delete(Placement placement);

@@ -20,13 +20,13 @@ public class CityDto{
     public interface findCity{
     }
     @Null(groups = {findCity.class})
-    @JsonView({PlacementDto.addGetPlacment.class})
+    @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class})
     private Integer id = null;
     @NotNull(groups = {findCity.class})
-    @JsonView({PlacementDto.addGetPlacment.class})
+    @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class})
     private String name;
     @Null(groups = {findCity.class})
-    @JsonView({PlacementDto.addGetPlacment.class})
+    @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class})
     RegionDto region;
 
     public Integer getId() {

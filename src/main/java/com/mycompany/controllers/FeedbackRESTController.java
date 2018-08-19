@@ -5,6 +5,7 @@
  */
 package com.mycompany.controllers;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.mycompany.dto.FeedbackDto;
 import com.mycompany.resurse.Feedback;
 import com.mycompany.service.FeedbackService;
@@ -14,6 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,18 +34,21 @@ public class FeedbackRESTController {
     @Autowired
     private  FeedbackService feedbackService;
     
+    @JsonView(FeedbackDto.getFeedback.class)
     @RequestMapping(value ="add", method = RequestMethod.POST)
-    public ResponseEntity<FeedbackDto> addFeedback(@RequestBody FeedbackDto feedbackDto) {
+    public ResponseEntity<FeedbackDto> addFeedback(@Validated(FeedbackDto.addFeedback.class)@RequestBody FeedbackDto feedbackDto) {
         Feedback result = feedbackService.save(modelMapper.map(feedbackDto, Feedback.class));
         return new ResponseEntity<>(modelMapper.map(result, FeedbackDto.class), HttpStatus.OK);
     }
     
+    @JsonView(FeedbackDto.getFeedback.class)
     @RequestMapping(value ="update", method = RequestMethod.PUT)
-    public ResponseEntity<FeedbackDto> updateUser(@RequestBody FeedbackDto feedbackDto) {
+    public ResponseEntity<FeedbackDto> updateFeedback(@Validated(FeedbackDto.editFeedback.class) @RequestBody FeedbackDto feedbackDto) {
         Feedback result = feedbackService.save(modelMapper.map(feedbackDto, Feedback.class));
         return new ResponseEntity<>(modelMapper.map(result, FeedbackDto.class), HttpStatus.OK);
     }
     
+    @JsonView(FeedbackDto.getFeedback.class)
     @RequestMapping(value = "placement/{id}", method = RequestMethod.GET)
     //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<FeedbackDto>> getFeedbackByPlacement(@PathVariable int id) {

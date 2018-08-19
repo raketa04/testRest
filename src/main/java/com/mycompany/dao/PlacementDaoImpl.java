@@ -32,49 +32,29 @@ public class PlacementDaoImpl implements PlacementDao{
     private EntityManager entityManager;
     
     private String getStringParametrSearch(Search search){
-        String hql = "";
-        boolean b = true;
+        String hql = "where p.isActive = true ";
         if(search.getCity().getName() != null) {
-            hql += "where isActive = true and p.city.nameCity Like '" + search.getCity().getName()+"%'";
-            b = !b;
+            hql += "and p.city.nameCity Like '" + search.getCity().getName()+"%'";
         }
         if(search.getAdults() != null ){
-            if (b){
-                hql += "where isActive = true and p.adults >= "+search.getAdults();
-                b = !b;
-            }
-            else{
-                hql += " and p.adults >= "+search.getAdults();
-            }
+            hql += "and p.adults >= "+search.getAdults();
         }
         
         if(search.getChildren()!= null ){
-            if (b){
-                hql += "where isActive = true and p.children >= "+search.getChildren();
-                b = !b;
+            hql += " and p.children >= "+search.getChildren();
+        }
+        if(search.getStart()!= null || search.getEnd()!= null ){
+            if(search.getStart()!= null && search.getEnd() == null){
+                hql += " and p.idPlacement not in (Select l.placement From Lease l Where " +search.getStart() +" <= l.endLease)";
             }
-            else{
-                hql += " and  p.children >= "+search.getChildren();
+            if(search.getStart() == null && search.getEnd() != null){
+                hql += " and p.idPlacement not in (Select l.placement From Lease l Where " +search.getEnd()+" >= l.startLease )";
+            }
+            if(search.getStart()!= null && search.getEnd() != null){
+                hql += " and p.idPlacement not in (Select l.placement From Lease l Where (l.startLease between '"+ search.getStart() + "' and '" + search.getEnd() +"') or (l.endLease between '"+ search.getStart() + "' and '" + search.getEnd() +"') or ('" + search.getStart() + "' between l.startLease and  l.endLease) or ('" + search.getEnd() + "' between l.startLease and  l.endLease))";
             }
         }
-         if(search.getStart() != null){
-             if (b){
-                hql += "where isActive = true and p.lease.startLease <= "+search.getStart();
-                b = !b;
-            }
-            else{
-                hql += " and p.lease.startLease <= "+search.getStart();
-            }
-         }
-        if(search.getEnd()!= null){
-             if (b){
-                hql += "where isActive = true and p.lease.endLease => "+search.getEnd();
-                b = !b;
-            }
-            else{
-                hql += " and p.lease.endLease => "+search.getEnd();
-            }
-        }    
+        
         return hql;
     }
     @Override
@@ -129,11 +109,12 @@ public class PlacementDaoImpl implements PlacementDao{
             if(updatePlacement.getPayDay()!= placement.getPayDay()) updatePlacement.setPayDay(placement.getPayDay());
             if(updatePlacement.getPayMonth()!= placement.getPayMonth()) updatePlacement.setPayMonth(placement.getPayMonth());
             if(updatePlacement.getAdults()!= placement.getAdults()) updatePlacement.setAdults(placement.getAdults());
-            if(updatePlacement.getChildern()!= placement.getChildern()) updatePlacement.setChildern(placement.getChildern());
+            if(updatePlacement.getChildren()!= placement.getChildren()) updatePlacement.setChildren(placement.getChildren());
             if(!updatePlacement.getPhonePlacment().equals(placement.getPhonePlacment())) updatePlacement.setPhonePlacment(placement.getPhonePlacment());
             if(!updatePlacement.getAlternativePhonePlacement().equals(placement.getAlternativePhonePlacement())) updatePlacement.setAlternativePhonePlacement(placement.getAlternativePhonePlacement());
             if(!updatePlacement.getComfortses().equals(placement.getComfortses())) updatePlacement.setComfortses(placement.getComfortses());
             if(!updatePlacement.isIsActive() != placement.isIsActive()) updatePlacement.setIsActive(placement.isIsActive());
+            if(!updatePlacement.getProfile().equals(placement.getProfile())) updatePlacement.setProfile(placement.getProfile());
             entityManager.merge(updatePlacement);
         }
         entityManager.flush();
@@ -166,15 +147,16 @@ public class PlacementDaoImpl implements PlacementDao{
 
     @Override
     public List<Placement> findByParametr(Search search) {
-        String hql = "FROM Placement p " + getStringParametrSearch(search);      
+        String hql = "FROM Placement p " ;
+        if(search.getStart()!=null || search.getEnd() != null) hql += "" + getStringParametrSearch(search);      
         List <Placement> result = entityManager.createQuery(hql,Placement.class).getResultList();
 	return result;
     }
 
     @Override
-    public Integer findNumberByParametr(Search search) {
-        String hql = "FROM Placement p " + getStringParametrSearch(search);      
-        Integer result = entityManager.createQuery(hql,Placement.class).getResultList().size();
+    public Long findNumberByParametr(Search search) {
+        String hql = "Select count(p.idPlacement) FROM Placement p " + getStringParametrSearch(search);      
+        Long result = (Long) entityManager.createQuery(hql).getSingleResult();
 	return result;
     }
     

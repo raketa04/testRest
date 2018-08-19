@@ -14,9 +14,9 @@ import com.fasterxml.jackson.annotation.JsonView;
  */
 public class RegionDto {
     
-    @JsonView({PlacementDto.addGetPlacment.class})
+    @JsonView({PlacementDto.addGetPlacment.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeaseTenant.class})
     private Integer id = null;
-    @JsonView({PlacementDto.addGetPlacment.class})
+    @JsonView({PlacementDto.addGetPlacment.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeaseTenant.class})
     private String name;
 
     public RegionDto() {

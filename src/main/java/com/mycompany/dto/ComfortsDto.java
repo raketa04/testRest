@@ -18,11 +18,11 @@ import java.util.Set;
 
 public class ComfortsDto implements Serializable {
     
-    @JsonView({PlacementDto.addGetPlacment.class})
+    @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class})
     private Integer idComforts = null;
-    @JsonView({PlacementDto.addGetPlacment.class})
+    @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class})
     private String name;
-    @JsonView({PlacementDto.addGetPlacment.class})
+    @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class})
     private Set <ComfortsParametrsDto> comfortsParametrses;
     
     public ComfortsDto(Integer idComforts, String name,Set <ComfortsParametrsDto> comfortsParametrses) {

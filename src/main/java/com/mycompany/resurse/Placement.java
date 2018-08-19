@@ -58,7 +58,7 @@ public class Placement implements Serializable{
     private float payMonth;
     
     @Column (name = "children")
-    private Integer childern;
+    private Integer children;
     
     @Column (name = "adults")
     private Integer adults;
@@ -68,6 +68,9 @@ public class Placement implements Serializable{
     
     @Column (name = "alternative_phone_placement")
     private String alternativePhonePlacement;
+    
+    @Column (name = "profile")
+    private String profile;
     
     @ManyToMany
     @JoinTable(name = "Placement_has_comforts",
@@ -117,8 +120,8 @@ public class Placement implements Serializable{
         return payDay;
     }
 
-    public Integer getChildern() {
-        return childern;
+    public Integer getChildren() {
+        return children;
     }
 
     public Integer getAdults() {
@@ -185,8 +188,8 @@ public class Placement implements Serializable{
         this.adults = adults;
     }
 
-    public void setChildern(Integer childern) {
-        this.childern = childern;
+    public void setChildren(Integer children) {
+        this.children = children;
     }
 
     
@@ -230,7 +233,7 @@ public class Placement implements Serializable{
         getLeases().remove(lease);
     }
 
-    public Placement(Integer idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer childern, Integer adults, String phonePlacment, String alternativePhonePlacement, Landlords landlord, City city) {
+    public Placement(Integer idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer childern, Integer adults, String phonePlacment, String alternativePhonePlacement,String profile, Landlords landlord, City city) {
         this.idPlacement = idPlacement;
         this.street = street;
         this.house = house;
@@ -239,12 +242,13 @@ public class Placement implements Serializable{
         this.isActive = isActive;
         this.payDay = payDay;
         this.payMonth = payMonth;
-        this.childern = childern;
+        this.children = childern;
         this.adults = adults;
         this.phonePlacment = phonePlacment;
         this.alternativePhonePlacement = alternativePhonePlacement;
         this.landlord = landlord;
         this.city = city;
+        this.profile = profile;
     }
 
     public String getAlternativePhonePlacement() {
@@ -261,8 +265,16 @@ public class Placement implements Serializable{
 
     public void setPhonePlacment(String phonePlacment) {
         this.phonePlacment = phonePlacment;
-    } 
-    
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
+    }
+        
     public Placement() {
     }
     

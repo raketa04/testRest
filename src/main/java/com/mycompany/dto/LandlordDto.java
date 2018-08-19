@@ -19,16 +19,16 @@ public class LandlordDto {
 
     @NotNull(groups = {AccountDto.updateLandlord.class,PlacementDto.addPlacment.class})
     @Null(groups = {AccountDto.addLandlord.class})
-    @JsonView({AccountDto.autarificationOut.class,PlacementDto.getPlacment.class})
+    @JsonView({AccountDto.autarificationOut.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeaseTenant.class})
     private Integer idLandlords = null;
     @NotNull(groups = {AccountDto.addLandlord.class ,AccountDto.updateLandlord.class})
-    @JsonView({AccountDto.autarificationOut.class,PlacementDto.getPlacment.class})
+    @JsonView({AccountDto.autarificationOut.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeaseTenant.class})
     private String FIO;
     @NotNull(groups = {AccountDto.addLandlord.class ,AccountDto.updateLandlord.class})
-    @JsonView({AccountDto.autarificationOut.class,PlacementDto.getPlacment.class})
+    @JsonView({AccountDto.autarificationOut.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeaseTenant.class})
     private String phone;
     @NotNull(groups = {AccountDto.addLandlord.class ,AccountDto.updateLandlord.class})
-    @JsonView({AccountDto.autarificationOut.class,PlacementDto.getPlacment.class})
+    @JsonView({AccountDto.autarificationOut.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeaseTenant.class})
     private boolean clining;
     
     
