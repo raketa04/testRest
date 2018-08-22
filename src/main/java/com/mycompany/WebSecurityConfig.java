@@ -1,7 +1,6 @@
 package com.mycompany;
 
-import com.mycompany.resurse.Authority;
-import com.mycompany.resurse.AuthorityName;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -103,7 +102,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/account/add",
                 "/account/activation",
                 "/placement/search_number",  
-                "/placement/search]"
+                "/placement/search",
+                "/city/findbyname",
+                "/region/all"
             );
 
     }

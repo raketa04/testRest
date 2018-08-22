@@ -43,8 +43,8 @@ public class FeedbackDaoImpl implements FeedbackDao{
     public Feedback save(Feedback feedback) {
         if(feedback.getIdFeedback() == null){
            Lease lease = entityManager.find(Lease.class, feedback.getLease().getIdLease());
-           lease.setFeedback(feedback);
-           entityManager.merge(lease);
+           feedback.setLease(lease);
+           entityManager.persist(feedback);
         }
         else{
             Feedback updateFeedback = entityManager.find(Feedback.class,feedback.getIdFeedback());

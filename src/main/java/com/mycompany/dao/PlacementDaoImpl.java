@@ -34,10 +34,10 @@ public class PlacementDaoImpl implements PlacementDao{
     private String getStringParametrSearch(Search search){
         String hql = "where p.isActive = true ";
         if(search.getCity().getName() != null) {
-            hql += "and p.city.nameCity Like '" + search.getCity().getName()+"%'";
+            hql += "and p.city.idCity = " + search.getCity().getId()+" ";
         }
         if(search.getAdults() != null ){
-            hql += "and p.adults >= "+search.getAdults();
+            hql += " and p.adults >= "+search.getAdults();
         }
         
         if(search.getChildren()!= null ){
@@ -109,7 +109,7 @@ public class PlacementDaoImpl implements PlacementDao{
             if(updatePlacement.getPayDay()!= placement.getPayDay()) updatePlacement.setPayDay(placement.getPayDay());
             if(updatePlacement.getPayMonth()!= placement.getPayMonth()) updatePlacement.setPayMonth(placement.getPayMonth());
             if(updatePlacement.getAdults()!= placement.getAdults()) updatePlacement.setAdults(placement.getAdults());
-            if(updatePlacement.getChildren()!= placement.getChildren()) updatePlacement.setChildren(placement.getChildren());
+            if(updatePlacement.getChildren() != placement.getChildren()) updatePlacement.setChildren(placement.getChildren());
             if(!updatePlacement.getPhonePlacment().equals(placement.getPhonePlacment())) updatePlacement.setPhonePlacment(placement.getPhonePlacment());
             if(!updatePlacement.getAlternativePhonePlacement().equals(placement.getAlternativePhonePlacement())) updatePlacement.setAlternativePhonePlacement(placement.getAlternativePhonePlacement());
             if(!updatePlacement.getComfortses().equals(placement.getComfortses())) updatePlacement.setComfortses(placement.getComfortses());

@@ -11,6 +11,7 @@ import com.mycompany.dto.CityDto;
 import com.mycompany.dto.ComfortsDto;
 import com.mycompany.dto.PlacementDto;
 import com.mycompany.dto.Search;
+import com.mycompany.dto.SearchDto;
 import com.mycompany.resurse.Account;
 import com.mycompany.resurse.Comforts;
 import com.mycompany.resurse.Placement;
@@ -76,8 +77,8 @@ public class PlacementRESTController {
     
     @RequestMapping(value ="search", method = RequestMethod.POST)
     @JsonView(PlacementDto.getPlacmentSearach.class)
-    public ResponseEntity<List<PlacementDto>> SearchPlacment (@RequestBody Search search) {
-        List<PlacementDto> list= placementService.findByParametr(search).stream()
+    public ResponseEntity<List<PlacementDto>> SearchPlacment (@RequestBody SearchDto search) {
+        List<PlacementDto> list= placementService.findByParametr(modelMapper.map(search, Search.class)).stream()
                .map(authority -> modelMapper.map(authority ,PlacementDto.class))
                .collect(Collectors.toList());
         return new ResponseEntity<>(list, HttpStatus.OK);

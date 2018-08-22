@@ -38,7 +38,7 @@ public class PlacementDto {
 
     @Null(groups = {addPlacment.class})
     @NotNull(groups = {updatePlacment.class, LeaseDto.addLease.class})
-    @JsonView({addGetPlacment.class, getPlacmentSearach.class,getPlacment.class,  LeaseDto.getLeasePlacmentTenant.class, LeaseDto.getAddLease.class,LeaseDto.getLeaseTenant.class})
+    @JsonView({PictuteresDto.getPictures.class,addGetPlacment.class, getPlacmentSearach.class,getPlacment.class,  LeaseDto.getLeasePlacmentTenant.class, LeaseDto.getAddLease.class,LeaseDto.getLeaseTenant.class})
     private Integer idPlacement = null;
 
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
@@ -79,7 +79,7 @@ public class PlacementDto {
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
     @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
-    private Integer childern;
+    private Integer children;
 
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
@@ -121,7 +121,7 @@ public class PlacementDto {
     public PlacementDto() {
     }
 
-    public PlacementDto(Integer idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer childern, Integer adults, String phonePlacment, String alternativePhonePlacement,String profile, CityDto city, LandlordDto landlord, LeaseDto lease) {
+    public PlacementDto(Integer idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer children, Integer adults, String phonePlacment, String alternativePhonePlacement,String profile, CityDto city, LandlordDto landlord, LeaseDto lease) {
         this.idPlacement = idPlacement;
         this.street = street;
         this.house = house;
@@ -130,7 +130,7 @@ public class PlacementDto {
         this.isActive = isActive;
         this.payDay = payDay;
         this.payMonth = payMonth;
-        this.childern = childern;
+        this.children = children;
         this.adults = adults;
         this.phonePlacment = phonePlacment;
         this.alternativePhonePlacement = alternativePhonePlacement;
@@ -176,10 +176,6 @@ public class PlacementDto {
         return adults;
     }
 
-    public Integer getChildern() {
-        return childern;
-    }
-
     public Set<ComfortsDto> getComfortses() {
         return comfortses;
     }
@@ -222,10 +218,6 @@ public class PlacementDto {
 
     public void setAdults(Integer adults) {
         this.adults = adults;
-    }
-
-    public void setChildern(Integer childern) {
-        this.childern = childern;
     }
 
     public void setComfortses(Set<ComfortsDto> comfortses) {
@@ -276,5 +268,14 @@ public class PlacementDto {
         this.profile = profile;
     }
 
+    public Integer getChildren() {
+        return children;
+    }
+
+    public void setChildren(Integer children) {
+        this.children = children;
+    }
+
+    
     
 }

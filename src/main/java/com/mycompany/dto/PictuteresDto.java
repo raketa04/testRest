@@ -5,37 +5,55 @@
  */
 package com.mycompany.dto;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import com.mycompany.resurse.Placement;
+
 /**
  *
  * @author ADMIN
  */
 public class PictuteresDto {
+    
+    public interface getPictures {
+    }
+    
+    @JsonView({getPictures.class})
     private Integer idPicPlacement = null;
+    @JsonView({getPictures.class})
     private String adressPic;
+    @JsonView({getPictures.class})
+    private Placement placement;
 
-    public PictuteresDto(Integer idPicPlacement, String adressPic) {
+    public PictuteresDto(Integer idPicPlacement, String adressPic, Placement placement) {
         this.idPicPlacement = idPicPlacement;
         this.adressPic = adressPic;
-    }
-
-    public PictuteresDto() {
-    }
-
-    public String getAdressPic() {
-        return adressPic;
+        this.placement = placement;
     }
 
     public Integer getIdPicPlacement() {
         return idPicPlacement;
     }
 
-    public void setAdressPic(String adressPic) {
-        this.adressPic = adressPic;
+    public String getAdressPic() {
+        return adressPic;
+    }
+
+    public Placement getPlacement() {
+        return placement;
     }
 
     public void setIdPicPlacement(Integer idPicPlacement) {
         this.idPicPlacement = idPicPlacement;
     }
+
+    public void setAdressPic(String adressPic) {
+        this.adressPic = adressPic;
+    }
+
+    public void setPlacement(Placement placement) {
+        this.placement = placement;
+    }
+    
     
     
 }

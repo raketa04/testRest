@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -43,13 +44,14 @@ public class Comforts implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "Placement_id_placement"))
     public Set<Placement> placements = new HashSet<>();
     
-    @OneToMany(mappedBy = "comforts", cascade=CascadeType.ALL,    orphanRemoval=true)
-    private Set<ComfortsParametrs> comfortsParametrses = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "group")
+    private ComfortsGroup comfortsGroup;
     
-    public Comforts(Integer idComforts, String name,Set<Placement> placements, Set <ComfortsParametrs> comfortsParametrs) {
+    public Comforts(Integer idComforts, String name,Set<Placement> placements,ComfortsGroup comfortsParametrs) {
         this.idComforts = idComforts;
         this.name = name;
-        this.comfortsParametrses = comfortsParametrses;
+        this.comfortsGroup = comfortsGroup;
         this.placements = placements;
     }
 
@@ -81,19 +83,11 @@ public class Comforts implements Serializable {
         this.placements = placements;
     }
 
-    public Set<ComfortsParametrs> getComfortsParametrses() {
-        return comfortsParametrses;
+    public ComfortsGroup getComfortsGroup() {
+        return comfortsGroup;
     }
 
-    public void setComfortsParametrses(Set<ComfortsParametrs> comfortsParametrses) {
-        this.comfortsParametrses = comfortsParametrses;
-    }
-
-    public void addComfortsParametrs(ComfortsParametrs comfortsParametrs){
-        comfortsParametrs.setComforts(this);
-        getComfortsParametrses().add(comfortsParametrs);
-    }
-    public void removeComfortsParametrs(ComfortsParametrs comfortsParametrs){
-        getComfortsParametrses().remove(comfortsParametrs);
+    public void setComfortsGroup(ComfortsGroup comfortsGroup) {
+        this.comfortsGroup = comfortsGroup;
     }
 }

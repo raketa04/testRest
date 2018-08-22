@@ -43,11 +43,19 @@ public class LeaseDto {
     
     @NotNull(groups = {addLease.class})
     @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class})
-    private Date startLease;
+    private Long startLease;
     
     @NotNull(groups = {addLease.class})
     @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class})
-    private Date endLease;
+    private Long endLease;
+    
+    @NotNull(groups = {addLease.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class})
+    private Integer childern;
+
+    @NotNull(groups = {addLease.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class})
+    private Integer adults;
 
     @NotNull(groups = {addLease.class})
     @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class})
@@ -64,24 +72,26 @@ public class LeaseDto {
     public LeaseDto() {
     }
 
-    public LeaseDto(Integer idLease, Date startLease, Date endLease, TenantDto tenant, PlacementDto placement, FeedbackDto feedback) {
+    public LeaseDto(Integer idLease, Long startLease,Long endLease, Integer childern, Integer adults , TenantDto tenant, PlacementDto placement, FeedbackDto feedback) {
         this.idLease = idLease;
         this.startLease = startLease;
         this.endLease = endLease;
         this.tenant = tenant;
         this.placement = placement;
         this.feedback = feedback;
+        this.adults = adults;
+        this.childern =childern;
     }
 
     public Integer getIdLease() {
         return idLease;
     }
 
-    public Date getStartLease() {
+    public Long getStartLease() {
         return startLease;
     }
 
-    public Date getEndLease() {
+    public Long getEndLease() {
         return endLease;
     }
 
@@ -101,11 +111,11 @@ public class LeaseDto {
         this.idLease = idLease;
     }
 
-    public void setStartLease(Date startLease) {
+    public void setStartLease(Long startLease) {
         this.startLease = startLease;
     }
 
-    public void setEndLease(Date endLease) {
+    public void setEndLease(Long endLease) {
         this.endLease = endLease;
     }
 

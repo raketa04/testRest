@@ -23,12 +23,12 @@ public class ComfortsDto implements Serializable {
     @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class})
     private String name;
     @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class})
-    private Set <ComfortsParametrsDto> comfortsParametrses;
+    private ComfortsGroupDto comfortsGroup;
     
-    public ComfortsDto(Integer idComforts, String name,Set <ComfortsParametrsDto> comfortsParametrses) {
+    public ComfortsDto(Integer idComforts, String name,ComfortsGroupDto comfortsParametrses) {
         this.idComforts = idComforts;
         this.name = name;
-        this.comfortsParametrses = comfortsParametrses;
+        this.comfortsGroup = comfortsParametrses;
     }
 
     public ComfortsDto() {
@@ -50,12 +50,15 @@ public class ComfortsDto implements Serializable {
         this.name = name;
     }
 
-    public Set<ComfortsParametrsDto> getComfortsParametrses() {
-        return comfortsParametrses;
+    public ComfortsGroupDto getComfortsGroup() {
+        return comfortsGroup;
     }
 
-    public void setComfortsParametrses(Set<ComfortsParametrsDto> comfortsParametrses) {
-        this.comfortsParametrses = comfortsParametrses;
+    public void setComfortsGroup(ComfortsGroupDto comfortsGroup) {
+        this.comfortsGroup = comfortsGroup;
     }
+
+    
+    
    
 }

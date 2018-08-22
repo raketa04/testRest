@@ -8,6 +8,7 @@ package com.mycompany.resurse;
 
 import java.util.Date;
 import javax.persistence.Column;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
@@ -39,6 +40,12 @@ public class Lease {
     @Column (name = "end_lease")
     private Date endLease;
     
+    @Column (name = "children")
+    private Integer children;
+    
+    @Column (name = "adults")
+    private Integer adults;
+    
     @ManyToOne
     @JoinColumn(name="tenant")
     private Tenant tenant;
@@ -54,13 +61,15 @@ public class Lease {
     public Lease() {
     }
 
-    public Lease(Integer idLease, Date startLease, Date endLease, Tenant tenant, Placement placement, Feedback feedback) {
+    public Lease(Integer idLease, Date startLease, Date endLease, Integer children, Integer adults, Tenant tenant, Placement placement, Feedback feedback) {
         this.idLease = idLease;
         this.startLease = startLease;
         this.endLease = endLease;
         this.tenant = tenant;
         this.placement = placement;
         this.feedback = feedback;
+        this.adults = adults;
+        this.children = children;
     }
 
     
@@ -111,5 +120,21 @@ public class Lease {
 
     public void setFeedback(Feedback feedback) {
         this.feedback = feedback;
+    }
+
+    public Integer getAdults() {
+        return adults;
+    }
+
+    public Integer getChildren() {
+        return children;
+    }
+
+    public void setAdults(Integer adults) {
+        this.adults = adults;
+    }
+
+    public void setChildren(Integer children) {
+        this.children = children;
     }
 }
