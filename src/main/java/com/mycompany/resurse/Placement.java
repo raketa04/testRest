@@ -72,6 +72,8 @@ public class Placement implements Serializable{
     @Column (name = "profile")
     private String profile;
     
+     @Column (name = "housing")
+    private Integer housing;
     @ManyToMany
     @JoinTable(name = "Placement_has_comforts",
             joinColumns = @JoinColumn (name = "Placement_id_placement"),
@@ -233,7 +235,7 @@ public class Placement implements Serializable{
         getLeases().remove(lease);
     }
 
-    public Placement(Integer idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer childern, Integer adults, String phonePlacment, String alternativePhonePlacement,String profile, Landlords landlord, City city) {
+    public Placement(Integer idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer childern, Integer adults, String phonePlacment, String alternativePhonePlacement,String profile,Integer housing, Landlords landlord, City city) {
         this.idPlacement = idPlacement;
         this.street = street;
         this.house = house;
@@ -249,6 +251,7 @@ public class Placement implements Serializable{
         this.landlord = landlord;
         this.city = city;
         this.profile = profile;
+        this.housing = housing;
     }
 
     public String getAlternativePhonePlacement() {
@@ -274,7 +277,16 @@ public class Placement implements Serializable{
     public void setProfile(String profile) {
         this.profile = profile;
     }
+
+    public Integer getHousing() {
+        return housing;
+    }
+
+    public void setHousing(Integer housing) {
+        this.housing = housing;
+    }
         
+    
     public Placement() {
     }
     

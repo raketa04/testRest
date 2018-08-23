@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import static javax.persistence.GenerationType.IDENTITY;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -34,7 +35,8 @@ public class Feedback {
     @Column (name = "rating")
     private int rating;
     
-    @OneToOne(mappedBy = "feedback",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
+    @JoinColumn(name = "lease")
     private Lease lease;
 
     public Feedback() {

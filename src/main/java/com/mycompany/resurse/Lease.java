@@ -7,6 +7,7 @@ package com.mycompany.resurse;
 
 
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 
 import javax.persistence.Entity;
@@ -54,8 +55,7 @@ public class Lease {
     @JoinColumn(name="placement")
     private Placement placement;
     
-    @OneToOne
-    @JoinColumn(name="feedback")
+    @OneToOne(mappedBy = "lease", cascade=CascadeType.ALL,    orphanRemoval=true)
     private Feedback feedback;
 
     public Lease() {

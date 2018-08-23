@@ -66,7 +66,7 @@ public class FeedbackDaoImpl implements FeedbackDao{
 
     @Override
     public float findRating(int id) {
-        String hql = "FROM Feedback f where f.leases.placment = :placement";
+        String hql = "FROM Feedback f where f.lease.placement = :placement";
         Query query = (Query) entityManager.createQuery(hql,Feedback.class);
         query.setParameter("placement", id); 
 	List<Feedback> result =  query.getResultList();

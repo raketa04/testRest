@@ -42,6 +42,7 @@ public class FeedbackDto {
     @JsonView({getFeedback.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
     private int rating;
     @NotNull(groups = {addFeedback.class})
+    @Null(groups = {editFeedback.class})
     //@JsonView({getFeedback.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
     LeaseDto lease;
 

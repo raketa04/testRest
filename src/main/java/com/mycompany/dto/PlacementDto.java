@@ -60,6 +60,11 @@ public class PlacementDto {
     @Null(groups = {LeaseDto.addLease.class})
     @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class, getPlacmentSearach.class,getPlacment.class,  LeaseDto.getLeasePlacmentTenant.class})
     private int room;
+    
+    @NotNull(groups = {addPlacment.class, updatePlacment.class})
+    @Null(groups = {LeaseDto.addLease.class})
+    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class, getPlacmentSearach.class,getPlacment.class,  LeaseDto.getLeasePlacmentTenant.class})
+    private Integer housing;
 
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
@@ -121,7 +126,7 @@ public class PlacementDto {
     public PlacementDto() {
     }
 
-    public PlacementDto(Integer idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer children, Integer adults, String phonePlacment, String alternativePhonePlacement,String profile, CityDto city, LandlordDto landlord, LeaseDto lease) {
+    public PlacementDto(Integer idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer children, Integer adults, String phonePlacment, String alternativePhonePlacement,String profile,Integer housing, CityDto city, LandlordDto landlord, LeaseDto lease) {
         this.idPlacement = idPlacement;
         this.street = street;
         this.house = house;
@@ -137,7 +142,8 @@ public class PlacementDto {
         this.city = city;
         this.landlord = landlord;
         this.lease = lease;
-        this.profile = this.profile;
+        this.profile = profile;
+        this.housing = this.housing;
     }
 
     public Integer getIdPlacement() {
@@ -274,6 +280,14 @@ public class PlacementDto {
 
     public void setChildren(Integer children) {
         this.children = children;
+    }
+
+    public Integer getHousing() {
+        return housing;
+    }
+
+    public void setHousing(Integer housing) {
+        this.housing = housing;
     }
 
     

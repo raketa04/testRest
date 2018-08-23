@@ -110,6 +110,7 @@ public class PlacementDaoImpl implements PlacementDao{
             if(updatePlacement.getPayMonth()!= placement.getPayMonth()) updatePlacement.setPayMonth(placement.getPayMonth());
             if(updatePlacement.getAdults()!= placement.getAdults()) updatePlacement.setAdults(placement.getAdults());
             if(updatePlacement.getChildren() != placement.getChildren()) updatePlacement.setChildren(placement.getChildren());
+            if(updatePlacement.getHousing() != placement.getHousing()) updatePlacement.setHousing(placement.getHousing());
             if(!updatePlacement.getPhonePlacment().equals(placement.getPhonePlacment())) updatePlacement.setPhonePlacment(placement.getPhonePlacment());
             if(!updatePlacement.getAlternativePhonePlacement().equals(placement.getAlternativePhonePlacement())) updatePlacement.setAlternativePhonePlacement(placement.getAlternativePhonePlacement());
             if(!updatePlacement.getComfortses().equals(placement.getComfortses())) updatePlacement.setComfortses(placement.getComfortses());
