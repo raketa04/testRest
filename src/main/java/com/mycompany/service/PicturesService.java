@@ -6,6 +6,7 @@
 package com.mycompany.service;
 
 import com.mycompany.resurse.Pictuteres;
+import java.io.File;
 import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,7 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface PicturesService {
     List<Pictuteres> findByPlacement(Integer id);
-    byte[] findById (Integer id);
+    File findById (Integer id);
     Pictuteres add(MultipartFile uploadedFileRef, Integer id);
     Pictuteres delete(Pictuteres pic);
 }

@@ -33,7 +33,7 @@ public class PlacementDaoImpl implements PlacementDao{
     
     private String getStringParametrSearch(Search search){
         String hql = "where p.isActive = true ";
-        if(search.getCity().getName() != null) {
+        if(search.getCity().getId() != null) {
             hql += "and p.city.idCity = " + search.getCity().getId()+" ";
         }
         if(search.getAdults() != null ){
@@ -103,7 +103,7 @@ public class PlacementDaoImpl implements PlacementDao{
         else{
             Placement updatePlacement = entityManager.find(Placement.class,placement.getIdPlacement());
             if(!updatePlacement.getStreet().equals(placement.getStreet())) updatePlacement.setStreet(placement.getStreet());
-            if(!updatePlacement.getHouse().equals(placement.getHouse())) updatePlacement.setHouse(placement.getHouse());
+            if(updatePlacement.getHouse() != placement.getHouse()) updatePlacement.setHouse(placement.getHouse());
             if(updatePlacement.getApartment() != placement.getApartment()) updatePlacement.setApartment(placement.getApartment());
             if(updatePlacement.getRoom()!= placement.getRoom()) updatePlacement.setRoom(placement.getRoom());
             if(updatePlacement.getPayDay()!= placement.getPayDay()) updatePlacement.setPayDay(placement.getPayDay());
@@ -115,7 +115,7 @@ public class PlacementDaoImpl implements PlacementDao{
             if(!updatePlacement.getAlternativePhonePlacement().equals(placement.getAlternativePhonePlacement())) updatePlacement.setAlternativePhonePlacement(placement.getAlternativePhonePlacement());
             if(!updatePlacement.getComfortses().equals(placement.getComfortses())) updatePlacement.setComfortses(placement.getComfortses());
             if(!updatePlacement.isIsActive() != placement.isIsActive()) updatePlacement.setIsActive(placement.isIsActive());
-            if(!updatePlacement.getProfile().equals(placement.getProfile())) updatePlacement.setProfile(placement.getProfile());
+            if(!updatePlacement.getContent().equals(placement.getContent())) updatePlacement.setContent(placement.getContent());
             entityManager.merge(updatePlacement);
         }
         entityManager.flush();
@@ -149,7 +149,7 @@ public class PlacementDaoImpl implements PlacementDao{
     @Override
     public List<Placement> findByParametr(Search search) {
         String hql = "FROM Placement p " ;
-        if(search.getStart()!=null || search.getEnd() != null) hql += "" + getStringParametrSearch(search);      
+        hql += "" + getStringParametrSearch(search);      
         List <Placement> result = entityManager.createQuery(hql,Placement.class).getResultList();
 	return result;
     }

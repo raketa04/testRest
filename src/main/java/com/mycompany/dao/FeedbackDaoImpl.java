@@ -6,10 +6,7 @@
 package com.mycompany.dao;
 
 import com.mycompany.resurse.Feedback;
-import com.mycompany.resurse.Landlords;
 import com.mycompany.resurse.Lease;
-import com.mycompany.resurse.Placement;
-import com.mycompany.resurse.Tenant;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -57,7 +54,7 @@ public class FeedbackDaoImpl implements FeedbackDao{
 
     @Override
     public List<Feedback> findAll(int id) {
-        String hql = "FROM Feedback f where f.leases.placement = :placement";
+        String hql = "FROM Feedback f where f.lease.placement.idPlacement = :placement";
         Query query = (Query) entityManager.createQuery(hql,Feedback.class);
         query.setParameter("placement", id); 
 	List<Feedback> result =  query.getResultList();
@@ -66,9 +63,9 @@ public class FeedbackDaoImpl implements FeedbackDao{
 
     @Override
     public float findRating(int id) {
-        String hql = "FROM Feedback f where f.lease.placement = :placement";
+        String hql = "FROM Feedback f where f.lease.placement.idPlacement = 3";
         Query query = (Query) entityManager.createQuery(hql,Feedback.class);
-        query.setParameter("placement", id); 
+        //query.setParameter("placement", id); 
 	List<Feedback> result =  query.getResultList();
         int sum = 0;
         for(Feedback feedback:result){

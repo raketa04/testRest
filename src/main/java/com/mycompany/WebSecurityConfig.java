@@ -104,8 +104,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/placement/search_number",  
                 "/placement/search",
                 "/city/findbyname",
-                "/region/all"
+                "/region/all",
+                "/file/getPic/{id}"
+            )
+            .antMatchers(
+                HttpMethod.GET,
+                "/file/getPic/{id}"
             );
-
     }
 }

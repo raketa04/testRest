@@ -37,7 +37,7 @@ public class PlacementDto {
 
 
     @Null(groups = {addPlacment.class})
-    @NotNull(groups = {updatePlacment.class, LeaseDto.addLease.class})
+    @NotNull(groups = {updatePlacment.class, LeaseDto.addLease.class,PictuteresDto.deletePictures.class})
     @JsonView({PictuteresDto.getPictures.class,addGetPlacment.class, getPlacmentSearach.class,getPlacment.class,  LeaseDto.getLeasePlacmentTenant.class, LeaseDto.getAddLease.class,LeaseDto.getLeaseTenant.class})
     private Integer idPlacement = null;
 
@@ -49,7 +49,7 @@ public class PlacementDto {
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
     @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class, getPlacmentSearach.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
-    private String house;
+    private int house;
 
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
@@ -64,7 +64,7 @@ public class PlacementDto {
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
     @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class, getPlacmentSearach.class,getPlacment.class,  LeaseDto.getLeasePlacmentTenant.class})
-    private Integer housing;
+    private String housing;
 
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
@@ -104,7 +104,7 @@ public class PlacementDto {
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
     @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
-    private String profile;
+    private String content;
 
     @Null(groups = {LeaseDto.addLease.class})
     @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
@@ -122,11 +122,13 @@ public class PlacementDto {
 
     @Null(groups = {addPlacment.class, updatePlacment.class})
     private LeaseDto lease;
+    @JsonView({getPlacment.class,getPlacmentSearach.class})
+    private Set<PictuteresDto> pictutereses = new HashSet<>();
 
     public PlacementDto() {
     }
 
-    public PlacementDto(Integer idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer children, Integer adults, String phonePlacment, String alternativePhonePlacement,String profile,Integer housing, CityDto city, LandlordDto landlord, LeaseDto lease) {
+    public PlacementDto(Integer idPlacement, String street, int house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer children, Integer adults, String phonePlacment, String alternativePhonePlacement,String content,String housing, CityDto city, LandlordDto landlord, LeaseDto lease,Set<PictuteresDto> pictutereses) {
         this.idPlacement = idPlacement;
         this.street = street;
         this.house = house;
@@ -142,8 +144,9 @@ public class PlacementDto {
         this.city = city;
         this.landlord = landlord;
         this.lease = lease;
-        this.profile = profile;
-        this.housing = this.housing;
+        this.content = content;
+        this.housing = housing;
+        this.pictutereses = pictutereses;
     }
 
     public Integer getIdPlacement() {
@@ -154,7 +157,7 @@ public class PlacementDto {
         return street;
     }
 
-    public String getHouse() {
+    public int getHouse() {
         return house;
     }
 
@@ -190,6 +193,11 @@ public class PlacementDto {
         return city;
     }
 
+    public Set<PictuteresDto> getPictutereses() {
+        return pictutereses;
+    }
+
+    
     public void setIdPlacement(Integer idPlacement) {
         this.idPlacement = idPlacement;
     }
@@ -198,7 +206,7 @@ public class PlacementDto {
         this.street = street;
     }
 
-    public void setHouse(String house) {
+    public void setHouse(int house) {
         this.house = house;
     }
 
@@ -266,12 +274,12 @@ public class PlacementDto {
         this.phonePlacment = phonePlacment;
     }
 
-    public String getProfile() {
-        return profile;
+    public String getContent() {
+        return content;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public Integer getChildren() {
@@ -282,14 +290,18 @@ public class PlacementDto {
         this.children = children;
     }
 
-    public Integer getHousing() {
+    public String getHousing() {
         return housing;
     }
 
-    public void setHousing(Integer housing) {
+    public void setHousing(String housing) {
         this.housing = housing;
     }
 
+    public void setPictutereses(Set<PictuteresDto> pictutereses) {
+        this.pictutereses = pictutereses;
+    }
     
+       
     
 }

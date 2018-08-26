@@ -8,15 +8,11 @@ package com.mycompany.service;
 import com.mycompany.dao.PictuteresDao;
 import com.mycompany.resurse.Pictuteres;
 import com.mycompany.resurse.Placement;
-import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.logging.Level;
@@ -41,27 +37,23 @@ public class PicturesServiceImpl implements PicturesService{
     }
 
     @Override
-    public byte[] findById(Integer id) {
-        FileInputStream inputStream = null;
-        try {
-            Pictuteres pictuteres = pictuteresDao.findById(id);
-            File outputFile = new File(pictuteres.getAdressPic());
-            inputStream = new FileInputStream(outputFile);
-            byte[] bytes =  new byte[inputStream.available()];
-            inputStream.read(bytes, 0, inputStream.available());
-            return bytes;
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(PicturesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(PicturesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException ex) {
-                Logger.getLogger(PicturesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return null;
+    public File findById(Integer id) {
+        Pictuteres pictuteres = pictuteresDao.findById(id);
+        File outputFile = new File(pictuteres.getAdressPic());
+        /*inputStream = new FileInputStream(outputFile);
+        byte[] bytes =  new byte[inputStream.available()];
+        inputStream.read(bytes, 0, inputStream.available());
+        String path = "F:\\123.jpg";
+        File outputFiletemp = new File(path);
+        outputFile.createNewFile();
+        BufferedOutputStream writer = new BufferedOutputStream(new FileOutputStream(outputFiletemp));
+        writer.write(bytes);
+        writer.flush();
+        writer.close();
+        
+        return bytes;
+        */
+        return outputFile;
     }
 
     @Override
@@ -69,7 +61,8 @@ public class PicturesServiceImpl implements PicturesService{
         try {
             String fileName = uploadedFileRef.getOriginalFilename();
             Random random = new Random();
-            String path = "C:\\" + fileName;
+            String cwd = System.getProperty("user.dir");
+            String path = cwd  + fileName;
             byte[] bytes = uploadedFileRef.getBytes() ;
             File outputFile = new File(path);
             outputFile.createNewFile();

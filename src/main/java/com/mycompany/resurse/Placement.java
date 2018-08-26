@@ -40,7 +40,7 @@ public class Placement implements Serializable{
     private String street;
     
     @Column (name = "house")
-    private String house;
+    private int house;
     
     @Column (name = "apartment")
     private int apartment;
@@ -69,11 +69,11 @@ public class Placement implements Serializable{
     @Column (name = "alternative_phone_placement")
     private String alternativePhonePlacement;
     
-    @Column (name = "profile")
-    private String profile;
+    @Column (name = "content")
+    private String content;
     
      @Column (name = "housing")
-    private Integer housing;
+    private String housing;
     @ManyToMany
     @JoinTable(name = "Placement_has_comforts",
             joinColumns = @JoinColumn (name = "Placement_id_placement"),
@@ -102,7 +102,7 @@ public class Placement implements Serializable{
         return street;
     }
 
-    public String getHouse() {
+    public int getHouse() {
         return house;
     }
 
@@ -158,7 +158,7 @@ public class Placement implements Serializable{
         this.street = street;
     }
 
-    public void setHouse(String house) {
+    public void setHouse(int house) {
         this.house = house;
     }
 
@@ -235,7 +235,7 @@ public class Placement implements Serializable{
         getLeases().remove(lease);
     }
 
-    public Placement(Integer idPlacement, String street, String house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer childern, Integer adults, String phonePlacment, String alternativePhonePlacement,String profile,Integer housing, Landlords landlord, City city) {
+    public Placement(Integer idPlacement, String street, int house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer childern, Integer adults, String phonePlacment, String alternativePhonePlacement,String profile,String housing, Landlords landlord, City city) {
         this.idPlacement = idPlacement;
         this.street = street;
         this.house = house;
@@ -250,7 +250,7 @@ public class Placement implements Serializable{
         this.alternativePhonePlacement = alternativePhonePlacement;
         this.landlord = landlord;
         this.city = city;
-        this.profile = profile;
+        this.content = profile;
         this.housing = housing;
     }
 
@@ -270,19 +270,19 @@ public class Placement implements Serializable{
         this.phonePlacment = phonePlacment;
     }
 
-    public String getProfile() {
-        return profile;
+    public String getContent() {
+        return content;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    public Integer getHousing() {
+    public String getHousing() {
         return housing;
     }
 
-    public void setHousing(Integer housing) {
+    public void setHousing(String housing) {
         this.housing = housing;
     }
         

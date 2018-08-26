@@ -35,7 +35,7 @@ public class Feedback {
     @Column (name = "rating")
     private int rating;
     
-    @OneToOne
+    @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "lease")
     private Lease lease;
 
