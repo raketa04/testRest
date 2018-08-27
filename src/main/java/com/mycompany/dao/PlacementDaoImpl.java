@@ -116,6 +116,7 @@ public class PlacementDaoImpl implements PlacementDao{
             if(!updatePlacement.getComfortses().equals(placement.getComfortses())) updatePlacement.setComfortses(placement.getComfortses());
             if(!updatePlacement.isIsActive() != placement.isIsActive()) updatePlacement.setIsActive(placement.isIsActive());
             if(!updatePlacement.getContent().equals(placement.getContent())) updatePlacement.setContent(placement.getContent());
+            if(!updatePlacement.getName().equals(placement.getName())) updatePlacement.setName(placement.getName());
             entityManager.merge(updatePlacement);
         }
         entityManager.flush();

@@ -105,6 +105,11 @@ public class PlacementDto {
     @Null(groups = {LeaseDto.addLease.class})
     @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
     private String content;
+    
+    @NotNull(groups = {addPlacment.class, updatePlacment.class})
+    @Null(groups = {LeaseDto.addLease.class})
+    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
+    private String name;
 
     @Null(groups = {LeaseDto.addLease.class})
     @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
@@ -128,7 +133,7 @@ public class PlacementDto {
     public PlacementDto() {
     }
 
-    public PlacementDto(Integer idPlacement, String street, int house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer children, Integer adults, String phonePlacment, String alternativePhonePlacement,String content,String housing, CityDto city, LandlordDto landlord, LeaseDto lease,Set<PictuteresDto> pictutereses) {
+    public PlacementDto(Integer idPlacement, String street, int house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer children, Integer adults, String phonePlacment, String alternativePhonePlacement,String content,String housing,String name, CityDto city, LandlordDto landlord, LeaseDto lease,Set<PictuteresDto> pictutereses) {
         this.idPlacement = idPlacement;
         this.street = street;
         this.house = house;
@@ -147,6 +152,7 @@ public class PlacementDto {
         this.content = content;
         this.housing = housing;
         this.pictutereses = pictutereses;
+        this.name = name;
     }
 
     public Integer getIdPlacement() {
