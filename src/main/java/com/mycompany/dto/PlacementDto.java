@@ -106,6 +106,8 @@ public class PlacementDto {
     @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
     private String content;
     
+    @NotNull(groups = {addPlacment.class, updatePlacment.class})
+    @Null(groups = {LeaseDto.addLease.class})
     @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
     private String name;
 
