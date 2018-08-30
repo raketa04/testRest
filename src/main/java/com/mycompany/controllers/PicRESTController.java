@@ -41,7 +41,7 @@ public class PicRESTController {
     @Autowired
     private PicturesService picturesService;
     
-    @RequestMapping(value = "addPic",method = RequestMethod.POST)
+    @RequestMapping(value = "addPic",params={"placement"},method = RequestMethod.POST)
     @JsonView(PictuteresDto.getPictures.class)
     public ResponseEntity <PictuteresDto> uploadFile(@RequestParam("uploadedFile") MultipartFile uploadedFileRef,@RequestParam("placement") Integer id) throws IOException{
         if(!uploadedFileRef.isEmpty()&& uploadedFileRef.getOriginalFilename().substring(uploadedFileRef.getOriginalFilename().lastIndexOf('.')+1).equals("jpg")){

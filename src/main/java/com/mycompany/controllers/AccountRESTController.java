@@ -72,17 +72,19 @@ public class AccountRESTController {
     @RequestMapping(value ="activation", method = RequestMethod.POST)
     public ResponseEntity<String> activation(@Validated(AccountDto.activation.class)@RequestBody AccountDto accountDto) {
         String result = accountService.activate(modelMapper.map(accountDto, Account.class));
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        if(result ==  "Error code activation!") return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
     }
     
     
     @RequestMapping(value ="add", method = RequestMethod.POST)
     @JsonView(AccountDto.autarificationOut.class)
-    public ResponseEntity<AccountDto> addNewUser(@Validated(AccountDto.add.class) @RequestBody AccountDto accountDto) {
+    public ResponseEntity<?> addNewUser(@Validated(AccountDto.add.class) @RequestBody AccountDto accountDto) {
         accountDto.setPassword(new BCryptPasswordEncoder().encode(accountDto.getPassword()));
+        if(accountService.findByAccount(accountDto.getEmail()) != null) return new ResponseEntity<>("email is registered", HttpStatus.BAD_REQUEST);
         Account result = accountService.save(modelMapper.map(accountDto, Account.class));
         Account temp = accountService.findById(result.getIdAccount());
-        return new ResponseEntity<>(modelMapper.map(temp, AccountDto.class), HttpStatus.OK);
+        return new ResponseEntity<>(modelMapper.map(temp, AccountDto.class), HttpStatus.CREATED);
     }
     
     
@@ -92,7 +94,7 @@ public class AccountRESTController {
     public ResponseEntity<AccountDto> updateUser(@RequestBody AccountDto accountDto) {
         if(accountDto.getPassword() != null) accountDto.setPassword(new BCryptPasswordEncoder().encode(accountDto.getPassword()));
         Account result = accountService.save(modelMapper.map(accountDto, Account.class));
-        return new ResponseEntity<>(modelMapper.map(result, AccountDto.class), HttpStatus.OK);
+        return new ResponseEntity<>(modelMapper.map(result, AccountDto.class), HttpStatus.ACCEPTED);
     }
     
 }
