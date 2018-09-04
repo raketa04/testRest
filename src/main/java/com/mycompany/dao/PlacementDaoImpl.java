@@ -62,8 +62,8 @@ public class PlacementDaoImpl implements PlacementDao{
                 hql += " and p.idPlacement not in (Select l.placement From Lease l Where (l.startLease between '"+ search.getStart() + "' and '" + search.getEnd() +"') or (l.endLease between '"+ search.getStart() + "' and '" + search.getEnd() +"') or ('" + search.getStart() + "' between l.startLease and  l.endLease) or ('" + search.getEnd() + "' between l.startLease and  l.endLease))";
             }
         }
-        if(search.getSorted().equals(sorted.pay_day_ascending)) hql += " Order by p.payDay ASC";
-        if(search.getSorted().equals(sorted.pay_day_descending)) hql += " Order by p.payDay DESC";
+        if(search.getSorted().equals(sorted.pay_day_ascending.toString())) hql += " Order by p.payDay ASC";
+        if(search.getSorted().equals(sorted.pay_day_descending.toString())) hql += " Order by p.payDay DESC";
         if(search.getSorted().equals(sorted.rating_ascending)) hql += " Order by ";
         if(search.getSorted().equals(sorted.rating_descending)) hql += " Order by ";
         if(search.getSorted().equals(sorted.popularity_ascending)) hql += " Order by ";
@@ -168,7 +168,7 @@ public class PlacementDaoImpl implements PlacementDao{
         hql += "" + getStringParametrSearch(search);
         Query query = (Query) entityManager.createQuery(hql,Placement.class);
         query.setFirstResult((page - 1) * 2);
-        query.setMaxResults(page * 2);
+        query.setMaxResults(2);
         List <Placement> result = query.getResultList();
 	return result;
     }

@@ -57,7 +57,7 @@ public class LeaseRESTController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
-    @RequestMapping(value ="tenant/{id}", method = RequestMethod.GET)
+    @RequestMapping(value ="account/{id}", method = RequestMethod.GET)
     @JsonView(LeaseDto.getLeaseTenant.class)
     public ResponseEntity<List<LeaseDto>> getAllLeaseTenant(@PathVariable int id) {
         List<LeaseDto> list = leaseService.findByAccount(id).stream()
