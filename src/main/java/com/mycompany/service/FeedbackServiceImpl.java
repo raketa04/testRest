@@ -7,8 +7,6 @@ package com.mycompany.service;
 
 import com.mycompany.dao.FeedbackDao;
 import com.mycompany.resurse.Feedback;
-import com.mycompany.resurse.Placement;
-import com.mycompany.resurse.Tenant;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +21,8 @@ public class FeedbackServiceImpl implements FeedbackService{
     @Autowired
     FeedbackDao feedbackDao;
     @Override
-    public List<Feedback> findByTenant(Integer idTenant) {
-        return feedbackDao.findByTenant(idTenant);
+    public List<Feedback> findByAccount(Integer idAccount) {
+        return feedbackDao.findByAccount(idAccount);
     }
 
     @Override

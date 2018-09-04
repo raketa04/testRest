@@ -26,10 +26,10 @@ public class FeedbackDaoImpl implements FeedbackDao{
     @PersistenceContext	
     private EntityManager entityManager;
     @Override
-    public List<Feedback> findByTenant(Integer idTenant) {
-        String hql = "FROM Feedback f where f.leases.tenant = :ten";
+    public List<Feedback> findByAccount(Integer idAccount) {
+        String hql = "FROM Feedback f where f.leases.account = :acc";
         Query query = (Query) entityManager.createQuery(hql,Feedback.class);
-        query.setParameter("ten", idTenant); 
+        query.setParameter("acc", idAccount); 
 	List<Feedback> result =  query.getResultList();
 	return result;
     }
@@ -76,9 +76,9 @@ public class FeedbackDaoImpl implements FeedbackDao{
 
     @Override
     public List<Feedback> findByPlacement(Integer idPlacment) {
-         String hql = "FROM Feedback f where f.leases.placement = :land";
+         String hql = "FROM Feedback f where f.leases.placement = :plac";
         Query query = (Query) entityManager.createQuery(hql,Feedback.class);
-        query.setParameter("land", idPlacment); 
+        query.setParameter("plac", idPlacment); 
 	List<Feedback> result =  query.getResultList();
 	return result;
     }

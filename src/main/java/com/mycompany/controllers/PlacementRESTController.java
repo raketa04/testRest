@@ -14,7 +14,9 @@ import com.mycompany.dto.Search;
 import com.mycompany.dto.SearchDto;
 import com.mycompany.resurse.Account;
 import com.mycompany.resurse.Comforts;
+import com.mycompany.resurse.Location;
 import com.mycompany.resurse.Placement;
+import com.mycompany.service.LocationService;
 import com.mycompany.service.PlacementService;
 import java.util.List;
 import java.util.Set;
@@ -46,10 +48,13 @@ public class PlacementRESTController {
     @Autowired
     private PlacementService placementService;
     
-    @GetMapping("landlord/{id}")
+    @Autowired
+    private LocationService locationService;
+    
+    @GetMapping("account/{id}")
     @JsonView(PlacementDto.getPlacment.class)
     public ResponseEntity<List<PlacementDto>> getLandlordPlacment(@PathVariable int id) {
-        List<PlacementDto> list = placementService.findAll().stream()
+        List<PlacementDto> list = placementService.findByIdAccount(id).stream()
                 .map(authority -> modelMapper.map(authority ,PlacementDto.class))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(list, HttpStatus.OK);
@@ -75,10 +80,10 @@ public class PlacementRESTController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
     
-    @RequestMapping(value ="search", method = RequestMethod.POST)
+    @RequestMapping(value ="search/{page}", method = RequestMethod.POST)
     @JsonView(PlacementDto.getPlacmentSearach.class)
-    public ResponseEntity<List<PlacementDto>> SearchPlacment (@RequestBody SearchDto search) {
-        List<PlacementDto> list= placementService.findByParametr(modelMapper.map(search, Search.class)).stream()
+    public ResponseEntity<List<PlacementDto>> SearchPlacment (@RequestBody SearchDto search,@PathVariable int page) {
+        List<PlacementDto> list= placementService.findByParametr(modelMapper.map(search, Search.class),page).stream()
                .map(authority -> modelMapper.map(authority ,PlacementDto.class))
                .collect(Collectors.toList());
         return new ResponseEntity<>(list, HttpStatus.OK);
@@ -93,7 +98,10 @@ public class PlacementRESTController {
     @RequestMapping(value ="add", method = RequestMethod.POST)
     @JsonView(PlacementDto.addGetPlacment.class)
     public ResponseEntity<PlacementDto> addNewPlacement(@Validated(PlacementDto.addPlacment.class)@RequestBody PlacementDto placementDto) {
-        Placement placement = placementService.save(modelMapper.map(placementDto, Placement.class));
+        Location location = locationService.addLocation(modelMapper.map(placementDto, Placement.class));
+        Placement placementAdd = modelMapper.map(placementDto, Placement.class);
+        placementAdd.setLocation(location);
+        Placement placement = placementService.save(placementAdd); 
         Placement result = placementService.findById(placement.getIdPlacement());
         return new ResponseEntity<>(modelMapper.map(result,PlacementDto.class), HttpStatus.OK);
     }

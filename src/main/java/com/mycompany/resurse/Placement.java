@@ -22,6 +22,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -34,7 +35,7 @@ public class Placement implements Serializable{
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_placement")
-    private Integer idPlacement = null;
+    private Integer idPlacement =null;
     
     @Column (name = "street")
     private String street;
@@ -72,11 +73,21 @@ public class Placement implements Serializable{
     @Column (name = "content")
     private String content;
     
-     @Column (name = "housing")
+    @Column (name = "housing")
     private String housing;
-     
+    
+    @Column (name = "clining")
+    private boolean clining;
+    
+    @Column (name = "sleeping_area")
+    private Integer sleeping_area;
+    
+    @Column (name = "area")
+    private Float area;
+    
     @Column (name = "name")
     private String name;
+    
     @ManyToMany
     @JoinTable(name = "Placement_has_comforts",
             joinColumns = @JoinColumn (name = "Placement_id_placement"),
@@ -84,8 +95,8 @@ public class Placement implements Serializable{
     private Set<Comforts> comfortses = new HashSet<>();
     
     @ManyToOne()
-    @JoinColumn(name="landlord")
-    private Landlords landlord;
+    @JoinColumn(name="account")
+    private Account account;
 
     @ManyToOne
     @JoinColumn(name="city")
@@ -96,6 +107,10 @@ public class Placement implements Serializable{
     
     @OneToMany (mappedBy = "placement",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Lease> leases= new HashSet<>();
+    
+    @OneToOne
+    @JoinColumn (name = "location")
+    private Location location;
     
     public Integer getIdPlacement() {
         return idPlacement;
@@ -147,11 +162,49 @@ public class Placement implements Serializable{
         return comfortses;
     }
 
-    public Landlords getLandlord() {
-        return landlord;
+    public Account getAccount() {
+        return account;
     }
-    
-    
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public Float getArea() {
+        return area;
+    }
+
+    public Integer getSleeping_area() {
+        return sleeping_area;
+    }
+
+    public boolean getClining() {
+        return clining;
+    }
+
+    public Placement(Integer idPlacement, String street, int house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer children, Integer adults, String phonePlacment, String alternativePhonePlacement, String content, String housing, boolean clining, Integer sleeping_area, Float area, String name, Account account, City city, Location location) {
+        this.idPlacement = idPlacement;
+        this.street = street;
+        this.house = house;
+        this.apartment = apartment;
+        this.room = room;
+        this.isActive = isActive;
+        this.payDay = payDay;
+        this.payMonth = payMonth;
+        this.children = children;
+        this.adults = adults;
+        this.phonePlacment = phonePlacment;
+        this.alternativePhonePlacement = alternativePhonePlacement;
+        this.content = content;
+        this.housing = housing;
+        this.clining = clining;
+        this.sleeping_area = sleeping_area;
+        this.area = area;
+        this.name = name;
+        this.account = account;
+        this.city = city;
+        this.location = location;
+    }
 
     public void setIdPlacement(Integer idPlacement) {
         this.idPlacement = idPlacement;
@@ -197,9 +250,8 @@ public class Placement implements Serializable{
         this.children = children;
     }
 
-    
-    public void setLandlord(Landlords landlord) {
-        this.landlord = landlord;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public void setCity(City city) {
@@ -238,25 +290,8 @@ public class Placement implements Serializable{
         getLeases().remove(lease);
     }
 
-    public Placement(Integer idPlacement, String street, int house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer childern, Integer adults, String phonePlacment, String alternativePhonePlacement,String profile,String housing, String name, Landlords landlord, City city, Set<Pictuteres> pictuteres) {
-        this.idPlacement = idPlacement;
-        this.street = street;
-        this.house = house;
-        this.apartment = apartment;
-        this.room = room;
-        this.isActive = isActive;
-        this.payDay = payDay;
-        this.payMonth = payMonth;
-        this.children = childern;
-        this.adults = adults;
-        this.phonePlacment = phonePlacment;
-        this.alternativePhonePlacement = alternativePhonePlacement;
-        this.landlord = landlord;
-        this.city = city;
-        this.content = profile;
-        this.housing = housing;
-        this.name = name;
-        this.pictutereses = pictutereses;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     public String getAlternativePhonePlacement() {
@@ -273,6 +308,18 @@ public class Placement implements Serializable{
 
     public void setPhonePlacment(String phonePlacment) {
         this.phonePlacment = phonePlacment;
+    }
+
+    public void setArea(Float area) {
+        this.area = area;
+    }
+
+    public void setClining(boolean clining) {
+        this.clining = clining;
+    }
+
+    public void setSleeping_area(Integer sleeping_area) {
+        this.sleeping_area = sleeping_area;
     }
 
     public String getContent() {

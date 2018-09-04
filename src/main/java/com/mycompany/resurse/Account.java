@@ -34,7 +34,7 @@ public class Account implements Serializable{
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_account")
-    private Integer idAccount = null;
+    private Integer idAccount;
     
     @Column (name = "password")
     private String password;
@@ -52,25 +52,34 @@ public class Account implements Serializable{
     @Column (name = "code_activate")
     private String codeActivate;
 
-    @OneToOne(mappedBy = "account",  cascade = {CascadeType.ALL},  orphanRemoval=true)
-    private Landlords landlord;
+    @Column (name = "FIO")
+    private String FIO; 
+    
+    @Column (name = "phone")
+    private String phone;
+
+    @OneToMany(mappedBy = "account", cascade=CascadeType.ALL,    orphanRemoval=true)
+    private Set<Placement> placements = new HashSet<>();
+
+    @OneToMany(mappedBy = "account", cascade=CascadeType.ALL,    orphanRemoval=true)
+    private Set<Lease> leases = new HashSet<>();
     
     @OneToOne(mappedBy = "account", cascade=CascadeType.ALL,    orphanRemoval=true)
-    private Tenant tenant;
-
+    private Avatar avatar;
     
     public Account() {
     }
 
-    public Account(Integer idAccount, String password, String email, Authority typeRole, boolean activation, Landlords landlord, Tenant tenant, String codeActivate) {
+    public Account(Integer idAccount, String password, String email, Authority type_role, boolean activation, String codeActivate, String FIO, String phone, Avatar avatar) {
         this.idAccount = idAccount;
         this.password = password;
         this.email = email;
-        this.type_role = typeRole;
+        this.type_role = type_role;
         this.activation = activation;
-        this.landlord = landlord;
-        this.tenant = tenant;
         this.codeActivate = codeActivate;
+        this.FIO = FIO;
+        this.phone = phone;
+        this.avatar = avatar;
     }
 
     public Integer getIdAccount() {
@@ -90,14 +99,6 @@ public class Account implements Serializable{
         return activation;
     }
 
-    public Landlords getLandlord() {
-        return landlord;
-    }
-
-    public Tenant getTenant() {
-        return tenant;
-    }
-
     public void IdAccount(Integer idAccount) {
         this.idAccount = idAccount;
     }
@@ -112,14 +113,6 @@ public class Account implements Serializable{
 
     public void setActivation(boolean activation) {
         this.activation = activation;
-    }
-
-    public void setLandlord(Landlords landlord) {
-        this.landlord = landlord;
-    }
-    
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
     }
     
     public String getEmail() {
@@ -142,7 +135,47 @@ public class Account implements Serializable{
         this.codeActivate = codeActivate;
     }
 
-     
-    
-    
+    public boolean isActivation() {
+        return activation;
+    }
+
+    public String getFIO() {
+        return FIO;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public Set<Placement> getPlacements() {
+        return placements;
+    }
+
+    public Set<Lease> getLeases() {
+        return leases;
+    }
+
+    public void setFIO(String FIO) {
+        this.FIO = FIO;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setPlacements(Set<Placement> placements) {
+        this.placements = placements;
+    }
+
+    public void setLeases(Set<Lease> leases) {
+        this.leases = leases;
+    }
+
+    public Avatar getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Avatar avatar) {
+        this.avatar = avatar;
+    }   
 }

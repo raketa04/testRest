@@ -1,6 +1,6 @@
 com\mycompany\dto\PictuteresDto$deletePictures.class
 com\mycompany\dto\PictuteresDto$getPictures.class
-com\mycompany\service\LandlordsService.class
+com\mycompany\service\LocationServiceImpl.class
 com\mycompany\dao\ComfortsDaoImpl.class
 com\mycompany\dto\ComfortsDto.class
 com\mycompany\resurse\AuthorityName.class
@@ -9,12 +9,9 @@ com\mycompany\dao\CityDaoImpl.class
 com\mycompany\dto\RegionDto.class
 com\mycompany\dto\LeaseDto$addLease.class
 com\mycompany\dto\PlacementDto$addGetPlacment.class
-com\mycompany\dto\AccountDto$addTentant.class
 com\mycompany\dto\LeaseDto$getLeasePlacement.class
 com\mycompany\dto\FeedbackDto$getFeedback.class
-com\mycompany\dto\AccountDto$updateLandlord.class
 com\mycompany\service\CityServiceImpl.class
-com\mycompany\resurse\Landlords.class
 com\mycompany\service\PlacementService.class
 com\mycompany\controllers\PlacementRESTController.class
 com\mycompany\dto\AccountDto$autarificationOut.class
@@ -24,6 +21,7 @@ com\mycompany\dao\PictuteresDao.class
 com\mycompany\dto\LeaseDto$getLeasePlacmentTenant.class
 com\mycompany\security\controller\AuthenticationRestController.class
 com\mycompany\service\ComfortsService.class
+com\mycompany\service\LocationService.class
 com\mycompany\service\FeedbackServiceImpl.class
 com\mycompany\security\JwtAuthorizationTokenFilter.class
 com\mycompany\service\ComfortsServiceImpl.class
@@ -38,10 +36,8 @@ com\mycompany\dto\PlacementDto$getPlacmentSearach.class
 com\mycompany\dao\FeedbackDao.class
 com\mycompany\controllers\ComfortsRESTController.class
 com\mycompany\resurse\Placement.class
-com\mycompany\dao\LandlordsDaoImpl.class
 com\mycompany\service\LeaseService.class
 com\mycompany\dto\PlacementDto$addPlacment.class
-com\mycompany\dao\LandlordsDao.class
 com\mycompany\dao\FeedbackDaoImpl.class
 com\mycompany\dao\PlacementDaoImpl.class
 com\mycompany\resurse\Authority.class
@@ -51,7 +47,8 @@ com\mycompany\dto\FeedbackDto.class
 com\mycompany\resurse\ComfortsGroup.class
 com\mycompany\dto\PlacementDto.class
 com\mycompany\resurse\Comforts.class
-com\mycompany\dto\AccountDto$updateTentant.class
+com\mycompany\dto\AccountDto$update.class
+com\mycompany\resurse\Avatar.class
 com\mycompany\dao\LeaseDao.class
 com\mycompany\dto\PlacementDto$getPlacment.class
 com\mycompany\security\JwtAuthenticationRequest.class
@@ -64,8 +61,8 @@ com\mycompany\controllers\PicRESTController.class
 com\mycompany\resurse\City.class
 com\mycompany\security\JwtUserFactory.class
 com\mycompany\resurse\Lease.class
+com\mycompany\dao\AvatarDao.class
 com\mycompany\dto\AccountDto$activation.class
-com\mycompany\dto\LandlordDto.class
 com\mycompany\controllers\LeaseRESTController.class
 com\mycompany\dto\AccountDto$autarificationIn.class
 com\mycompany\security\JwtTokenUtil.class
@@ -75,7 +72,6 @@ com\mycompany\dao\AuthorityDaoImpl.class
 com\mycompany\dto\AuthorityDto.class
 com\mycompany\service\AuthorityServiceImpl.class
 com\mycompany\resurse\Account.class
-com\mycompany\service\LandlordsServiceImpl.class
 com\mycompany\dao\PictuteresDaoImpl.class
 com\mycompany\security\controller\AuthenticationException.class
 com\mycompany\service\AccountService.class
@@ -83,7 +79,6 @@ com\mycompany\service\PicturesServiceImpl.class
 com\mycompany\dto\FeedbackDto$addFeedback.class
 com\mycompany\security\service\JwtUserDetailsService.class
 com\mycompany\dao\RegionDao.class
-com\mycompany\dto\TenantDto.class
 com\mycompany\service\PicturesService.class
 com\mycompany\dao\LeaseDaoImpl.class
 com\mycompany\dao\PlacementDao.class
@@ -91,7 +86,6 @@ com\mycompany\dto\PictuteresDto.class
 com\mycompany\security\JwtUser.class
 com\mycompany\dto\LeaseDto$getAddLease.class
 com\mycompany\controllers\RegionRESTController.class
-com\mycompany\dto\AccountDto$addLandlord.class
 com\mycompany\service\FeedbackService.class
 com\mycompany\dto\FeedbackDto$editFeedback.class
 com\mycompany\controllers\AuthorityRESTController.class
@@ -109,10 +103,10 @@ com\mycompany\dto\Search.class
 com\mycompany\dto\SearchDto.class
 com\mycompany\controllers\AccountRESTController.class
 com\mycompany\dto\PlacementDto$deletePlacment.class
-com\mycompany\resurse\Tenant.class
 com\mycompany\ServerSpringApplication.class
 com\mycompany\controllers\FeedbackRESTController.class
 com\mycompany\dto\AccountDto.class
 com\mycompany\resurse\Feedback.class
+com\mycompany\resurse\Location.class
 com\mycompany\dto\ComfortsGroupDto.class
 com\mycompany\resurse\Region.class

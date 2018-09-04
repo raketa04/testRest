@@ -48,11 +48,16 @@ public class Comforts implements Serializable {
     @JoinColumn(name = "group")
     private ComfortsGroup comfortsGroup;
     
-    public Comforts(Integer idComforts, String name,Set<Placement> placements,ComfortsGroup comfortsParametrs) {
+    @ManyToOne
+    @JoinColumn(name = "type")
+    private TypeComforts typeComforts;
+    
+    public Comforts(Integer idComforts, String name,Set<Placement> placements,ComfortsGroup comfortsParametrs,TypeComforts typeComforts) {
         this.idComforts = idComforts;
         this.name = name;
         this.comfortsGroup = comfortsGroup;
         this.placements = placements;
+        this.typeComforts = typeComforts;
     }
 
     public Comforts() {
@@ -90,4 +95,13 @@ public class Comforts implements Serializable {
     public void setComfortsGroup(ComfortsGroup comfortsGroup) {
         this.comfortsGroup = comfortsGroup;
     }
+
+    public TypeComforts getTypeComforts() {
+        return typeComforts;
+    }
+
+    public void setTypeComforts(TypeComforts typeComforts) {
+        this.typeComforts = typeComforts;
+    }
+    
 }

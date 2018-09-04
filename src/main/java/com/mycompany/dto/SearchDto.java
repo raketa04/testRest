@@ -19,14 +19,16 @@ public class SearchDto {
     Set <ComfortsDto> comforts ;
     Integer adults;
     Integer children;
+    String sorted;
 
-    public SearchDto(CityDto city, Long start, Long end, Set<ComfortsDto> comforts, Integer adults, Integer children) {
+    public SearchDto(CityDto city, Long start, Long end, Set<ComfortsDto> comforts, Integer adults, Integer children,String sorted) {
         this.city = city;
         this.start = start;
         this.end = end;
         this.comforts = comforts;
         this.adults = adults;
         this.children = children;
+        this.sorted = sorted;
     }
 
     public SearchDto() {
@@ -81,5 +83,11 @@ public class SearchDto {
         this.children = children;
     }
 
-    
+    public String getSorted() {
+        return sorted;
+    }
+
+    public void setSorted(String sorted) {
+        this.sorted = sorted;
+    }
 }

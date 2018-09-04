@@ -20,4 +20,5 @@ public interface AccountService {
     Account save(Account account);
     Account delete(Account account);
     String activate(Account account); 
+    boolean emailIsUsed(String userName);
 }

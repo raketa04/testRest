@@ -31,8 +31,8 @@ public class LeaseServiceImpl implements LeaseService{
     }
 
     @Override
-    public List<Lease> findByTenant(int idTenant) {
-        return leaseDao.findByTenant(idTenant);
+    public List<Lease> findByAccount(int idAccount) {
+        return leaseDao.findByAccount(idAccount);
     }
 
     @Override

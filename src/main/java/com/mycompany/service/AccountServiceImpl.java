@@ -55,4 +55,9 @@ public class AccountServiceImpl implements AccountService{
     public String activate(Account account) {
         return AccountDao.activate(account);
     }
+
+    @Override
+    public boolean emailIsUsed(String userName) {
+        return AccountDao.emailIsUsed(userName);
+    }
 }

@@ -28,6 +28,14 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class PlacementDaoImpl implements PlacementDao{
 
+    enum sorted{
+        pay_day_ascending,
+        pay_day_descending,
+        rating_ascending,
+        rating_descending,
+        popularity_ascending,
+        popularity_descending
+    }
     @PersistenceContext	
     private EntityManager entityManager;
     
@@ -54,7 +62,12 @@ public class PlacementDaoImpl implements PlacementDao{
                 hql += " and p.idPlacement not in (Select l.placement From Lease l Where (l.startLease between '"+ search.getStart() + "' and '" + search.getEnd() +"') or (l.endLease between '"+ search.getStart() + "' and '" + search.getEnd() +"') or ('" + search.getStart() + "' between l.startLease and  l.endLease) or ('" + search.getEnd() + "' between l.startLease and  l.endLease))";
             }
         }
-        
+        if(search.getSorted().equals(sorted.pay_day_ascending)) hql += " Order by p.payDay ASC";
+        if(search.getSorted().equals(sorted.pay_day_descending)) hql += " Order by p.payDay DESC";
+        if(search.getSorted().equals(sorted.rating_ascending)) hql += " Order by ";
+        if(search.getSorted().equals(sorted.rating_descending)) hql += " Order by ";
+        if(search.getSorted().equals(sorted.popularity_ascending)) hql += " Order by ";
+        if(search.getSorted().equals(sorted.popularity_descending)) hql += " Order by ";
         return hql;
     }
     @Override
@@ -117,6 +130,8 @@ public class PlacementDaoImpl implements PlacementDao{
             if(!updatePlacement.isIsActive() != placement.isIsActive()) updatePlacement.setIsActive(placement.isIsActive());
             if(!updatePlacement.getContent().equals(placement.getContent())) updatePlacement.setContent(placement.getContent());
             if(!updatePlacement.getName().equals(placement.getName())) updatePlacement.setName(placement.getName());
+            if(updatePlacement.getSleeping_area() != placement.getSleeping_area()) updatePlacement.setSleeping_area(placement.getSleeping_area());
+            if(updatePlacement.getArea() != placement.getArea()) updatePlacement.setArea(placement.getArea());
             entityManager.merge(updatePlacement);
         }
         entityManager.flush();
@@ -139,8 +154,8 @@ public class PlacementDaoImpl implements PlacementDao{
     }
 
     @Override
-    public List<Placement> findByIdLandlord(int idLandlord) {
-        String hql = "FROM Placement where Landlord.idLandlords = " + idLandlord;
+    public List<Placement> findByIdAccount(int idLandlord) {
+        String hql = "FROM Placement where Account.idAccount = " + idLandlord;
 	List<Placement> result =  entityManager.createQuery(hql,Placement.class).getResultList();
 	return result;
     }
@@ -148,10 +163,13 @@ public class PlacementDaoImpl implements PlacementDao{
 
 
     @Override
-    public List<Placement> findByParametr(Search search) {
+    public List<Placement> findByParametr(Search search, int page) {
         String hql = "FROM Placement p " ;
-        hql += "" + getStringParametrSearch(search);      
-        List <Placement> result = entityManager.createQuery(hql,Placement.class).getResultList();
+        hql += "" + getStringParametrSearch(search);
+        Query query = (Query) entityManager.createQuery(hql,Placement.class);
+        query.setFirstResult((page - 1) * 2);
+        query.setMaxResults(page * 2);
+        List <Placement> result = query.getResultList();
 	return result;
     }
 

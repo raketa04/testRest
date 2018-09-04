@@ -49,13 +49,18 @@ public class PlacementServiceImpl implements PlacementService{
     }
 
     @Override
-    public List<Placement> findByParametr(Search search) {
-        return placementDao.findByParametr(search);
+    public List<Placement> findByParametr(Search search, int page) {
+        return placementDao.findByParametr(search,page);
     }
 
     @Override
     public Long findNumberByParametr(Search search) {
         return placementDao.findNumberByParametr(search);
+    }
+
+    @Override
+    public List<Placement> findByIdAccount(int idAccount) {
+       return placementDao.findByIdAccount(idAccount);
     }
     
 }

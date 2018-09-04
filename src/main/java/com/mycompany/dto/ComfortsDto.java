@@ -7,7 +7,6 @@ package com.mycompany.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import java.io.Serializable;
-import java.util.Set;
 
 
 /**
@@ -24,11 +23,14 @@ public class ComfortsDto implements Serializable {
     private String name;
     @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class})
     private ComfortsGroupDto comfortsGroup;
+    @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class})
+    private TypeComfortsDto typeComforts;
     
-    public ComfortsDto(Integer idComforts, String name,ComfortsGroupDto comfortsParametrses) {
+    public ComfortsDto(Integer idComforts, String name,ComfortsGroupDto comfortsParametrses,TypeComfortsDto typeComforts) {
         this.idComforts = idComforts;
         this.name = name;
         this.comfortsGroup = comfortsParametrses;
+        this.typeComforts = typeComforts;
     }
 
     public ComfortsDto() {
@@ -58,7 +60,12 @@ public class ComfortsDto implements Serializable {
         this.comfortsGroup = comfortsGroup;
     }
 
-    
-    
-   
+    public TypeComfortsDto getTypeComforts() {
+        return typeComforts;
+    }
+
+    public void setTypeComforts(TypeComfortsDto typeComforts) {
+        this.typeComforts = typeComforts;
+    }
+
 }

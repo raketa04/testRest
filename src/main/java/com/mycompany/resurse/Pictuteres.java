@@ -5,8 +5,6 @@
  */
 package com.mycompany.resurse;
 
-import com.mycompany.dao.PlacementDao;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -16,19 +16,10 @@ import javax.validation.constraints.Null;
 public class AccountDto {
     
     public interface add{
-        
-    }
-    public interface addLandlord extends add{
-    }
-    public interface addTentant extends add{
     }
 
-    public interface updateLandlord  {
+    public interface update{
     }
-    
-    public interface updateTentant{
-    }
-
 
     public interface autarificationIn  {
     }
@@ -41,21 +32,21 @@ public class AccountDto {
     public interface activation  {
     }
     
-    @Null(groups = {addLandlord.class ,addTentant.class, autarificationIn.class})
-    @NotNull(groups = {updateLandlord.class,updateTentant.class})
+    @Null(groups = {add.class , autarificationIn.class})
+    @NotNull(groups = {update.class})
     @JsonView({autarificationOut.class})
-    private Integer idAccount = null;
+    private Integer idAccount;
     
-    @NotNull(groups = {addLandlord.class ,addTentant.class, autarificationIn.class})
-    @Null(groups = {updateLandlord.class,updateTentant.class})
+    @NotNull(groups = {add.class , autarificationIn.class})
+    @Null(groups = {update.class})
     private String password;
     
-    @NotNull(groups = {addLandlord.class ,addTentant.class, autarificationIn.class,updateLandlord.class,updateTentant.class,activation.class})
+    @NotNull(groups = {add.class , autarificationIn.class,update.class,activation.class})
     @JsonView({autarificationOut.class})
     private String email;
     
-    @Null(groups = {autarificationIn.class,updateLandlord.class,updateTentant.class})
-    @NotNull(groups = {addLandlord.class ,addTentant.class, })
+    @Null(groups = {autarificationIn.class})
+    @NotNull(groups = {add.class ,update.class })
     @JsonView({autarificationOut.class})
     private AuthorityDto type_role;
     
@@ -63,39 +54,41 @@ public class AccountDto {
     @NotNull({New.class , update.class })
     private boolean activation;
     */
-    @Null(groups = {addLandlord.class ,addTentant.class, updateLandlord.class,updateTentant.class, autarificationIn.class})
+    @Null(groups = {add.class,update.class, autarificationIn.class})
     @NotNull(groups = {activation.class})
     private String codeActivate;
     
     
-    @Null(groups = {addLandlord.class ,addTentant.class, updateLandlord.class,updateTentant.class, autarificationIn.class,activation.class})
+    @Null(groups = {add.class, update.class, autarificationIn.class,activation.class})
     @JsonView({token.class})
     private String token;
     
-    @Null(groups = {autarificationIn.class,addTentant.class , updateTentant.class})
-    @NotNull(groups = {addLandlord.class , updateLandlord.class})
-    @JsonView({autarificationOut.class})
-    private LandlordDto landlord;
-    
-    @Null(groups = {autarificationIn.class, addLandlord.class , updateLandlord.class})
-    @NotNull(groups = {addLandlord.class ,addTentant.class, updateLandlord.class,updateTentant.class})
-    @JsonView({autarificationOut.class})
-    private TenantDto tenant;
+    @NotNull(groups = {add.class,update.class})
+    @JsonView({autarificationOut.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
+    private String FIO;
+    @NotNull(groups = {add.class,update.class})
+    @JsonView({AccountDto.autarificationOut.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
+    private String phone;
    
-    
+    @Null(groups = {add.class, update.class, autarificationIn.class,activation.class})
+    @JsonView({AccountDto.token.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
+    private AvatarDto avatar;
     public AccountDto() {
     }
 
-    public AccountDto(Integer idAccount, String password,String email, AuthorityDto typeRole, boolean activation, LandlordDto landlord, TenantDto tenant, String codeActivate) {
+    public AccountDto(Integer idAccount, String password, String email, AuthorityDto type_role, String codeActivate, String token, String FIO, String phone,AvatarDto avatar) {
         this.idAccount = idAccount;
         this.password = password;
         this.email = email;
-        this.type_role = typeRole;
-        //this.activation = activation;
-        this.landlord = landlord;
-        this.tenant = tenant;
+        this.type_role = type_role;
         this.codeActivate = codeActivate;
+        this.token = token;
+        this.FIO = FIO;
+        this.phone = phone;
+        this.avatar = avatar;
     }
+
+    
 
     public Integer getIdAccount() {
         return idAccount;
@@ -113,14 +106,15 @@ public class AccountDto {
         return activation;
     }
 */
-    public LandlordDto getLandlord() {
-        return landlord;
+
+    public String getPhone() {
+        return phone;
     }
 
-    public TenantDto getTenant() {
-        return tenant;
+    public String getFIO() {
+        return FIO;
     }
-
+    
     public String getCodeActivate() {
         return codeActivate;
     }
@@ -138,14 +132,15 @@ public class AccountDto {
         this.activation = activation;
     }
 */
-    public void setLandlord(LandlordDto landlord) {
-        this.landlord = landlord;
+
+    public void setFIO(String FIO) {
+        this.FIO = FIO;
     }
 
-    public void setTenant(TenantDto tenant) {
-        this.tenant = tenant;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
-
+    
     public String getEmail() {
         return email;
     }
@@ -167,5 +162,13 @@ public class AccountDto {
 
     public String getToken() {
         return token;
+    }
+
+    public AvatarDto getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(AvatarDto avatar) {
+        this.avatar = avatar;
     }
 }

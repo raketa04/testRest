@@ -6,9 +6,6 @@
 package com.mycompany.dao;
 
 import com.mycompany.resurse.Feedback;
-import com.mycompany.resurse.Landlords;
-import com.mycompany.resurse.Placement;
-import com.mycompany.resurse.Tenant;
 import java.util.List;
 
 /**
@@ -16,7 +13,7 @@ import java.util.List;
  * @author ADMIN
  */
 public interface  FeedbackDao {
-    List <Feedback> findByTenant(Integer idTenant);
+    List <Feedback> findByAccount(Integer idAccount);
     List <Feedback> findByPlacement(Integer idPlacment);
     List <Feedback> findAll(int id);
     float findRating(int id);

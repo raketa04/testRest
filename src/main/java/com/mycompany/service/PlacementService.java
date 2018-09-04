@@ -17,8 +17,9 @@ import java.util.Set;
  */
 public interface PlacementService {
     List<Placement> findAll();
+    List<Placement> findByIdAccount(int idAccount);
     List<Placement> findByComforts(Set<Comforts> comfortses);
-    List<Placement> findByParametr(Search search);
+    List<Placement> findByParametr(Search search,int page);
     Long findNumberByParametr(Search search);
     Placement findById(int id);
     Placement save(Placement placement);

@@ -39,7 +39,7 @@ public class PlacementDto {
     @Null(groups = {addPlacment.class})
     @NotNull(groups = {updatePlacment.class, LeaseDto.addLease.class,PictuteresDto.deletePictures.class})
     @JsonView({PictuteresDto.getPictures.class,addGetPlacment.class, getPlacmentSearach.class,getPlacment.class,  LeaseDto.getLeasePlacmentTenant.class, LeaseDto.getAddLease.class,LeaseDto.getLeaseTenant.class})
-    private Integer idPlacement = null;
+    private Integer idPlacement ;
 
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
@@ -110,6 +110,21 @@ public class PlacementDto {
     @Null(groups = {LeaseDto.addLease.class})
     @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
     private String name;
+    
+    @NotNull(groups = {addPlacment.class, updatePlacment.class})
+    @Null(groups = {LeaseDto.addLease.class})
+    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
+    private boolean clining;
+    
+    @NotNull(groups = {addPlacment.class, updatePlacment.class})
+    @Null(groups = {LeaseDto.addLease.class})
+    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
+    private Integer sleeping_area;
+    
+    @NotNull(groups = {addPlacment.class, updatePlacment.class})
+    @Null(groups = {LeaseDto.addLease.class})
+    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
+    private  Float area;
 
     @Null(groups = {LeaseDto.addLease.class})
     @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
@@ -123,22 +138,26 @@ public class PlacementDto {
     @NotNull(groups = {addPlacment.class})
     @Null(groups = {updatePlacment.class})
     @JsonView({getPlacment.class,LeaseDto.getLeaseTenant.class, LeaseDto.getLeasePlacmentTenant.class})
-    private LandlordDto landlord;
+    private AccountDto account;
 
     @Null(groups = {addPlacment.class, updatePlacment.class})
     private LeaseDto lease;
     @JsonView({getPlacment.class,getPlacmentSearach.class})
     private Set<PictuteresDto> pictutereses = new HashSet<>();
 
+    @JsonView({getPlacment.class})
+    private LocationDto location;
+    
     public PlacementDto() {
     }
 
-    public PlacementDto(Integer idPlacement, String street, int house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer children, Integer adults, String phonePlacment, String alternativePhonePlacement,String content,String housing,String name, CityDto city, LandlordDto landlord, LeaseDto lease,Set<PictuteresDto> pictutereses) {
+    public PlacementDto(Integer idPlacement, String street, int house, int apartment, int room, String housing, boolean isActive, float payDay, float payMonth, Integer children, Integer adults, String phonePlacment, String alternativePhonePlacement, String content, String name, boolean clining, Integer sleeping_area, Float area, CityDto city, AccountDto account, LeaseDto lease,LocationDto location) {
         this.idPlacement = idPlacement;
         this.street = street;
         this.house = house;
         this.apartment = apartment;
         this.room = room;
+        this.housing = housing;
         this.isActive = isActive;
         this.payDay = payDay;
         this.payMonth = payMonth;
@@ -146,14 +165,18 @@ public class PlacementDto {
         this.adults = adults;
         this.phonePlacment = phonePlacment;
         this.alternativePhonePlacement = alternativePhonePlacement;
-        this.city = city;
-        this.landlord = landlord;
-        this.lease = lease;
         this.content = content;
-        this.housing = housing;
-        this.pictutereses = pictutereses;
         this.name = name;
+        this.clining = clining;
+        this.sleeping_area = sleeping_area;
+        this.area = area;
+        this.city = city;
+        this.account = account;
+        this.lease = lease;
+        this.location = location;
     }
+
+    
 
     public Integer getIdPlacement() {
         return idPlacement;
@@ -248,12 +271,12 @@ public class PlacementDto {
         this.city = city;
     }
 
-    public LandlordDto getLandlord() {
-        return landlord;
+    public AccountDto getAccount() {
+        return account;
     }
 
-    public void setLandlord(LandlordDto landlord) {
-        this.landlord = landlord;
+    public void setAccount(AccountDto account) {
+        this.account = account;
     }
 
     public LeaseDto getLease() {
@@ -315,8 +338,36 @@ public class PlacementDto {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Float getArea() {
+        return area;
+    }
+
+    public void setArea(Float area) {
+        this.area = area;
+    }
+
+    public Integer getSleeping_area() {
+        return sleeping_area;
+    }
+
+    public void setSleeping_area(Integer sleeping_area) {
+        this.sleeping_area = sleeping_area;
+    }
+
+    public void setClining(boolean clining) {
+        this.clining = clining;
+    }
     
-    
-       
-    
+    public boolean getClining() {
+        return clining;
+    }
+
+    public LocationDto getLocation() {
+        return location;
+    }
+
+    public void setLocation(LocationDto location) {
+        this.location = location;
+    } 
 }

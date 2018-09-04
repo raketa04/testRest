@@ -15,7 +15,7 @@ import java.util.List;
 public interface LeaseService {
     List<Lease> findAll();
     Lease findByid(int id);
-    List<Lease> findByTenant(int idTenant);
+    List<Lease> findByAccount(int idAccount);
     List<Lease> findByPlacment(int idPlacement);
     Lease add(Lease lease);
 }

@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface AccountDao {
     Account findByAccount(String userName);
+    boolean emailIsUsed(String userName);
     Account findById(Integer id);
     List<Account> findAll();
     Account save(Account account); 

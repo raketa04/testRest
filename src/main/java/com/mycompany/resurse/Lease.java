@@ -48,8 +48,8 @@ public class Lease {
     private Integer adults;
     
     @ManyToOne
-    @JoinColumn(name="tenant")
-    private Tenant tenant;
+    @JoinColumn(name="account")
+    private Account account;
     
     @ManyToOne
     @JoinColumn(name="placement")
@@ -61,11 +61,11 @@ public class Lease {
     public Lease() {
     }
 
-    public Lease(Integer idLease, Date startLease, Date endLease, Integer children, Integer adults, Tenant tenant, Placement placement, Feedback feedback) {
+    public Lease(Integer idLease, Date startLease, Date endLease, Integer children, Integer adults, Account account, Placement placement, Feedback feedback) {
         this.idLease = idLease;
         this.startLease = startLease;
         this.endLease = endLease;
-        this.tenant = tenant;
+        this.account = account;
         this.placement = placement;
         this.feedback = feedback;
         this.adults = adults;
@@ -86,9 +86,11 @@ public class Lease {
         return endLease;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public Account getAccount() {
+        return account;
     }
+
+    
 
     public Placement getPlacement() {
         return placement;
@@ -110,8 +112,8 @@ public class Lease {
         this.endLease = endLease;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public void setPlacement(Placement placement) {

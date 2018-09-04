@@ -6,7 +6,6 @@
 package com.mycompany.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 
@@ -59,7 +58,7 @@ public class LeaseDto {
 
     @NotNull(groups = {addLease.class})
     @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class})
-    private TenantDto tenant;
+    private AccountDto account;
 
     @NotNull(groups = {addLease.class})
     @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeaseTenant.class})
@@ -72,11 +71,11 @@ public class LeaseDto {
     public LeaseDto() {
     }
 
-    public LeaseDto(Integer idLease, Long startLease,Long endLease, Integer childern, Integer adults , TenantDto tenant, PlacementDto placement, FeedbackDto feedback) {
+    public LeaseDto(Integer idLease, Long startLease,Long endLease, Integer childern, Integer adults , AccountDto account, PlacementDto placement, FeedbackDto feedback) {
         this.idLease = idLease;
         this.startLease = startLease;
         this.endLease = endLease;
-        this.tenant = tenant;
+        this.account = account;
         this.placement = placement;
         this.feedback = feedback;
         this.adults = adults;
@@ -95,10 +94,18 @@ public class LeaseDto {
         return endLease;
     }
 
-    public TenantDto getTenant() {
-        return tenant;
+    public AccountDto getAccount() {
+        return account;
     }
 
+    public Integer getAdults() {
+        return adults;
+    }
+
+    public Integer getChildern() {
+        return childern;
+    }
+    
     public PlacementDto getPlacement() {
         return placement;
     }
@@ -119,8 +126,8 @@ public class LeaseDto {
         this.endLease = endLease;
     }
 
-    public void setTenant(TenantDto tenant) {
-        this.tenant = tenant;
+    public void setAccount(AccountDto account) {
+        this.account = account;
     }
 
     public void setPlacement(PlacementDto placement) {
@@ -129,6 +136,14 @@ public class LeaseDto {
 
     public void setFeedback(FeedbackDto feedback) {
         this.feedback = feedback;
+    }
+
+    public void setAdults(Integer adults) {
+        this.adults = adults;
+    }
+
+    public void setChildern(Integer childern) {
+        this.childern = childern;
     }
     
     

@@ -7,7 +7,6 @@ package com.mycompany.dao;
 
 import com.mycompany.resurse.Lease;
 import com.mycompany.resurse.Placement;
-import com.mycompany.resurse.Tenant;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -35,8 +34,8 @@ public class LeaseDaoImpl implements LeaseDao{
     }
 
     @Override
-    public List<Lease> findByTenant(int idTenant) {
-        String hql = "FROM Lease where tenant = " + idTenant;
+    public List<Lease> findByAccount(int idAccount) {
+        String hql = "FROM Lease where account = " + idAccount;
         System.out.println(hql);
 	List<Lease> resultList =  entityManager.createQuery(hql,Lease.class).getResultList();
         return resultList;
