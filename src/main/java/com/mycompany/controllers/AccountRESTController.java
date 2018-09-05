@@ -110,6 +110,23 @@ public class AccountRESTController {
         }
     }
     
+    @RequestMapping(value = "avatar/get/{id}",method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> uploadFile(@PathVariable int id) throws IOException{
+        String cwd = System.getProperty("user.dir");
+        System.out.println("Current working directory: " + cwd);
+        File f = avatarService.findById(id);
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(f));
+ 
+        return ResponseEntity.ok()
+                // Content-Disposition
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + f.getName())
+                // Content-Type
+                .contentType(MediaType.IMAGE_JPEG)
+                // Contet-Length
+                .contentLength(f.length()) //
+                .body(resource);
+    }
+    
     @RequestMapping(value = "avatar/delete/{id}",method = RequestMethod.DELETE)
     @JsonView(AvatarDto.getAvatar.class)
     public ResponseEntity <AvatarDto> deleteFile(@RequestBody AvatarDto avatartDto) throws IOException{
