@@ -62,12 +62,14 @@ public class PlacementDaoImpl implements PlacementDao{
                 hql += " and p.idPlacement not in (Select l.placement From Lease l Where (l.startLease between '"+ search.getStart() + "' and '" + search.getEnd() +"') or (l.endLease between '"+ search.getStart() + "' and '" + search.getEnd() +"') or ('" + search.getStart() + "' between l.startLease and  l.endLease) or ('" + search.getEnd() + "' between l.startLease and  l.endLease))";
             }
         }
-        if(search.getSorted().equals(sorted.pay_day_ascending.toString())) hql += " Order by p.payDay ASC";
-        if(search.getSorted().equals(sorted.pay_day_descending.toString())) hql += " Order by p.payDay DESC";
-        if(search.getSorted().equals(sorted.rating_ascending)) hql += " Order by ";
-        if(search.getSorted().equals(sorted.rating_descending)) hql += " Order by ";
-        if(search.getSorted().equals(sorted.popularity_ascending)) hql += " Order by ";
-        if(search.getSorted().equals(sorted.popularity_descending)) hql += " Order by ";
+        if(search.getSorted() != null){
+            if(search.getSorted().equals(sorted.pay_day_ascending.toString())) hql += " Order by p.payDay ASC";
+            if(search.getSorted().equals(sorted.pay_day_descending.toString())) hql += " Order by p.payDay DESC";
+            if(search.getSorted().equals(sorted.rating_ascending)) hql += " Order by ";
+            if(search.getSorted().equals(sorted.rating_descending)) hql += " Order by ";
+            if(search.getSorted().equals(sorted.popularity_ascending)) hql += " Order by ";
+            if(search.getSorted().equals(sorted.popularity_descending)) hql += " Order by ";
+        }
         return hql;
     }
     @Override

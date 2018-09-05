@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
  */
 
 @Service
-public class AvaterServiceImpl implements AvatarService{
+public class AvatarServiceImpl implements AvatarService{
 
     @Autowired
     AvatarDao avatarDao ;
@@ -33,7 +33,7 @@ public class AvaterServiceImpl implements AvatarService{
     @Override
     public File findById(Integer id) {
         Avatar avatar = avatarDao.findById(id);
-         File outputFile = new File(avatar.getAdress_avatar());
+        File outputFile = new File(avatar.getAdress_avatar());
         return outputFile;
     }
 
@@ -55,7 +55,7 @@ public class AvaterServiceImpl implements AvatarService{
             
             
     }   catch (IOException ex) {
-            Logger.getLogger(AvaterServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(AvatarServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         Account p = new Account();
         p.setIdAccount(id);

@@ -64,4 +64,10 @@ public class FeedbackRESTController {
         return new ResponseEntity<>(feedbackService.findRating(id), HttpStatus.OK);
     }
     
+    @RequestMapping(value = "account/{id}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Float> getFeedbackByAccount(@PathVariable int id) {
+        return new ResponseEntity<>(feedbackService.findRating(id), HttpStatus.OK);
+    }
+    
 }
