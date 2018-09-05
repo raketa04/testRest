@@ -71,7 +71,7 @@ public class LeaseDto {
     public LeaseDto() {
     }
 
-    public LeaseDto(Integer idLease, Long startLease,Long endLease, Integer childern, Integer adults , AccountDto account, PlacementDto placement, FeedbackDto feedback) {
+    public LeaseDto(Integer idLease, Long startLease,Long endLease, Integer children, Integer adults , AccountDto account, PlacementDto placement, FeedbackDto feedback) {
         this.idLease = idLease;
         this.startLease = startLease;
         this.endLease = endLease;
