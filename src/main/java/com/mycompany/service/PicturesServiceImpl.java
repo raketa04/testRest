@@ -39,6 +39,11 @@ public class PicturesServiceImpl implements PicturesService{
     @Override
     public File findById(Integer id) {
         Pictuteres pictuteres = pictuteresDao.findById(id);
+        String cwd = System.getProperty("user.dir");
+        File f1 = new File(cwd);
+        for(String f:f1.list()){
+            System.out.println(f);
+        }
         File outputFile = new File(pictuteres.getAdressPic());
         /*inputStream = new FileInputStream(outputFile);
         byte[] bytes =  new byte[inputStream.available()];
@@ -61,7 +66,7 @@ public class PicturesServiceImpl implements PicturesService{
         String fileName = uploadedFileRef.getOriginalFilename();
         Random random = new Random();
         String cwd = System.getProperty("user.dir");
-        String path = cwd  + "mavenproject1/src/main/resources/mavenproject.jpg";
+        String path = cwd  + "app/src/main/resources/mavenproject.jpg";
         //String path = cwd  + fileName;
         /*byte[] bytes = uploadedFileRef.getBytes() ;
         File outputFile = new File(path);
