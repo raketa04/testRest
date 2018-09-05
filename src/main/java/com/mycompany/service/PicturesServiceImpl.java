@@ -66,7 +66,7 @@ public class PicturesServiceImpl implements PicturesService{
         String fileName = uploadedFileRef.getOriginalFilename();
         Random random = new Random();
         String cwd = System.getProperty("user.dir");
-        String path = cwd  + "app/src/main/resources/mavenproject.jpg";
+        String path = cwd  + "/src/main/resources/mavenproject.jpg";
         //String path = cwd  + fileName;
         /*byte[] bytes = uploadedFileRef.getBytes() ;
         File outputFile = new File(path);
