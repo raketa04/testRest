@@ -58,26 +58,23 @@ public class PicturesServiceImpl implements PicturesService{
 
     @Override
     public Pictuteres add(MultipartFile uploadedFileRef, Integer id) {
-        try {
-            String fileName = uploadedFileRef.getOriginalFilename();
-            Random random = new Random();
-            String cwd = System.getProperty("user.dir");
-            String path = cwd  + fileName;
-            byte[] bytes = uploadedFileRef.getBytes() ;
-            File outputFile = new File(path);
-            outputFile.createNewFile();
-            BufferedOutputStream writer = new BufferedOutputStream(new FileOutputStream(outputFile));
-            writer.write(bytes);
-            writer.flush();
-            writer.close();
-            Placement p = new Placement();
-            p.setIdPlacement(id);
-            Pictuteres pic =new Pictuteres(null, path, p);
-            return pictuteresDao.add(pic);
-        } catch (IOException ex) {
-            Logger.getLogger(PicturesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        String fileName = uploadedFileRef.getOriginalFilename();
+        Random random = new Random();
+        String cwd = System.getProperty("user.dir");
+        String path = cwd  + "mavenproject1/src/main/resources/mavenproject.jpg";
+        //String path = cwd  + fileName;
+        /*byte[] bytes = uploadedFileRef.getBytes() ;
+        File outputFile = new File(path);
+        outputFile.createNewFile();
+        BufferedOutputStream writer = new BufferedOutputStream(new FileOutputStream(outputFile));
+        writer.write(bytes);
+        writer.flush();
+        writer.close();
+        */
+        Placement p = new Placement();
+        p.setIdPlacement(id);
+        Pictuteres pic =new Pictuteres(null, path, p);
+        return pictuteresDao.add(pic);
     }
 
     @Override
