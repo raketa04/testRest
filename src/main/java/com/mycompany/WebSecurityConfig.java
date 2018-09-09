@@ -108,7 +108,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             )
             .antMatchers(
                 HttpMethod.GET,
-                "/file/getPic/{id}"
+                "/file/getPic/{id}",
+                "/account/avatar/get/{id}"
             );
     }
 }

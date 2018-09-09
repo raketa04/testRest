@@ -50,7 +50,7 @@ public class LeaseDto {
     
     @NotNull(groups = {addLease.class})
     @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class})
-    private Integer childern;
+    private Integer children;
 
     @NotNull(groups = {addLease.class})
     @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class})
@@ -71,7 +71,7 @@ public class LeaseDto {
     public LeaseDto() {
     }
 
-    public LeaseDto(Integer idLease, Long startLease,Long endLease, Integer childern, Integer adults , AccountDto account, PlacementDto placement, FeedbackDto feedback) {
+    public LeaseDto(Integer idLease, Long startLease,Long endLease, Integer children, Integer adults , AccountDto account, PlacementDto placement, FeedbackDto feedback) {
         this.idLease = idLease;
         this.startLease = startLease;
         this.endLease = endLease;
@@ -79,7 +79,7 @@ public class LeaseDto {
         this.placement = placement;
         this.feedback = feedback;
         this.adults = adults;
-        this.childern =childern;
+        this.children =children;
     }
 
     public Integer getIdLease() {
@@ -102,8 +102,8 @@ public class LeaseDto {
         return adults;
     }
 
-    public Integer getChildern() {
-        return childern;
+    public Integer getChildren() {
+        return children;
     }
     
     public PlacementDto getPlacement() {
@@ -142,8 +142,8 @@ public class LeaseDto {
         this.adults = adults;
     }
 
-    public void setChildern(Integer childern) {
-        this.childern = childern;
+    public void setChildern(Integer children) {
+        this.children = children;
     }
     
     

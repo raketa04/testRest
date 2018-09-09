@@ -40,44 +40,28 @@ public class PicturesServiceImpl implements PicturesService{
     public File findById(Integer id) {
         Pictuteres pictuteres = pictuteresDao.findById(id);
         File outputFile = new File(pictuteres.getAdressPic());
-        /*inputStream = new FileInputStream(outputFile);
-        byte[] bytes =  new byte[inputStream.available()];
-        inputStream.read(bytes, 0, inputStream.available());
-        String path = "F:\\123.jpg";
-        File outputFiletemp = new File(path);
-        outputFile.createNewFile();
-        BufferedOutputStream writer = new BufferedOutputStream(new FileOutputStream(outputFiletemp));
-        writer.write(bytes);
-        writer.flush();
-        writer.close();
-        
-        return bytes;
-        */
         return outputFile;
     }
 
     @Override
     public Pictuteres add(MultipartFile uploadedFileRef, Integer id) {
-        try {
-            String fileName = uploadedFileRef.getOriginalFilename();
-            Random random = new Random();
-            String cwd = System.getProperty("user.dir");
-            String path = cwd  + fileName;
-            byte[] bytes = uploadedFileRef.getBytes() ;
-            File outputFile = new File(path);
-            outputFile.createNewFile();
-            BufferedOutputStream writer = new BufferedOutputStream(new FileOutputStream(outputFile));
-            writer.write(bytes);
-            writer.flush();
-            writer.close();
-            Placement p = new Placement();
-            p.setIdPlacement(id);
-            Pictuteres pic =new Pictuteres(null, path, p);
-            return pictuteresDao.add(pic);
-        } catch (IOException ex) {
-            Logger.getLogger(PicturesServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+        String fileName = uploadedFileRef.getOriginalFilename();
+        Random random = new Random();
+        String cwd = System.getProperty("user.dir");
+        String path = cwd  + "/src/main/resources/mavenproject.jpg";
+        //String path = cwd  + fileName;
+        /*byte[] bytes = uploadedFileRef.getBytes() ;
+        File outputFile = new File(path);
+        outputFile.createNewFile();
+        BufferedOutputStream writer = new BufferedOutputStream(new FileOutputStream(outputFile));
+        writer.write(bytes);
+        writer.flush();
+        writer.close();
+        */
+        Placement p = new Placement();
+        p.setIdPlacement(id);
+        Pictuteres pic =new Pictuteres(null, path, p);
+        return pictuteresDao.add(pic);
     }
 
     @Override

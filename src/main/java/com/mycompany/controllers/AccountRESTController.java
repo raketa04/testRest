@@ -14,6 +14,8 @@ import com.mycompany.security.JwtTokenUtil;
 import com.mycompany.security.JwtUser;
 import com.mycompany.service.AccountService;
 import com.mycompany.service.AvatarService;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +23,10 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -110,11 +115,39 @@ public class AccountRESTController {
         }
     }
     
+    @RequestMapping(value = "avatar/update/{id}",method = RequestMethod.POST)
+    @JsonView(AvatarDto.getAvatar.class)
+    public ResponseEntity <AvatarDto> updateFile(@RequestParam("uploadedFile") MultipartFile uploadedFileRef,@PathVariable Integer id) throws IOException{
+        if(!uploadedFileRef.isEmpty()&& uploadedFileRef.getOriginalFilename().substring(uploadedFileRef.getOriginalFilename().lastIndexOf('.')+1).equals("jpg")){
+            Avatar avatar = avatarService.add(uploadedFileRef, id);
+            return new ResponseEntity<>(modelMapper.map(avatar, AvatarDto.class),HttpStatus.OK);
+        }
+        else{
+            return null;
+        }
+    }
+    
     @RequestMapping(value = "avatar/delete/{id}",method = RequestMethod.DELETE)
     @JsonView(AvatarDto.getAvatar.class)
     public ResponseEntity <AvatarDto> deleteFile(@RequestBody AvatarDto avatartDto) throws IOException{
         Avatar avatar = avatarService.delete(modelMapper.map(avatartDto, Avatar.class));
         return new ResponseEntity<>(modelMapper.map(avatar, AvatarDto.class),HttpStatus.OK);
+    }
+    
+    @RequestMapping(value = "avatar/get/{id}",method = RequestMethod.GET)
+    public ResponseEntity<InputStreamResource> uploadFile(@PathVariable int id) throws IOException{
+        String cwd = System.getProperty("user.dir");
+        System.out.println("Current working directory: " + cwd);
+        File f = avatarService.findById(id);
+        InputStreamResource resource = new InputStreamResource(new FileInputStream(f));
+        return ResponseEntity.ok()
+                // Content-Disposition
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + f.getName())
+                // Content-Type
+                .contentType(MediaType.IMAGE_JPEG)
+                // Contet-Length
+                .contentLength(f.length()) //
+                .body(resource);
     }
     
     @RequestMapping(value ="update", method = RequestMethod.PUT)

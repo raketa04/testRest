@@ -118,7 +118,7 @@ public class PlacementDto {
     
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
-    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacmentSearach.class,getPlacment.class, LeaseDto.getLeasePlacmentTenant.class})
     private Integer sleeping_area;
     
     @NotNull(groups = {addPlacment.class, updatePlacment.class})

@@ -10,6 +10,7 @@ import com.mycompany.dto.PictuteresDto;
 import com.mycompany.resurse.Pictuteres;
 import com.mycompany.service.AccountService;
 import com.mycompany.service.PicturesService;
+import com.mycompany.service.PlacementService;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -41,9 +42,13 @@ public class PicRESTController {
     @Autowired
     private PicturesService picturesService;
     
-    @RequestMapping(value = "addPic",params={"placement"},method = RequestMethod.POST)
+    @Autowired
+    private PlacementService placementService;
+    
+    @RequestMapping(value = "addPic/{id}",method = RequestMethod.POST)
     @JsonView(PictuteresDto.getPictures.class)
-    public ResponseEntity <PictuteresDto> uploadFile(@RequestParam("uploadedFile") MultipartFile uploadedFileRef,@RequestParam("placement") Integer id) throws IOException{
+    public ResponseEntity <?> uploadFile(@RequestParam("uploadedFile") MultipartFile uploadedFileRef,@PathVariable Integer id) throws IOException{
+        if(placementService.findById(id) == null) return new ResponseEntity<>("placement does not exist",HttpStatus.NOT_FOUND);
         if(!uploadedFileRef.isEmpty()&& uploadedFileRef.getOriginalFilename().substring(uploadedFileRef.getOriginalFilename().lastIndexOf('.')+1).equals("jpg")){
             Pictuteres pictuteres = picturesService.add(uploadedFileRef, id);
             return new ResponseEntity<>(modelMapper.map(pictuteres, PictuteresDto.class),HttpStatus.OK);

@@ -64,23 +64,14 @@ public class Account implements Serializable{
     @OneToMany(mappedBy = "account", cascade=CascadeType.ALL,    orphanRemoval=true)
     private Set<Lease> leases = new HashSet<>();
     
+    @OneToMany(mappedBy = "account", cascade=CascadeType.ALL,    orphanRemoval=true)
+    private Set<Notification> notifications = new HashSet<>();
+    
     @OneToOne(mappedBy = "account", cascade=CascadeType.ALL,    orphanRemoval=true)
     private Avatar avatar;
     
     public Account() {
-    }
-
-    public Account(Integer idAccount, String password, String email, Authority type_role, boolean activation, String codeActivate, String FIO, String phone, Avatar avatar) {
-        this.idAccount = idAccount;
-        this.password = password;
-        this.email = email;
-        this.type_role = type_role;
-        this.activation = activation;
-        this.codeActivate = codeActivate;
-        this.FIO = FIO;
-        this.phone = phone;
-        this.avatar = avatar;
-    }
+    }    
 
     public Integer getIdAccount() {
         return idAccount;
@@ -178,4 +169,12 @@ public class Account implements Serializable{
     public void setAvatar(Avatar avatar) {
         this.avatar = avatar;
     }   
+
+    public Set<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Set<Notification> notifications) {
+        this.notifications = notifications;
+    }
 }

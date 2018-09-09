@@ -40,10 +40,12 @@ public class AvatarServiceImpl implements AvatarService{
     @Override
     public Avatar add(MultipartFile uploadedFileRef, Integer id) {
         String path = null;
-        try {
-            String fileName = uploadedFileRef.getOriginalFilename();
+        String fileName = uploadedFileRef.getOriginalFilename();
             Random random = new Random();
             String cwd = System.getProperty("user.dir");
+            path = cwd  + "/src/main/resources/mavenproject.jpg";
+            
+        /*try {
             path = cwd  + fileName;
             byte[] bytes = uploadedFileRef.getBytes() ;
             File outputFile = new File(path);
@@ -56,7 +58,7 @@ public class AvatarServiceImpl implements AvatarService{
             
     }   catch (IOException ex) {
             Logger.getLogger(AvatarServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
         Account p = new Account();
         p.setIdAccount(id);
         Avatar avatar =new Avatar(null, path, p);
