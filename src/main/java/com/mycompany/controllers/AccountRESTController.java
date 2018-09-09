@@ -103,37 +103,7 @@ public class AccountRESTController {
     }
     
         
-    @RequestMapping(value = "avatar/add/{id}",method = RequestMethod.POST)
-    @JsonView(AvatarDto.getAvatar.class)
-    public ResponseEntity <AvatarDto> uploadFile(@RequestParam("uploadedFile") MultipartFile uploadedFileRef,@PathVariable Integer id) throws IOException{
-        if(!uploadedFileRef.isEmpty()&& uploadedFileRef.getOriginalFilename().substring(uploadedFileRef.getOriginalFilename().lastIndexOf('.')+1).equals("jpg")){
-            Avatar avatar = avatarService.add(uploadedFileRef, id);
-            return new ResponseEntity<>(modelMapper.map(avatar, AvatarDto.class),HttpStatus.OK);
-        }
-        else{
-            return null;
-        }
-    }
-    
-    @RequestMapping(value = "avatar/update/{id}",method = RequestMethod.POST)
-    @JsonView(AvatarDto.getAvatar.class)
-    public ResponseEntity <AvatarDto> updateFile(@RequestParam("uploadedFile") MultipartFile uploadedFileRef,@PathVariable Integer id) throws IOException{
-        if(!uploadedFileRef.isEmpty()&& uploadedFileRef.getOriginalFilename().substring(uploadedFileRef.getOriginalFilename().lastIndexOf('.')+1).equals("jpg")){
-            Avatar avatar = avatarService.add(uploadedFileRef, id);
-            return new ResponseEntity<>(modelMapper.map(avatar, AvatarDto.class),HttpStatus.OK);
-        }
-        else{
-            return null;
-        }
-    }
-    
-    @RequestMapping(value = "avatar/delete/{id}",method = RequestMethod.DELETE)
-    @JsonView(AvatarDto.getAvatar.class)
-    public ResponseEntity <AvatarDto> deleteFile(@RequestBody AvatarDto avatartDto) throws IOException{
-        Avatar avatar = avatarService.delete(modelMapper.map(avatartDto, Avatar.class));
-        return new ResponseEntity<>(modelMapper.map(avatar, AvatarDto.class),HttpStatus.OK);
-    }
-    
+        
     @RequestMapping(value = "avatar/get/{id}",method = RequestMethod.GET)
     public ResponseEntity<InputStreamResource> uploadFile(@PathVariable int id) throws IOException{
         String cwd = System.getProperty("user.dir");

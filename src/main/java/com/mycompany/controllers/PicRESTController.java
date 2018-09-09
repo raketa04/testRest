@@ -41,10 +41,10 @@ public class PicRESTController {
     private ModelMapper modelMapper;
     @Autowired
     private PicturesService picturesService;
-    
+
     @Autowired
     private PlacementService placementService;
-    
+
     @RequestMapping(value = "addPic/{id}",method = RequestMethod.POST)
     @JsonView(PictuteresDto.getPictures.class)
     public ResponseEntity <?> uploadFile(@RequestParam("uploadedFile") MultipartFile uploadedFileRef,@PathVariable Integer id) throws IOException{

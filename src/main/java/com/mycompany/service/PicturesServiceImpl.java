@@ -39,6 +39,11 @@ public class PicturesServiceImpl implements PicturesService{
     @Override
     public File findById(Integer id) {
         Pictuteres pictuteres = pictuteresDao.findById(id);
+        String cwd = System.getProperty("user.dir");
+        File f1 = new File(cwd);
+        for(String f:f1.list()){
+            System.out.println(f);
+        }
         File outputFile = new File(pictuteres.getAdressPic());
         return outputFile;
     }
