@@ -107,7 +107,10 @@ public class PlacementDaoImpl implements PlacementDao{
 
     @Override
     public Placement findById(int id) {
-        return entityManager.find(Placement.class, id);
+        Placement placement = entityManager.find(Placement.class, id);
+        entityManager.flush();
+        System.out.println(placement.getLeases().size());
+        return placement;
     }
 
     @Override

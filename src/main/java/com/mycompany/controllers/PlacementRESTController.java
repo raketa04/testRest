@@ -52,7 +52,7 @@ public class PlacementRESTController {
     private LocationService locationService;
     
     @GetMapping("account/{id}")
-    @JsonView(PlacementDto.getPlacment.class)
+    @JsonView(PlacementDto.getPlacement.class)
     public ResponseEntity<List<PlacementDto>> getLandlordPlacment(@PathVariable int id) {
         List<PlacementDto> list = placementService.findByIdAccount(id).stream()
                 .map(authority -> modelMapper.map(authority ,PlacementDto.class))
@@ -62,10 +62,11 @@ public class PlacementRESTController {
        
     
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
-    @JsonView(PlacementDto.getPlacment.class)
+    @JsonView(PlacementDto.getPlacement.class)
     //@PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<PlacementDto> getById(@PathVariable int id) {
-        return new ResponseEntity<>(modelMapper.map(placementService.findById(id),PlacementDto.class), HttpStatus.OK);
+        PlacementDto result = modelMapper.map(placementService.findById(id),PlacementDto.class);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     

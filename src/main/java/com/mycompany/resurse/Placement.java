@@ -35,7 +35,7 @@ public class Placement implements Serializable{
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_placement")
-    private Integer idPlacement =null;
+    private Integer idPlacement;
     
     @Column (name = "street")
     private String street;
@@ -92,7 +92,7 @@ public class Placement implements Serializable{
     @JoinTable(name = "Placement_has_comforts",
             joinColumns = @JoinColumn (name = "Placement_id_placement"),
             inverseJoinColumns = @JoinColumn(name = "comforts_idcomforts"))
-    private Set<Comforts> comfortses = new HashSet<>();
+    private Set<Comforts> comfortses;
     
     @ManyToOne()
     @JoinColumn(name="account")
@@ -103,10 +103,10 @@ public class Placement implements Serializable{
     private City city;
     
     @OneToMany (mappedBy = "placement",cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Pictuteres> pictutereses= new HashSet<>();
+    private Set<Pictuteres> pictutereses;
     
-    @OneToMany (mappedBy = "placement",cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Lease> leases= new HashSet<>();
+    @OneToMany (mappedBy = "placementLease",cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Lease> leases;
     
     @OneToOne
     @JoinColumn (name = "location")
@@ -182,7 +182,7 @@ public class Placement implements Serializable{
         return clining;
     }
 
-    public Placement(Integer idPlacement, String street, int house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer children, Integer adults, String phonePlacment, String alternativePhonePlacement, String content, String housing, boolean clining, Integer sleeping_area, Float area, String name, Account account, City city, Location location) {
+    public Placement(Integer idPlacement, String street, int house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer children, Integer adults, String phonePlacment, String alternativePhonePlacement, String content, String housing, boolean clining, Integer sleeping_area, Float area, String name, Set<Comforts> comfortses, Account account, City city, Set<Pictuteres> pictutereses, Set<Lease> leases, Location location) {
         this.idPlacement = idPlacement;
         this.street = street;
         this.house = house;
@@ -201,10 +201,16 @@ public class Placement implements Serializable{
         this.sleeping_area = sleeping_area;
         this.area = area;
         this.name = name;
+        this.comfortses = comfortses;
         this.account = account;
         this.city = city;
+        this.pictutereses = pictutereses;
+        this.leases = leases;
         this.location = location;
     }
+
+   
+
 
     public void setIdPlacement(Integer idPlacement) {
         this.idPlacement = idPlacement;
@@ -283,7 +289,7 @@ public class Placement implements Serializable{
     }
 
     public void addLease(Lease lease){
-        lease.setPlacement(this);
+        lease.setPlacementLease(this);
         getLeases().add(lease);
     }
     public void removeLease(Lease lease){
