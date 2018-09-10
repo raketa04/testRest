@@ -37,35 +37,35 @@ public class LeaseDto {
     
     @Null(groups = {addLease.class})
     @NotNull(groups = {FeedbackDto.addFeedback.class})
-    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class})
     private Integer idLease = null;
     
     @NotNull(groups = {addLease.class})
-    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class})
     private Long startLease;
     
     @NotNull(groups = {addLease.class})
-    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class})
     private Long endLease;
     
     @NotNull(groups = {addLease.class})
-    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class})
     private Integer children;
 
     @NotNull(groups = {addLease.class})
-    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class})
     private Integer adults;
 
     @NotNull(groups = {addLease.class})
-    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,PlacementDto.getPlacement.class})
     private AccountDto account;
 
     @NotNull(groups = {addLease.class})
     @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeaseTenant.class})
-    private PlacementDto placement;
+    private PlacementDto placementLease;
 
     @Null(groups = {addLease.class})
-    @JsonView({getLeasePlacmentTenant.class,getLeasePlacement.class,getLeaseTenant.class})
+    @JsonView({getLeasePlacmentTenant.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class})
     private FeedbackDto feedback;
 
     public LeaseDto() {
@@ -76,7 +76,7 @@ public class LeaseDto {
         this.startLease = startLease;
         this.endLease = endLease;
         this.account = account;
-        this.placement = placement;
+        this.placementLease = placement;
         this.feedback = feedback;
         this.adults = adults;
         this.children =children;
@@ -106,8 +106,8 @@ public class LeaseDto {
         return children;
     }
     
-    public PlacementDto getPlacement() {
-        return placement;
+    public PlacementDto getPlacementLease() {
+        return placementLease;
     }
 
     public FeedbackDto getFeedback() {
@@ -130,8 +130,8 @@ public class LeaseDto {
         this.account = account;
     }
 
-    public void setPlacement(PlacementDto placement) {
-        this.placement = placement;
+    public void setPlacementLease(PlacementDto placementLease) {
+        this.placementLease = placementLease;
     }
 
     public void setFeedback(FeedbackDto feedback) {

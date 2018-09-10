@@ -13,9 +13,9 @@ import com.fasterxml.jackson.annotation.JsonView;
  */
 public class ComfortsGroupDto {
     
-    @JsonView({PlacementDto.getPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({PlacementDto.getPlacement.class,LeaseDto.getLeaseTenant.class,LeaseDto.getLeasePlacmentTenant.class})
     private Integer idComfortsGroup = null;
-    @JsonView({PlacementDto.getPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacment.class,LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({PlacementDto.getPlacement.class,LeaseDto.getLeaseTenant.class,LeaseDto.getLeasePlacmentTenant.class})
     private String group;
 
     public ComfortsGroupDto() {

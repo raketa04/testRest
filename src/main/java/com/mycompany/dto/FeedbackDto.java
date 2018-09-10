@@ -31,15 +31,15 @@ public class FeedbackDto {
     
     @Null(groups = {addFeedback.class})
     @NotNull(groups = {editFeedback.class})
-    @JsonView({getFeedback.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
+    @JsonView({getFeedback.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class})
     private Integer idFeedback = null;
     
     @NotNull(groups = {addFeedback.class,editFeedback.class})
-     @JsonView({getFeedback.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
+     @JsonView({getFeedback.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class})
     private String text;
     
     @NotNull(groups = {addFeedback.class,editFeedback.class})
-    @JsonView({getFeedback.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
+    @JsonView({getFeedback.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class})
     private int rating;
     @NotNull(groups = {addFeedback.class})
     @Null(groups = {editFeedback.class})
