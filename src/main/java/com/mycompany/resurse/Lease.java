@@ -53,7 +53,7 @@ public class Lease {
     
     @ManyToOne
     @JoinColumn(name="placement")
-    private Placement placementLease;
+    private Placement placement;
     
     @OneToOne(mappedBy = "lease", cascade=CascadeType.ALL,    orphanRemoval=true)
     private Feedback feedback;
@@ -66,7 +66,7 @@ public class Lease {
         this.startLease = startLease;
         this.endLease = endLease;
         this.account = account;
-        this.placementLease = placement;
+        this.placement = placement;
         this.feedback = feedback;
         this.adults = adults;
         this.children = children;
@@ -92,8 +92,8 @@ public class Lease {
 
     
 
-    public Placement getPlacementLease() {
-        return placementLease;
+    public Placement getPlacement() {
+        return placement;
     }
 
     public Feedback getFeedback() {
@@ -116,8 +116,8 @@ public class Lease {
         this.account = account;
     }
 
-    public void setPlacementLease(Placement placementLease) {
-        this.placementLease = placementLease;
+    public void setPlacement(Placement placement) {
+        this.placement = placement;
     }
 
     public void setFeedback(Feedback feedback) {

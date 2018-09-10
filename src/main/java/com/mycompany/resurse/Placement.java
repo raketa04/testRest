@@ -105,7 +105,7 @@ public class Placement implements Serializable{
     @OneToMany (mappedBy = "placement",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Pictuteres> pictutereses;
     
-    @OneToMany (mappedBy = "placementLease",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany (mappedBy = "placement",cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Lease> leases;
     
     @OneToOne
@@ -289,7 +289,7 @@ public class Placement implements Serializable{
     }
 
     public void addLease(Lease lease){
-        lease.setPlacementLease(this);
+        lease.setPlacement(this);
         getLeases().add(lease);
     }
     public void removeLease(Lease lease){

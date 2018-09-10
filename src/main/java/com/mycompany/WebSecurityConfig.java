@@ -102,7 +102,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/account/add",
                 "/account/activation",
                 "/placement/search_number",  
-                "/placement/search",
+                "/placement/search/{page}",
                 "/city/findbyname",
                 "/region/all"
             )
