@@ -112,6 +112,10 @@ public class Placement implements Serializable{
     @JoinColumn (name = "location")
     private Location location;
     
+    @ManyToOne
+    @JoinColumn (name = "type_placement")
+    private TypePlacament typePlacament;
+    
     public Integer getIdPlacement() {
         return idPlacement;
     }
@@ -208,9 +212,6 @@ public class Placement implements Serializable{
         this.leases = leases;
         this.location = location;
     }
-
-   
-
 
     public void setIdPlacement(Integer idPlacement) {
         this.idPlacement = idPlacement;
@@ -355,5 +356,12 @@ public class Placement implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
-    
+
+    public TypePlacament getTypePlacament() {
+        return typePlacament;
+    }
+
+    public void setTypePlacament(TypePlacament typePlacament) {
+        this.typePlacament = typePlacament;
+    }
 }

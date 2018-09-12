@@ -134,6 +134,11 @@ public class PlacementDto {
     @Null(groups = {updatePlacment.class})
     @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
     private CityDto city;
+    
+    @NotNull(groups = {addPlacment.class})
+    @Null(groups = {updatePlacment.class})
+    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
+    private TypePlacamentDto typePlacament;
 
     @NotNull(groups = {addPlacment.class})
     @Null(groups = {updatePlacment.class})
@@ -373,5 +378,15 @@ public class PlacementDto {
 
     public void setLocation(LocationDto location) {
         this.location = location;
-    } 
+    }
+
+    public TypePlacamentDto getTypePlacament() {
+        return typePlacament;
+    }
+
+    public void setTypePlacament(TypePlacamentDto typePlacament) {
+        this.typePlacament = typePlacament;
+    }
+    
+    
 }

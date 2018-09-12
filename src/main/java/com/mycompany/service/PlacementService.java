@@ -21,6 +21,8 @@ public interface PlacementService {
     List<Placement> findByComforts(Set<Comforts> comfortses);
     List<Placement> findByParametr(Search search,int page);
     Long findNumberByParametr(Search search);
+    boolean addCachePlacment(int idPlacement);
+    boolean deleteCachePlacment(int idPlacement);
     Placement findById(int id);
     Placement save(Placement placement);
     boolean delete(Placement placement);

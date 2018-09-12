@@ -5,13 +5,16 @@
  */
 package com.mycompany.dao;
 
+import com.mycompany.ServerSpringApplication;
 import com.mycompany.dto.Search;
 import com.mycompany.resurse.Comforts;
 import com.mycompany.resurse.Placement;
 import java.util.ArrayList;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 
 import javax.persistence.PersistenceContext;
@@ -62,6 +65,10 @@ public class PlacementDaoImpl implements PlacementDao{
                 hql += " and p.idPlacement not in (Select l.placement From Lease l Where (l.startLease between '"+ search.getStart() + "' and '" + search.getEnd() +"') or (l.endLease between '"+ search.getStart() + "' and '" + search.getEnd() +"') or ('" + search.getStart() + "' between l.startLease and  l.endLease) or ('" + search.getEnd() + "' between l.startLease and  l.endLease))";
             }
         }
+        return hql;
+    }
+    private String getStringOrderSearch(Search search){
+        String hql = "";  
         if(search.getSorted() != null){
             if(search.getSorted().equals(sorted.pay_day_ascending.toString())) hql += " Order by p.payDay ASC";
             if(search.getSorted().equals(sorted.pay_day_descending.toString())) hql += " Order by p.payDay DESC";
@@ -169,9 +176,19 @@ public class PlacementDaoImpl implements PlacementDao{
 
     @Override
     public List<Placement> findByParametr(Search search, int page) {
-        String hql = "FROM Placement p " ;
-        hql += "" + getStringParametrSearch(search);
+        String hql = "FROM Placement p " + getStringParametrSearch(search);
+
+        ArrayList<Integer> id = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : ServerSpringApplication.cache.asMap().entrySet()) {
+            System.out.println(id.add(entry.getValue()));
+        }
+        if(id.size() > 0){
+            hql += " and p.idPlacement not in (:place) ";  
+        }
+        hql += getStringOrderSearch(search); 
+        System.out.println(hql);
         Query query = (Query) entityManager.createQuery(hql,Placement.class);
+        if(id.size() > 0) query.setParameterList("place", id);       
         query.setFirstResult((page - 1) * 2);
         query.setMaxResults(2);
         List <Placement> result = query.getResultList();
@@ -180,8 +197,18 @@ public class PlacementDaoImpl implements PlacementDao{
 
     @Override
     public Long findNumberByParametr(Search search) {
-        String hql = "Select count(p.idPlacement) FROM Placement p " + getStringParametrSearch(search);      
-        Long result = (Long) entityManager.createQuery(hql).getSingleResult();
+        String hql = "Select count(p.idPlacement) FROM Placement p " + getStringParametrSearch(search); 
+        ArrayList<Integer> id = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : ServerSpringApplication.cache.asMap().entrySet()) {
+            System.out.println(id.add(entry.getValue()));
+        }
+        if(id.size() > 0){
+            hql += " and p.idPlacement not in (:tempplace) ";
+        }
+        hql += getStringOrderSearch(search);
+        Query query = (Query) entityManager.createQuery(hql,Placement.class);
+        if(id.size() > 0) query.setParameterList("tempplace", id);
+        Long result = (Long) query.getSingleResult();
 	return result;
     }
     

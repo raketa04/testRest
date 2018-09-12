@@ -32,9 +32,9 @@ public class AccountDto {
     public interface activation  {
     }
     
-    @Null(groups = {add.class , autarificationIn.class})
-    @NotNull(groups = {update.class})
-    @JsonView({autarificationOut.class,PlacementDto.getPlacement.class})
+    @Null(groups = {add.class , autarificationIn.class,})
+    @NotNull(groups = {update.class,DirectoryDto.addDirectory.class})
+    @JsonView({autarificationOut.class,PlacementDto.getPlacement.class,DirectoryDto.getDirectory.class})
     private Integer idAccount;
     
     @NotNull(groups = {add.class , autarificationIn.class})

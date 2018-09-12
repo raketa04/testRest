@@ -107,6 +107,18 @@ public class PlacementRESTController {
         return new ResponseEntity<>(modelMapper.map(result,PlacementDto.class), HttpStatus.OK);
     }
     
+        
+    @RequestMapping(value ="temporary_add/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> temporaryAdd(@PathVariable int id) {
+        boolean b = placementService.addCachePlacment(id);
+        return new ResponseEntity<>(b, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value ="temporary_delete/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> temporaryDelete(@PathVariable int id) {
+        boolean b = placementService.deleteCachePlacment(id);
+        return new ResponseEntity<>(b, HttpStatus.OK);
+    }
 
     @RequestMapping(value ="update", method = RequestMethod.PUT)
     @JsonView(PlacementDto.addGetPlacment.class)

@@ -5,6 +5,7 @@
  */
 package com.mycompany.service;
 
+import com.mycompany.ServerSpringApplication;
 import com.mycompany.dao.PlacementDao;
 import com.mycompany.dto.Search;
 import com.mycompany.resurse.Comforts;
@@ -61,6 +62,18 @@ public class PlacementServiceImpl implements PlacementService{
     @Override
     public List<Placement> findByIdAccount(int idAccount) {
        return placementDao.findByIdAccount(idAccount);
+    }
+
+    @Override
+    public boolean addCachePlacment(int idPlacement) {
+        ServerSpringApplication.cache.put(idPlacement, idPlacement);
+        return true;
+    }
+
+    @Override
+    public boolean deleteCachePlacment(int idPlacement) {
+        ServerSpringApplication.cache.asMap().remove(idPlacement);
+        return true;
     }
     
 }

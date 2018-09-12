@@ -67,6 +67,9 @@ public class Account implements Serializable{
     @OneToMany(mappedBy = "account", cascade=CascadeType.ALL,    orphanRemoval=true)
     private Set<Notification> notifications = new HashSet<>();
     
+    @OneToMany(mappedBy = "account", cascade=CascadeType.ALL,    orphanRemoval=true)
+    private Set<Directory> directory = new HashSet<>();
+    
     @OneToOne(mappedBy = "account", cascade=CascadeType.ALL,    orphanRemoval=true)
     private Avatar avatar;
     
@@ -177,4 +180,14 @@ public class Account implements Serializable{
     public void setNotifications(Set<Notification> notifications) {
         this.notifications = notifications;
     }
+
+    public Set<Directory> getDirectory() {
+        return directory;
+    }
+
+    public void setDirectory(Set<Directory> directory) {
+        this.directory = directory;
+    }
+    
+    
 }
