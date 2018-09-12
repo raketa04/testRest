@@ -48,14 +48,14 @@ public class DirectoryRESTController {
         return new ResponseEntity<>(modelMapper.map(result, DirectoryDto.class), HttpStatus.OK);
     }
     
-    @RequestMapping(value ="update", method = RequestMethod.PUT)
-    @JsonView(DirectoryDto.getDirectory.class)
+    @RequestMapping(value ="update", method = RequestMethod.POST)
+    @JsonView(DirectoryDto.getDirectoryUpdate.class)
     public ResponseEntity<?> updateDirectory(@Validated(DirectoryDto.updateDirectory.class) @RequestBody DirectoryDto directoryDto) {
         Directory result = directoryService.save(modelMapper.map(directoryDto, Directory.class));
         return new ResponseEntity<>(modelMapper.map(result, DirectoryDto.class), HttpStatus.OK);
     }
     
-    @RequestMapping(value ="delete", method = RequestMethod.DELETE)
+    @RequestMapping(value ="delete", method = RequestMethod.POST)
     public ResponseEntity<?> deleteDirectory(@Validated(DirectoryDto.deleteDirectory.class) @RequestBody DirectoryDto directoryDto) {
         boolean b = directoryService.delete(modelMapper.map(directoryDto, Directory.class));
         return new ResponseEntity<>(b, HttpStatus.OK);
@@ -77,14 +77,14 @@ public class DirectoryRESTController {
         return new ResponseEntity<>(modelMapper.map(result, BookmarksDto.class), HttpStatus.OK);
     }
     
-    @RequestMapping(value ="bookmarks/update", method = RequestMethod.PUT)
+    @RequestMapping(value ="bookmarks/update", method = RequestMethod.POST)
     @JsonView(BookmarksDto.getBookmarks.class)
     public ResponseEntity<?> updateBookmarks(@Validated(BookmarksDto.updateBookmarks.class) @RequestBody BookmarksDto bookmarksDto) {
         Bookmarks result = bookmarksService.save(modelMapper.map(bookmarksDto, Bookmarks.class));
         return new ResponseEntity<>(modelMapper.map(result, BookmarksDto.class), HttpStatus.OK);
     }
     
-    @RequestMapping(value ="bookmarks/delete", method = RequestMethod.DELETE)
+    @RequestMapping(value ="bookmarks/delete", method = RequestMethod.POST)
     public ResponseEntity<?> deleteDirectory(@Validated(DirectoryDto.deleteDirectory.class) @RequestBody BookmarksDto bookmarksDto) {
         boolean b = bookmarksService.delete(modelMapper.map(bookmarksDto, Bookmarks.class));
         return new ResponseEntity<>(b, HttpStatus.OK);

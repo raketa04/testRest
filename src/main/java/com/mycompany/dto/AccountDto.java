@@ -34,7 +34,7 @@ public class AccountDto {
     
     @Null(groups = {add.class , autarificationIn.class,})
     @NotNull(groups = {update.class,DirectoryDto.addDirectory.class})
-    @JsonView({autarificationOut.class,PlacementDto.getPlacement.class,DirectoryDto.getDirectory.class})
+    @JsonView({autarificationOut.class,PlacementDto.getPlacement.class,DirectoryDto.getDirectory.class,DirectoryDto.getDirectoryAdd.class,})
     private Integer idAccount;
     
     @NotNull(groups = {add.class , autarificationIn.class})

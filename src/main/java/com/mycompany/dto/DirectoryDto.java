@@ -32,14 +32,17 @@ public class DirectoryDto {
     public interface getDirectoryAdd {
     }
     
+    public interface getDirectoryUpdate{
+    }
+    
     @Null(groups = {addDirectory.class})
     @NotNull(groups = {updateDirectory.class,deleteDirectory.class,BookmarksDto.updateBookmarks.class})
-    @JsonView({getDirectory.class,BookmarksDto.getBookmarks.class})
+    @JsonView({getDirectoryAdd.class,getDirectory.class,BookmarksDto.getBookmarks.class,getDirectoryUpdate.class})
     private Integer idDirectory = null;
     
     @NotNull(groups = {addDirectory.class,updateDirectory.class})
     @Null(groups = {deleteDirectory.class})
-    @JsonView({getDirectory.class})
+    @JsonView({getDirectoryAdd.class,getDirectory.class,getDirectoryUpdate.class})
     private String name;
     
     @Null(groups = {addDirectory.class,updateDirectory.class,deleteDirectory.class})
