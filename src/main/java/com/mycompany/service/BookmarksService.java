@@ -5,7 +5,7 @@
  */
 package com.mycompany.service;
 
-import com.mycompany.resurse.Bookmarks;
+import com.mycompany.resurse.Favorite;
 import com.mycompany.resurse.Directory;
 import java.util.List;
 
@@ -14,8 +14,8 @@ import java.util.List;
  * @author ADMIN
  */
 public interface BookmarksService {
-    Bookmarks add(Bookmarks bookmarks);
-    Bookmarks save(Bookmarks bookmarks);
-    boolean  delete(Bookmarks bookmarks);
-    List<Bookmarks> findByDirectory(Integer idDirectory);
+    Favorite add(Favorite bookmarks);
+    Favorite save(Favorite bookmarks);
+    boolean  delete(Favorite bookmarks);
+    List<Favorite> findByDirectory(Integer idDirectory);
 }

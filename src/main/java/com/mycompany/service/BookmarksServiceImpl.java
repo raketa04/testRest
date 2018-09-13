@@ -6,7 +6,7 @@
 package com.mycompany.service;
 
 import com.mycompany.repository.BookmarksRepository;
-import com.mycompany.resurse.Bookmarks;
+import com.mycompany.resurse.Favorite;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,23 +24,23 @@ public class BookmarksServiceImpl implements BookmarksService{
     BookmarksRepository bookmarksRepository;
     
     @Override
-    public Bookmarks add(Bookmarks bookmarks) {
+    public Favorite add(Favorite bookmarks) {
         return bookmarksRepository.save(bookmarks);
     }
 
     @Override
-    public Bookmarks save(Bookmarks bookmarks) {
+    public Favorite save(Favorite bookmarks) {
         return bookmarksRepository.save(bookmarks);
     }
 
     @Override
-    public boolean delete(Bookmarks bookmarks) {
+    public boolean delete(Favorite bookmarks) {
         bookmarksRepository.deleteById(bookmarks.getIdBookmarks());
         return true;
     }
 
     @Override
-    public List<Bookmarks> findByDirectory(Integer idDirectory) {
+    public List<Favorite> findByDirectory(Integer idDirectory) {
         return bookmarksRepository.findByDirectory(idDirectory);
     }
     

@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import com.mycompany.dto.AccountDto;
 import com.mycompany.dto.BookmarksDto;
 import com.mycompany.dto.DirectoryDto;
-import com.mycompany.resurse.Bookmarks;
+import com.mycompany.resurse.Favorite;
 import com.mycompany.resurse.Directory;
 import com.mycompany.service.BookmarksService;
 import com.mycompany.service.DirectoryService;
@@ -73,20 +73,20 @@ public class DirectoryRESTController {
     @RequestMapping(value ="bookmarks/add", method = RequestMethod.POST)
     @JsonView(BookmarksDto.getBookmarks.class)
     public ResponseEntity<?> addNewBookmarks(@Validated(BookmarksDto.addBookmarks.class) @RequestBody BookmarksDto bookmarksDto) {
-        Bookmarks result = bookmarksService.add(modelMapper.map(bookmarksDto, Bookmarks.class));
+        Favorite result = bookmarksService.add(modelMapper.map(bookmarksDto, Favorite.class));
         return new ResponseEntity<>(modelMapper.map(result, BookmarksDto.class), HttpStatus.OK);
     }
     
     @RequestMapping(value ="bookmarks/update", method = RequestMethod.POST)
     @JsonView(BookmarksDto.getBookmarks.class)
     public ResponseEntity<?> updateBookmarks(@Validated(BookmarksDto.updateBookmarks.class) @RequestBody BookmarksDto bookmarksDto) {
-        Bookmarks result = bookmarksService.save(modelMapper.map(bookmarksDto, Bookmarks.class));
+        Favorite result = bookmarksService.save(modelMapper.map(bookmarksDto, Favorite.class));
         return new ResponseEntity<>(modelMapper.map(result, BookmarksDto.class), HttpStatus.OK);
     }
     
     @RequestMapping(value ="bookmarks/delete", method = RequestMethod.POST)
     public ResponseEntity<?> deleteDirectory(@Validated(DirectoryDto.deleteDirectory.class) @RequestBody BookmarksDto bookmarksDto) {
-        boolean b = bookmarksService.delete(modelMapper.map(bookmarksDto, Bookmarks.class));
+        boolean b = bookmarksService.delete(modelMapper.map(bookmarksDto, Favorite.class));
         return new ResponseEntity<>(b, HttpStatus.OK);
     }
     

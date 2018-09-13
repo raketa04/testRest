@@ -20,8 +20,8 @@ import javax.persistence.Table;
  * @author ADMIN
  */
 @Entity
-@Table(name = "bookmarks")
-public class Bookmarks implements Serializable {
+@Table(name = "favorite")
+public class Favorite implements Serializable {
      @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_bookmarks")
@@ -37,10 +37,10 @@ public class Bookmarks implements Serializable {
     @JoinColumn(name="directory")
     private Directory directory;
 
-    public Bookmarks() {
+    public Favorite() {
     }
 
-    public Bookmarks(Integer idBookmarks, String name, Integer placement, Directory directory) {
+    public Favorite(Integer idBookmarks, String name, Integer placement, Directory directory) {
         this.idBookmarks = idBookmarks;
         this.name = name;
         this.placement = placement;

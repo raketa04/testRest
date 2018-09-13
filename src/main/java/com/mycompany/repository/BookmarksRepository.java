@@ -5,7 +5,7 @@
  */
 package com.mycompany.repository;
 
-import com.mycompany.resurse.Bookmarks;
+import com.mycompany.resurse.Favorite;
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,6 +13,6 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author ADMIN
  */
-public interface BookmarksRepository extends CrudRepository<Bookmarks, Integer> {
-    List<Bookmarks> findByDirectory(Integer Direcrory);    
+public interface BookmarksRepository extends CrudRepository<Favorite, Integer> {
+    List<Favorite> findByDirectory(Integer Direcrory);    
 }
