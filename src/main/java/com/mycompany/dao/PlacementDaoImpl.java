@@ -206,7 +206,7 @@ public class PlacementDaoImpl implements PlacementDao{
             hql += " and p.idPlacement not in (:place) ";  
         }
         hql += getStringOrderSearch(search); 
-        System.out.println(hql);
+	System.out.println(hql);   
         Query query = (Query) entityManager.createQuery(hql,Placement.class);
         if(id.size() > 0) query.setParameterList("place", id);  
         Long result =  (long) query.getResultList().size();
