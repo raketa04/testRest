@@ -6,12 +6,11 @@
 package com.mycompany.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mycompany.dto.AccountDto;
-import com.mycompany.dto.BookmarksDto;
+import com.mycompany.dto.FavoriteDto;
 import com.mycompany.dto.DirectoryDto;
 import com.mycompany.resurse.Favorite;
 import com.mycompany.resurse.Directory;
-import com.mycompany.service.BookmarksService;
+import com.mycompany.service.FavoriteService;
 import com.mycompany.service.DirectoryService;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +38,7 @@ public class DirectoryRESTController {
     private DirectoryService directoryService;
     
     @Autowired
-    private BookmarksService bookmarksService;
+    private FavoriteService favoriteService;
     
     @RequestMapping(value ="add", method = RequestMethod.POST)
     @JsonView(DirectoryDto.getDirectoryAdd.class)
@@ -70,32 +69,40 @@ public class DirectoryRESTController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
-    @RequestMapping(value ="bookmarks/add", method = RequestMethod.POST)
-    @JsonView(BookmarksDto.getBookmarks.class)
-    public ResponseEntity<?> addNewBookmarks(@Validated(BookmarksDto.addBookmarks.class) @RequestBody BookmarksDto bookmarksDto) {
-        Favorite result = bookmarksService.add(modelMapper.map(bookmarksDto, Favorite.class));
-        return new ResponseEntity<>(modelMapper.map(result, BookmarksDto.class), HttpStatus.OK);
+    @RequestMapping(value ="favorite/add", method = RequestMethod.POST)
+    @JsonView(FavoriteDto.getFavorite.class)
+    public ResponseEntity<?> addNewBookmarks(@Validated(FavoriteDto.addFavorite.class) @RequestBody FavoriteDto favoriteDto) {
+        Favorite result = favoriteService.add(modelMapper.map(favoriteDto, Favorite.class));
+        return new ResponseEntity<>(modelMapper.map(result, FavoriteDto.class), HttpStatus.OK);
     }
     
-    @RequestMapping(value ="bookmarks/update", method = RequestMethod.POST)
-    @JsonView(BookmarksDto.getBookmarks.class)
-    public ResponseEntity<?> updateBookmarks(@Validated(BookmarksDto.updateBookmarks.class) @RequestBody BookmarksDto bookmarksDto) {
-        Favorite result = bookmarksService.save(modelMapper.map(bookmarksDto, Favorite.class));
-        return new ResponseEntity<>(modelMapper.map(result, BookmarksDto.class), HttpStatus.OK);
+    @RequestMapping(value ="favorite/update", method = RequestMethod.POST)
+    @JsonView(FavoriteDto.getFavorite.class)
+    public ResponseEntity<?> updateBookmarks(@Validated(FavoriteDto.updateFavorite.class) @RequestBody FavoriteDto favoriteDto) {
+        Favorite result = favoriteService.save(modelMapper.map(favoriteDto, Favorite.class));
+        return new ResponseEntity<>(modelMapper.map(result, FavoriteDto.class), HttpStatus.OK);
     }
     
-    @RequestMapping(value ="bookmarks/delete", method = RequestMethod.POST)
-    public ResponseEntity<?> deleteDirectory(@Validated(DirectoryDto.deleteDirectory.class) @RequestBody BookmarksDto bookmarksDto) {
-        boolean b = bookmarksService.delete(modelMapper.map(bookmarksDto, Favorite.class));
+    @RequestMapping(value ="favorite/delete", method = RequestMethod.POST)
+    public ResponseEntity<?> deleteDirectory(@Validated(DirectoryDto.deleteDirectory.class) @RequestBody FavoriteDto favoriteDto) {
+        boolean b = favoriteService.delete(modelMapper.map(favoriteDto, Favorite.class));
         return new ResponseEntity<>(b, HttpStatus.OK);
     }
     
-    @RequestMapping(value ="bookmarks/{id}", method = RequestMethod.GET)
-    @JsonView(BookmarksDto.getBookmarks.class)
+    @RequestMapping(value ="favorite/{id}", method = RequestMethod.GET)
+    @JsonView(FavoriteDto.getFavorite.class)
     public ResponseEntity<?> getBookmarksDirectory(@PathVariable Integer id) {
-        List<BookmarksDto> result =  bookmarksService.findByDirectory(id).stream()
-               .map(authority -> modelMapper.map(authority ,BookmarksDto.class))
+        List<FavoriteDto> result =  favoriteService.findByDirectory(id).stream()
+               .map(authority -> modelMapper.map(authority ,FavoriteDto.class))
                .collect(Collectors.toList());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+    
+    @RequestMapping(value ="favorite/placement", method = RequestMethod.POST)
+    public ResponseEntity<?> isFavorite(@Validated(DirectoryDto.deleteDirectory.class) @RequestBody FavoriteDto favoriteDto) {
+        boolean b = favoriteService.isFavorite(favoriteDto.getPlacement(), favoriteDto.getDirectory().getAccount().getIdAccount());
+        return new ResponseEntity<>(b, HttpStatus.OK);
+    }
+    
+
 }

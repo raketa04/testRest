@@ -29,8 +29,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Repository
+
 public class PlacementDaoImpl implements PlacementDao{
 
+    @PersistenceContext	
+    private EntityManager entityManager;
+    
     enum sorted{
         pay_day_ascending,
         pay_day_descending,
@@ -39,8 +43,6 @@ public class PlacementDaoImpl implements PlacementDao{
         popularity_ascending,
         popularity_descending
     }
-    @PersistenceContext	
-    private EntityManager entityManager;
     
     private String getStringParametrSearch(Search search){
         String hql = "where p.isActive = true ";
@@ -172,8 +174,6 @@ public class PlacementDaoImpl implements PlacementDao{
 	return result;
     }
 
-
-
     @Override
     public List<Placement> findByParametr(Search search, int page) {
         String hql = "FROM Placement p " + getStringParametrSearch(search);
@@ -212,5 +212,14 @@ public class PlacementDaoImpl implements PlacementDao{
         Long result =  (long) query.getResultList().size();
 	return result;
     }
-    
+
+    @Override
+    public List<Placement> findByIdPlacements(List<Integer> placements) {
+        String hql = "FROM Placement p where p.idPlacement in (:place)";
+        Query query = (Query) entityManager.createQuery(hql,Placement.class);
+        query.setParameterList("place", placements);
+        List <Placement> result = query.getResultList();
+	return result;
+    }
+
 }

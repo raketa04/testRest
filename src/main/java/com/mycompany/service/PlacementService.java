@@ -18,6 +18,7 @@ import java.util.Set;
 public interface PlacementService {
     List<Placement> findAll();
     List<Placement> findByIdAccount(int idAccount);
+    List<Placement> findByDirectory(int idDirectory);
     List<Placement> findByComforts(Set<Comforts> comfortses);
     List<Placement> findByParametr(Search search,int page);
     Long findNumberByParametr(Search search);

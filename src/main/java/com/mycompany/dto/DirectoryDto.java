@@ -6,7 +6,6 @@
 package com.mycompany.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import java.util.HashSet;
 import java.util.Set;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
@@ -36,8 +35,8 @@ public class DirectoryDto {
     }
     
     @Null(groups = {addDirectory.class})
-    @NotNull(groups = {updateDirectory.class,deleteDirectory.class,BookmarksDto.updateBookmarks.class})
-    @JsonView({getDirectoryAdd.class,getDirectory.class,BookmarksDto.getBookmarks.class,getDirectoryUpdate.class})
+    @NotNull(groups = {updateDirectory.class,deleteDirectory.class,FavoriteDto.updateFavorite.class})
+    @JsonView({getDirectoryAdd.class,getDirectory.class,FavoriteDto.getFavorite.class,getDirectoryUpdate.class})
     private Integer idDirectory = null;
     
     @NotNull(groups = {addDirectory.class,updateDirectory.class})
@@ -47,20 +46,20 @@ public class DirectoryDto {
     
     @Null(groups = {addDirectory.class,updateDirectory.class,deleteDirectory.class})
     @JsonView({getDirectory.class})
-    private Set<BookmarksDto> bookmarkses;
+    private Set<FavoriteDto> favorites;
     
-    @NotNull(groups = {addDirectory.class})
+    @NotNull(groups = {addDirectory.class,FavoriteDto.isFavorite.class})
     @Null(groups = {updateDirectory.class,deleteDirectory.class})
-    @JsonView({getDirectoryAdd.class})
+    @JsonView({getDirectoryAdd.class,})
     private AccountDto account;
 
     public DirectoryDto() {
     }
 
-    public DirectoryDto(Integer idDirectory, String name, Set<BookmarksDto> bookmarkses, AccountDto account) {
+    public DirectoryDto(Integer idDirectory, String name, Set<FavoriteDto> favorites, AccountDto account) {
         this.idDirectory = idDirectory;
         this.name = name;
-        this.bookmarkses = bookmarkses;
+        this.favorites = favorites;
         this.account = account;
     }
 
@@ -72,8 +71,8 @@ public class DirectoryDto {
         return name;
     }
 
-    public Set<BookmarksDto> getBookmarkses() {
-        return bookmarkses;
+    public Set<FavoriteDto> getFavorites() {
+        return favorites;
     }
 
     public AccountDto getAccount() {
@@ -88,13 +87,12 @@ public class DirectoryDto {
         this.name = name;
     }
 
-    public void setBookmarkses(Set<BookmarksDto> bookmarkses) {
-        this.bookmarkses = bookmarkses;
+    public void setFavorites(Set<FavoriteDto> favorites) {
+        this.favorites = favorites;
     }
 
     public void setAccount(AccountDto account) {
         this.account = account;
     }
 
-    
 }

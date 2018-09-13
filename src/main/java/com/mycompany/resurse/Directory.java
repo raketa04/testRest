@@ -40,7 +40,7 @@ public class Directory implements Serializable {
     private Account account;
     
     @OneToMany(mappedBy = "directory", cascade=CascadeType.ALL,    orphanRemoval=true)
-    private Set<Favorite> bookmarkses = new HashSet<>();
+    private Set<Favorite> favorites = new HashSet<>();
 
     public Directory() {
     }
@@ -63,8 +63,8 @@ public class Directory implements Serializable {
         return account;
     }
 
-    public Set<Favorite> getBookmarkses() {
-        return bookmarkses;
+    public Set<Favorite> getFavorites() {
+        return favorites;
     }
 
     public void setIdDirectory(Integer idDirectory) {
@@ -79,8 +79,8 @@ public class Directory implements Serializable {
         this.account = account;
     } 
 
-    public void setBookmarkses(Set<Favorite> bookmarkses) {
-        this.bookmarkses = bookmarkses;
+    public void setFavorites(Set<Favorite> favorites) {
+        this.favorites = favorites;
     }
     
     

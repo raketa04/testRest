@@ -69,6 +69,15 @@ public class PlacementRESTController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @RequestMapping(value = "directory/{id}", method = RequestMethod.GET)
+    @JsonView(PlacementDto.getPlacmentSearach.class)
+    //@PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<PlacementDto>> getByDirectory(@PathVariable int id) {
+        List<PlacementDto> list = placementService.findByDirectory(id).stream()
+               .map(authority -> modelMapper.map(authority ,PlacementDto.class))
+               .collect(Collectors.toList());
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
     
     @RequestMapping(value = "comforts", method = RequestMethod.POST)
     public ResponseEntity<List<PlacementDto>> getByComforts(@RequestBody List<ComfortsDto> comfortsDto) {

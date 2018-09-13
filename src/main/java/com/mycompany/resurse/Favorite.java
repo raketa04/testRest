@@ -25,7 +25,7 @@ public class Favorite implements Serializable {
      @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_bookmarks")
-    private Integer idBookmarks;
+    private Integer idFavorite;
     
     @Column (name = "name")
     private String name;
@@ -40,15 +40,15 @@ public class Favorite implements Serializable {
     public Favorite() {
     }
 
-    public Favorite(Integer idBookmarks, String name, Integer placement, Directory directory) {
-        this.idBookmarks = idBookmarks;
+    public Favorite(Integer idFavorite, String name, Integer placement, Directory directory) {
+        this.idFavorite = idFavorite;
         this.name = name;
         this.placement = placement;
         this.directory = directory;
     }
 
-    public Integer getIdBookmarks() {
-        return idBookmarks;
+    public Integer getIdFavorite() {
+        return idFavorite;
     }
 
     public String getName() {
@@ -63,8 +63,8 @@ public class Favorite implements Serializable {
         return directory;
     }
 
-    public void setIdBookmarks(Integer idBookmarks) {
-        this.idBookmarks = idBookmarks;
+    public void setIdFavorite(Integer idFavorite) {
+        this.idFavorite = idFavorite;
     }
 
     public void setName(String name) {

@@ -20,6 +20,7 @@ public interface PlacementDao {
     List<Placement> findAll();
     List<Placement> findAllActive();
     List<Placement> findByIdAccount(int idAccount);
+    List<Placement> findByIdPlacements(List<Integer> placements);
     List<Placement> findByComforts(Set<Comforts> comfortses);
     List<Placement> findByParametr(Search search,int page);
     Long findNumberByParametr(Search search);
