@@ -197,18 +197,19 @@ public class PlacementDaoImpl implements PlacementDao{
 
     @Override
     public Long findNumberByParametr(Search search) {
-        String hql = "Select count(p.idPlacement) FROM Placement p " + getStringParametrSearch(search); 
+        String hql = "FROM Placement p " + getStringParametrSearch(search); 
         ArrayList<Integer> id = new ArrayList<>();
         for (Map.Entry<Integer, Integer> entry : ServerSpringApplication.cache.asMap().entrySet()) {
             System.out.println(id.add(entry.getValue()));
         }
         if(id.size() > 0){
-            hql += " and p.idPlacement not in (:tempplace) ";
+            hql += " and p.idPlacement not in (:place) ";  
         }
-        hql += getStringOrderSearch(search);
+        hql += getStringOrderSearch(search); 
+        System.out.println(hql);
         Query query = (Query) entityManager.createQuery(hql,Placement.class);
-        if(id.size() > 0) query.setParameterList("tempplace", id);
-        Long result = (Long) query.getSingleResult();
+        if(id.size() > 0) query.setParameterList("place", id);  
+        Long result =  (long) query.getResultList().size();
 	return result;
     }
     
