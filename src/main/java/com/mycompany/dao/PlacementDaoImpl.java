@@ -203,12 +203,12 @@ public class PlacementDaoImpl implements PlacementDao{
             System.out.println(id.add(entry.getValue()));
         }
         if(id.size() > 0){
-            hql += " and p.idPlacement not in (:tempplace) ";
+            hql += " and p.idPlacement not in (::place) ";
         }
         hql += getStringOrderSearch(search);
 	System.out.println(hql);   
         Query query = (Query) entityManager.createQuery(hql,Placement.class);
-        if(id.size() > 0) query.setParameterList("tempplace", id);
+        if(id.size() > 0) query.setParameterList(":place", id);
         Long result = (Long) query.getSingleResult();
 	return result;
     }
