@@ -21,49 +21,26 @@ public class FavoriteDto {
     public interface deleteFavorite{
     }
     
-    public interface updateFavorite{
-    }
     
-    public interface isFavorite{
-    }
     
     public interface getFavorite {
     }
-    
-    
-    @Null(groups = {addFavorite.class})
-    @NotNull(groups = {updateFavorite.class,deleteFavorite.class})
-    @JsonView({getFavorite.class,DirectoryDto.getDirectory.class})
-    private Integer idFavorite;
 
-    @NotNull(groups = {addFavorite.class,updateFavorite.class,deleteFavorite.class})
-    @JsonView({getFavorite.class,DirectoryDto.getDirectory.class})
-    private String name;
-    @NotNull(groups = {addFavorite.class,updateFavorite.class,deleteFavorite.class})
-    @JsonView({getFavorite.class,DirectoryDto.getDirectory.class,isFavorite.class})
+    @NotNull(groups = {addFavorite.class,deleteFavorite.class})
+    @JsonView({getFavorite.class})
     private Integer placement;
     
-    @NotNull(groups = {addFavorite.class,updateFavorite.class})
+    @NotNull(groups = {addFavorite.class})
     @Null(groups = {deleteFavorite.class})
-    @JsonView({getFavorite.class,isFavorite.class})
+    @JsonView({getFavorite.class})
     private DirectoryDto directory;
 
     public FavoriteDto() {
     }
 
-    public FavoriteDto(Integer idFavorite, String name, Integer placement, DirectoryDto directory) {
-        this.idFavorite = idFavorite;
-        this.name = name;
+    public FavoriteDto( Integer placement, DirectoryDto directory) {
         this.placement = placement;
         this.directory = directory;
-    }
-
-    public Integer getIdFavorite() {
-        return idFavorite;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Integer getPlacement() {
@@ -73,14 +50,6 @@ public class FavoriteDto {
     public DirectoryDto getDirectory() {
         return directory;
     }
-    
-    public void setIdFavorite(Integer idFavorite) {
-        this.idFavorite = idFavorite;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public void setPlacement(Integer placement) {
         this.placement = placement;
@@ -89,7 +58,4 @@ public class FavoriteDto {
     public void setDirectory(DirectoryDto directory) {
         this.directory = directory;
     }
-    
-    
-    
 }

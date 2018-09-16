@@ -8,14 +8,20 @@ package com.mycompany.controllers;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mycompany.dto.FavoriteDto;
 import com.mycompany.dto.DirectoryDto;
+import com.mycompany.dto.PlacementDto;
 import com.mycompany.resurse.Favorite;
 import com.mycompany.resurse.Directory;
+import com.mycompany.resurse.Placement;
+import com.mycompany.security.JwtTokenUtil;
+import com.mycompany.service.AccountService;
 import com.mycompany.service.FavoriteService;
 import com.mycompany.service.DirectoryService;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -30,77 +36,100 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ADMIN
  */
 @RestController
-@RequestMapping("account/directory")
+@RequestMapping("account")
 public class DirectoryRESTController {
+    
     @Autowired
     private ModelMapper modelMapper;
+    
     @Autowired
     private DirectoryService directoryService;
     
     @Autowired
+    private AccountService accountService;
+    
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+    
+    @Value("${jwt.header}")
+    private String tokenHeader;
+    
+    @Autowired
     private FavoriteService favoriteService;
     
-    @RequestMapping(value ="add", method = RequestMethod.POST)
+    @RequestMapping(value ="directory/add", method = RequestMethod.POST)
     @JsonView(DirectoryDto.getDirectoryAdd.class)
-    public ResponseEntity<?> addNewDirectory(@Validated(DirectoryDto.addDirectory.class) @RequestBody DirectoryDto directoryDto) {
-        Directory result = directoryService.add(modelMapper.map(directoryDto, Directory.class));
+    public ResponseEntity<?> addNewDirectory(@Validated(DirectoryDto.addDirectory.class) @RequestBody DirectoryDto directoryDto,HttpServletRequest request) {
+        String authToken = request.getHeader(tokenHeader);
+        final String token = authToken.substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        Directory add = modelMapper.map(directoryDto, Directory.class);
+        add.setAccount(accountService.findByAccount(username));
+        Directory result = directoryService.add(add);
         return new ResponseEntity<>(modelMapper.map(result, DirectoryDto.class), HttpStatus.OK);
     }
     
-    @RequestMapping(value ="update", method = RequestMethod.POST)
+    @RequestMapping(value ="directory/update", method = RequestMethod.POST)
     @JsonView(DirectoryDto.getDirectoryUpdate.class)
     public ResponseEntity<?> updateDirectory(@Validated(DirectoryDto.updateDirectory.class) @RequestBody DirectoryDto directoryDto) {
         Directory result = directoryService.save(modelMapper.map(directoryDto, Directory.class));
         return new ResponseEntity<>(modelMapper.map(result, DirectoryDto.class), HttpStatus.OK);
     }
     
-    @RequestMapping(value ="delete", method = RequestMethod.POST)
+    @RequestMapping(value ="directory/delete", method = RequestMethod.POST)
     public ResponseEntity<?> deleteDirectory(@Validated(DirectoryDto.deleteDirectory.class) @RequestBody DirectoryDto directoryDto) {
         boolean b = directoryService.delete(modelMapper.map(directoryDto, Directory.class));
         return new ResponseEntity<>(b, HttpStatus.OK);
     }
     
-    @RequestMapping(value ="{id}", method = RequestMethod.GET)
+    @RequestMapping(value ="directory", method = RequestMethod.GET)
     @JsonView(DirectoryDto.getDirectory.class)
-    public ResponseEntity<?> getDirectoryAccount(@PathVariable Integer id) {
-        List<DirectoryDto> result = directoryService.findByAccount(id).stream()
-               .map(authority -> modelMapper.map(authority ,DirectoryDto.class))
-               .collect(Collectors.toList());
+    public ResponseEntity<?> getDirectoryAccount(HttpServletRequest request) {
+        String authToken = request.getHeader(tokenHeader);
+        final String token = authToken.substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        List<DirectoryDto> result = directoryService.findByAccount(accountService.findByAccount(username)).stream()
+            .map(authority -> modelMapper.map(authority ,DirectoryDto.class))
+            .collect(Collectors.toList());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
-    @RequestMapping(value ="favorite/add", method = RequestMethod.POST)
+    @RequestMapping(value ="directory/{id}", method = RequestMethod.GET)
+    @JsonView(PlacementDto.getPlacmentSearach.class)
+    public ResponseEntity<?> getPlacementDirectory(@PathVariable int id) {
+        List<Placement> temp = favoriteService.findByDirectory(id);
+        if(temp != null){
+            List<PlacementDto> result = favoriteService.findByDirectory(id).stream()
+                .map(authority -> modelMapper.map(authority ,PlacementDto.class))
+                .collect(Collectors.toList());
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>("", HttpStatus.OK);
+        }
+    }
+    
+    @RequestMapping(value ="directory/favorite/add", method = RequestMethod.POST)
     @JsonView(FavoriteDto.getFavorite.class)
-    public ResponseEntity<?> addNewBookmarks(@Validated(FavoriteDto.addFavorite.class) @RequestBody FavoriteDto favoriteDto) {
+    public ResponseEntity<?> addNewFavorite(@Validated(FavoriteDto.addFavorite.class) @RequestBody FavoriteDto favoriteDto) {
         Favorite result = favoriteService.add(modelMapper.map(favoriteDto, Favorite.class));
         return new ResponseEntity<>(modelMapper.map(result, FavoriteDto.class), HttpStatus.OK);
     }
     
-    @RequestMapping(value ="favorite/update", method = RequestMethod.POST)
-    @JsonView(FavoriteDto.getFavorite.class)
-    public ResponseEntity<?> updateBookmarks(@Validated(FavoriteDto.updateFavorite.class) @RequestBody FavoriteDto favoriteDto) {
-        Favorite result = favoriteService.save(modelMapper.map(favoriteDto, Favorite.class));
-        return new ResponseEntity<>(modelMapper.map(result, FavoriteDto.class), HttpStatus.OK);
-    }
     
-    @RequestMapping(value ="favorite/delete", method = RequestMethod.POST)
-    public ResponseEntity<?> deleteDirectory(@Validated(DirectoryDto.deleteDirectory.class) @RequestBody FavoriteDto favoriteDto) {
+    @RequestMapping(value ="directory/favorite/delete", method = RequestMethod.POST)
+    public ResponseEntity<?> deleteFavorite(@Validated(DirectoryDto.deleteDirectory.class) @RequestBody FavoriteDto favoriteDto) {
         boolean b = favoriteService.delete(modelMapper.map(favoriteDto, Favorite.class));
         return new ResponseEntity<>(b, HttpStatus.OK);
     }
     
-    @RequestMapping(value ="favorite/{id}", method = RequestMethod.GET)
-    @JsonView(FavoriteDto.getFavorite.class)
-    public ResponseEntity<?> getBookmarksDirectory(@PathVariable Integer id) {
-        List<FavoriteDto> result =  favoriteService.findByDirectory(id).stream()
-               .map(authority -> modelMapper.map(authority ,FavoriteDto.class))
-               .collect(Collectors.toList());
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
     
-    @RequestMapping(value ="favorite/placement", method = RequestMethod.POST)
-    public ResponseEntity<?> isFavorite(@Validated(DirectoryDto.deleteDirectory.class) @RequestBody FavoriteDto favoriteDto) {
-        boolean b = favoriteService.isFavorite(favoriteDto.getPlacement(), favoriteDto.getDirectory().getAccount().getIdAccount());
+    @RequestMapping(value ="directory/favorite/placement/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> isFavorite(HttpServletRequest request, @PathVariable int id) {
+        String authToken = request.getHeader(tokenHeader);
+        final String token = authToken.substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        boolean b = favoriteService.isFavorite(id, accountService.findByAccount(username));
         return new ResponseEntity<>(b, HttpStatus.OK);
     }
     

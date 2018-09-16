@@ -5,6 +5,7 @@
  */
 package com.mycompany.service;
 
+import com.mycompany.resurse.Account;
 import com.mycompany.resurse.Directory;
 import java.util.List;
 
@@ -16,5 +17,5 @@ public interface DirectoryService {
     Directory add(Directory directory);
     Directory save(Directory directory);
     boolean  delete(Directory directory);
-    List<Directory> findByAccount(Integer idAccount);
+    List<Directory> findByAccount(Account account);
 }

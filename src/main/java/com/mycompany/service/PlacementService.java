@@ -8,6 +8,7 @@ package com.mycompany.service;
 import com.mycompany.dto.Search;
 import com.mycompany.resurse.Comforts;
 import com.mycompany.resurse.Placement;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ import java.util.Set;
 public interface PlacementService {
     List<Placement> findAll();
     List<Placement> findByIdAccount(int idAccount);
-    List<Placement> findByDirectory(int idDirectory);
+    List<Placement> findByDirectory(List<Integer> placements);
     List<Placement> findByComforts(Set<Comforts> comfortses);
     List<Placement> findByParametr(Search search,int page);
     Long findNumberByParametr(Search search);

@@ -28,10 +28,7 @@ public class PlacementServiceImpl implements PlacementService{
 
     @Autowired
     PlacementDao placementDao;
-    
-    @Autowired
-    FavoriteRepository favoriteRepository;
-    
+        
     @Override
     public List<Placement> findAll() {
         return placementDao.findAll();
@@ -85,12 +82,7 @@ public class PlacementServiceImpl implements PlacementService{
     }
 
     @Override
-    public List<Placement> findByDirectory(int idDirectory) {
-        ArrayList<Integer> placements = new ArrayList<>();
-        List<Favorite> favorites = favoriteRepository.findByDirectoryIdDirectory(idDirectory);
-        for (Favorite favorite : favorites) {
-            placements.add(favorite.getPlacement());
-        }
+    public List<Placement> findByDirectory(List<Integer> placements) {        
         return placementDao.findByIdPlacements(placements);
     }
     

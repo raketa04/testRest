@@ -31,7 +31,7 @@ public class Lease {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column (name = "id_lease")
-    private Integer idLease = null;
+    private Integer idLease;
     
     @Temporal(TemporalType.DATE)
     @Column (name = "start_lease")
@@ -47,6 +47,12 @@ public class Lease {
     @Column (name = "adults")
     private Integer adults;
     
+    @Column (name = "is_active")
+    private boolean active;
+    
+    @Column (name = "code_activate")
+    private String codeActivate;
+    
     @ManyToOne
     @JoinColumn(name="account")
     private Account account;
@@ -61,18 +67,18 @@ public class Lease {
     public Lease() {
     }
 
-    public Lease(Integer idLease, Date startLease, Date endLease, Integer children, Integer adults, Account account, Placement placement, Feedback feedback) {
+    public Lease(Integer idLease, Date startLease, Date endLease, Integer children, Integer adults, boolean active, String codeActivate, Account account, Placement placement, Feedback feedback) {
         this.idLease = idLease;
         this.startLease = startLease;
         this.endLease = endLease;
+        this.children = children;
+        this.adults = adults;
+        this.active = active;
+        this.codeActivate = codeActivate;
         this.account = account;
         this.placement = placement;
         this.feedback = feedback;
-        this.adults = adults;
-        this.children = children;
     }
-
-    
 
     public Integer getIdLease() {
         return idLease;
@@ -90,7 +96,13 @@ public class Lease {
         return account;
     }
 
-    
+    public String getCodeActivate() {
+        return codeActivate;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
 
     public Placement getPlacement() {
         return placement;
@@ -138,5 +150,13 @@ public class Lease {
 
     public void setChildren(Integer children) {
         this.children = children;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setCodeActivate(String codeActivate) {
+        this.codeActivate = codeActivate;
     }
 }

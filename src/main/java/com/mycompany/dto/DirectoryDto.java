@@ -35,7 +35,7 @@ public class DirectoryDto {
     }
     
     @Null(groups = {addDirectory.class})
-    @NotNull(groups = {updateDirectory.class,deleteDirectory.class,FavoriteDto.updateFavorite.class})
+    @NotNull(groups = {updateDirectory.class,deleteDirectory.class})
     @JsonView({getDirectoryAdd.class,getDirectory.class,FavoriteDto.getFavorite.class,getDirectoryUpdate.class})
     private Integer idDirectory = null;
     
@@ -48,19 +48,14 @@ public class DirectoryDto {
     @JsonView({getDirectory.class})
     private Set<FavoriteDto> favorites;
     
-    @NotNull(groups = {addDirectory.class,FavoriteDto.isFavorite.class})
-    @Null(groups = {updateDirectory.class,deleteDirectory.class})
-    @JsonView({getDirectoryAdd.class,})
-    private AccountDto account;
 
     public DirectoryDto() {
     }
 
-    public DirectoryDto(Integer idDirectory, String name, Set<FavoriteDto> favorites, AccountDto account) {
+    public DirectoryDto(Integer idDirectory, String name, Set<FavoriteDto> favorites) {
         this.idDirectory = idDirectory;
         this.name = name;
         this.favorites = favorites;
-        this.account = account;
     }
 
     public Integer getIdDirectory() {
@@ -75,10 +70,6 @@ public class DirectoryDto {
         return favorites;
     }
 
-    public AccountDto getAccount() {
-        return account;
-    }
-
     public void setIdDirectory(Integer idDirectory) {
         this.idDirectory = idDirectory;
     }
@@ -90,9 +81,4 @@ public class DirectoryDto {
     public void setFavorites(Set<FavoriteDto> favorites) {
         this.favorites = favorites;
     }
-
-    public void setAccount(AccountDto account) {
-        this.account = account;
-    }
-
 }

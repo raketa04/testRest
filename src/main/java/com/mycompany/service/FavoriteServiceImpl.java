@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.mycompany.repository.FavoriteRepository;
 import com.mycompany.resurse.Account;
+import com.mycompany.resurse.Placement;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,30 +26,34 @@ public class FavoriteServiceImpl implements FavoriteService{
     @Autowired
     FavoriteRepository favoriteRepository;
     
+    @Autowired
+    PlacementService placementService;
+    
     @Override
-    public Favorite add(Favorite bookmarks) {
-        return favoriteRepository.save(bookmarks);
+    public Favorite add(Favorite favorite) {
+        return favoriteRepository.save(favorite);
     }
 
     @Override
-    public Favorite save(Favorite bookmarks) {
-        return favoriteRepository.save(bookmarks);
-    }
-
-    @Override
-    public boolean delete(Favorite bookmarks) {
-        favoriteRepository.deleteById(bookmarks.getIdFavorite());
+    public boolean delete(Favorite favorite) {
+        favoriteRepository.delete(favoriteRepository.findByPlacementAndDirectoryIdDirectory(favorite.getPlacement(),favorite.getDirectory().getIdDirectory()));
         return true;
     }
 
     @Override
-    public List<Favorite> findByDirectory(Integer idDirectory) {
-        return favoriteRepository.findByDirectoryIdDirectory(idDirectory);
+    public List<Placement> findByDirectory(Integer idDirectory) { 
+        ArrayList<Integer> placements = new ArrayList<>();
+        List<Favorite> favorites = favoriteRepository.findByDirectoryIdDirectory(idDirectory);
+        for (Favorite favorite : favorites) {
+            placements.add(favorite.getPlacement());
+        }
+        if(favorites.size() > 0) return placementService.findByDirectory(placements);
+        else return null;
     }
 
     @Override
-    public boolean isFavorite(Integer placement, Integer account) {
-        if(favoriteRepository.findByPlacementAndDirectoryAccountIdAccount(placement, account) != null) return true;
+    public boolean isFavorite(Integer placement, Account account) {
+        if(favoriteRepository.findByPlacementAndDirectoryAccount(placement, account) != null) return true;
         return false;
     }
     

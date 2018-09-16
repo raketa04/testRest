@@ -33,7 +33,7 @@ public class AccountDto {
     }
     
     @Null(groups = {add.class , autarificationIn.class,})
-    @NotNull(groups = {update.class,DirectoryDto.addDirectory.class,FavoriteDto.isFavorite.class})
+    @NotNull(groups = {update.class})
     @JsonView({autarificationOut.class,PlacementDto.getPlacement.class,DirectoryDto.getDirectory.class,DirectoryDto.getDirectoryAdd.class,})
     private Integer idAccount;
     
@@ -42,7 +42,7 @@ public class AccountDto {
     private String password;
     
     @NotNull(groups = {add.class , autarificationIn.class,update.class,activation.class})
-    @JsonView({autarificationOut.class})
+    @JsonView({autarificationOut.class,LeaseDto.getAddLease.class})
     private String email;
     
     @Null(groups = {autarificationIn.class})

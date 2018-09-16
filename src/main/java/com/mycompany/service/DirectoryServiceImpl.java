@@ -45,8 +45,7 @@ public class DirectoryServiceImpl implements DirectoryService{
     }
 
     @Override
-    public List<Directory> findByAccount(Integer idAccount) {
-        Account account = accountDao.findById(idAccount);
+    public List<Directory> findByAccount(Account account) {
         return directoryRepository.findByAccount(account);
     }
     

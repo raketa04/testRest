@@ -8,7 +8,6 @@ package com.mycompany.controllers;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mycompany.dto.PictuteresDto;
 import com.mycompany.resurse.Pictuteres;
-import com.mycompany.service.AccountService;
 import com.mycompany.service.PicturesService;
 import com.mycompany.service.PlacementService;
 import java.io.File;

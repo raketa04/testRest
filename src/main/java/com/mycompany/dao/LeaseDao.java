@@ -6,7 +6,6 @@
 package com.mycompany.dao;
 
 import com.mycompany.resurse.Lease;
-import com.mycompany.resurse.Placement;
 import java.util.List;
 
 /**
@@ -18,5 +17,8 @@ public interface LeaseDao {
     Lease findByid(int id);
     List<Lease> findByAccount(int idAccount);
     List<Lease> findByPlacment(int idPlacement);
+    List<Lease> findByPlacementAccount(int idAccount);
     Lease add(Lease lease);
+    boolean delete(Lease lease);
+    String activate(Lease lease);   
 }

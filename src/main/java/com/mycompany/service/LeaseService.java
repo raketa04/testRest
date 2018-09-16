@@ -6,6 +6,7 @@
 package com.mycompany.service;
 
 import com.mycompany.resurse.Lease;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,5 +18,10 @@ public interface LeaseService {
     Lease findByid(int id);
     List<Lease> findByAccount(int idAccount);
     List<Lease> findByPlacment(int idPlacement);
+    List<Lease> findByPlacementAccount(int idAccount);
     Lease add(Lease lease);
+    boolean delete(Lease lease);
+    boolean addCacheLease(Lease lease);
+    boolean deleteCacheLease(Integer idLease);
+    String activate(Lease lease);
 }

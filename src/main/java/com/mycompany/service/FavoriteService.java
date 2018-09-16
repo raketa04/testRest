@@ -7,7 +7,7 @@ package com.mycompany.service;
 
 import com.mycompany.resurse.Account;
 import com.mycompany.resurse.Favorite;
-import com.mycompany.resurse.Directory;
+import com.mycompany.resurse.Placement;
 import java.util.List;
 
 /**
@@ -16,8 +16,7 @@ import java.util.List;
  */
 public interface FavoriteService {
     Favorite add(Favorite bookmarks);
-    Favorite save(Favorite bookmarks);
     boolean  delete(Favorite bookmarks);
-    boolean  isFavorite(Integer placement, Integer account);
-    List<Favorite> findByDirectory(Integer idDirectory);
+    boolean  isFavorite(Integer placement, Account account);
+    List<Placement> findByDirectory(Integer idDirectory);
 }

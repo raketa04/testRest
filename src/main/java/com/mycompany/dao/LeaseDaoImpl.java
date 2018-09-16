@@ -6,7 +6,6 @@
 package com.mycompany.dao;
 
 import com.mycompany.resurse.Lease;
-import com.mycompany.resurse.Placement;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -56,5 +55,32 @@ public class LeaseDaoImpl implements LeaseDao{
         entityManager.clear();
         return entityManager.find(Lease.class, lease.getIdLease()) ;
     }
-    
+
+    @Override
+    public List<Lease> findByPlacementAccount(int idAccount) {
+        String hql = "FROM Lease l where l.placement.account = " + idAccount;
+        System.out.println(hql);
+	List<Lease> resultList =  entityManager.createQuery(hql,Lease.class).getResultList();
+        return resultList;
+    }
+
+    @Override
+    public boolean delete(Lease lease) {
+        entityManager.remove(lease);
+        return true;
+    }
+
+    @Override
+    public String activate(Lease lease) {
+        Lease result = entityManager.find(Lease.class, lease.getIdLease());
+        if(result.getCodeActivate().equals(lease.getCodeActivate())){
+           result.setActive(true);
+           entityManager.merge(result);
+           return "done!";
+        }
+        else {
+            return "error!";
+        }
+    }
+
 }

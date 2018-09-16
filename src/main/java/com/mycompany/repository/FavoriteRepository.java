@@ -15,6 +15,7 @@ import org.springframework.data.repository.CrudRepository;
  * @author ADMIN
  */
 public interface FavoriteRepository extends CrudRepository<Favorite, Integer> {
-    List<Favorite> findByDirectoryIdDirectory(Integer Direcrory);
-    Favorite findByPlacementAndDirectoryAccountIdAccount(Integer placement, Integer account); 
+    Favorite findByPlacementAndDirectoryIdDirectory(Integer placement,Integer Direcrory);
+    List<Favorite> findByDirectoryIdDirectory(Integer idDirectory);
+    Favorite findByPlacementAndDirectoryAccount(Integer placement, Account account); 
 }

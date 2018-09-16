@@ -27,8 +27,6 @@ public class Favorite implements Serializable {
     @Column (name = "id_bookmarks")
     private Integer idFavorite;
     
-    @Column (name = "name")
-    private String name;
     
     @Column (name = "placement")
     private Integer placement;
@@ -40,9 +38,8 @@ public class Favorite implements Serializable {
     public Favorite() {
     }
 
-    public Favorite(Integer idFavorite, String name, Integer placement, Directory directory) {
+    public Favorite(Integer idFavorite, Integer placement, Directory directory) {
         this.idFavorite = idFavorite;
-        this.name = name;
         this.placement = placement;
         this.directory = directory;
     }
@@ -51,9 +48,6 @@ public class Favorite implements Serializable {
         return idFavorite;
     }
 
-    public String getName() {
-        return name;
-    }
 
     public Integer getPlacement() {
         return placement;
@@ -67,9 +61,6 @@ public class Favorite implements Serializable {
         this.idFavorite = idFavorite;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public void setPlacement(Integer placement) {
         this.placement = placement;

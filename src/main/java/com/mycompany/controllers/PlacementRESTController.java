@@ -6,33 +6,38 @@
 package com.mycompany.controllers;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.mycompany.dto.AccountDto;
-import com.mycompany.dto.CityDto;
 import com.mycompany.dto.ComfortsDto;
+import com.mycompany.dto.LeaseDto;
 import com.mycompany.dto.PlacementDto;
 import com.mycompany.dto.Search;
 import com.mycompany.dto.SearchDto;
 import com.mycompany.resurse.Account;
 import com.mycompany.resurse.Comforts;
+import com.mycompany.resurse.Lease;
 import com.mycompany.resurse.Location;
 import com.mycompany.resurse.Placement;
+import com.mycompany.security.JwtTokenUtil;
+import com.mycompany.service.AccountService;
+import com.mycompany.service.LeaseService;
 import com.mycompany.service.LocationService;
 import com.mycompany.service.PlacementService;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -51,15 +56,55 @@ public class PlacementRESTController {
     @Autowired
     private LocationService locationService;
     
-    @GetMapping("account/{id}")
+    @Autowired
+    private AccountService accountService;
+    
+    @Autowired
+    private LeaseService leaseService;
+    
+    
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+    @Value("${jwt.header}")
+    private String tokenHeader;
+    
+    @GetMapping("account/placments")
     @JsonView(PlacementDto.getPlacement.class)
-    public ResponseEntity<List<PlacementDto>> getLandlordPlacment(@PathVariable int id) {
-        List<PlacementDto> list = placementService.findByIdAccount(id).stream()
+    public ResponseEntity<List<PlacementDto>> getPlacments(HttpServletRequest request) {
+        String authToken = request.getHeader(tokenHeader);
+        final String token = authToken.substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        Account account = accountService.findByAccount(username);
+        List<PlacementDto> list = placementService.findByIdAccount(account.getIdAccount()).stream()
                 .map(authority -> modelMapper.map(authority ,PlacementDto.class))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
        
+    @GetMapping("account/lease")
+    @JsonView(LeaseDto.getLeaseTenant.class)
+    public ResponseEntity<ArrayList<ArrayList<LeaseDto>>> getLease(HttpServletRequest request) {
+        String authToken = request.getHeader(tokenHeader);
+        final String token = authToken.substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        Account account = accountService.findByAccount(username);
+        List<Lease> list1 = leaseService.findByPlacementAccount(account.getIdAccount());
+        List<LeaseDto> list = leaseService.findByPlacementAccount(account.getIdAccount()).stream()
+                .map(authority -> modelMapper.map(authority ,LeaseDto.class))
+                .collect(Collectors.toList());
+        ArrayList<ArrayList<LeaseDto>> sendList =  new ArrayList<>();
+        ArrayList<LeaseDto> complete  =  new ArrayList<>();
+        ArrayList<LeaseDto> active  =  new ArrayList<>();
+        Date d = new Date();
+        list.forEach((lease) -> {
+            if(lease.getEndLease() < d.getTime() && lease.getStartLease() > d.getTime()) active.add(lease);
+            else complete.add(lease);
+        });
+        sendList.add(complete);
+        sendList.add(active);
+        return new ResponseEntity<>(sendList, HttpStatus.OK);
+    }
+    
     
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @JsonView(PlacementDto.getPlacement.class)
@@ -69,15 +114,6 @@ public class PlacementRESTController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "directory/{id}", method = RequestMethod.GET)
-    @JsonView(PlacementDto.getPlacmentSearach.class)
-    //@PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<PlacementDto>> getByDirectory(@PathVariable int id) {
-        List<PlacementDto> list = placementService.findByDirectory(id).stream()
-               .map(authority -> modelMapper.map(authority ,PlacementDto.class))
-               .collect(Collectors.toList());
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
     
     @RequestMapping(value = "comforts", method = RequestMethod.POST)
     public ResponseEntity<List<PlacementDto>> getByComforts(@RequestBody List<ComfortsDto> comfortsDto) {

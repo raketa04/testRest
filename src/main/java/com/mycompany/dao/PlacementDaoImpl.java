@@ -8,6 +8,7 @@ package com.mycompany.dao;
 import com.mycompany.ServerSpringApplication;
 import com.mycompany.dto.Search;
 import com.mycompany.resurse.Comforts;
+import com.mycompany.resurse.Lease;
 import com.mycompany.resurse.Placement;
 import java.util.ArrayList;
 
@@ -58,7 +59,7 @@ public class PlacementDaoImpl implements PlacementDao{
         }
         if(search.getStart()!= null || search.getEnd()!= null ){
             if(search.getStart()!= null && search.getEnd() == null){
-                hql += " and p.idPlacement not in (Select l.placement From Lease l Where " +search.getStart() +" <= l.endLease)";
+                hql += " and p.idPlacement not in (Select l.placement From Lease l Where l.isand" +search.getStart() +" <= l.endLease)";
             }
             if(search.getStart() == null && search.getEnd() != null){
                 hql += " and p.idPlacement not in (Select l.placement From Lease l Where " +search.getEnd()+" >= l.startLease )";
@@ -182,6 +183,9 @@ public class PlacementDaoImpl implements PlacementDao{
         for (Map.Entry<Integer, Integer> entry : ServerSpringApplication.cache.asMap().entrySet()) {
             System.out.println(id.add(entry.getValue()));
         }
+        for (Map.Entry<Integer, Lease> entry : ServerSpringApplication.cacheLease.asMap().entrySet()) {
+            System.out.println(id.add(entry.getValue().getPlacement().getIdPlacement()));
+        }
         if(id.size() > 0){
             hql += " and p.idPlacement not in (:place) ";  
         }
@@ -202,6 +206,9 @@ public class PlacementDaoImpl implements PlacementDao{
         for (Map.Entry<Integer, Integer> entry : ServerSpringApplication.cache.asMap().entrySet()) {
             System.out.println(id.add(entry.getValue()));
         }
+        for (Map.Entry<Integer, Lease> entry : ServerSpringApplication.cacheLease.asMap().entrySet()) {
+            System.out.println(id.add(entry.getValue().getPlacement().getIdPlacement()));
+        }
         if(id.size() > 0){
             hql += " and p.idPlacement not in (:place) ";  
         }
@@ -218,6 +225,7 @@ public class PlacementDaoImpl implements PlacementDao{
         String hql = "FROM Placement p where p.idPlacement in (:place)";
         Query query = (Query) entityManager.createQuery(hql,Placement.class);
         query.setParameterList("place", placements);
+        System.out.println(hql);
         List <Placement> result = query.getResultList();
 	return result;
     }

@@ -5,6 +5,7 @@
  */
 package com.mycompany.service;
 
+import com.mycompany.ServerSpringApplication;
 import com.mycompany.dao.LeaseDao;
 import com.mycompany.resurse.Lease;
 import java.util.List;
@@ -42,7 +43,35 @@ public class LeaseServiceImpl implements LeaseService{
 
     @Override
     public Lease add(Lease lease) {
+        lease.setCodeActivate("1111");
         return leaseDao.add(lease);
+    }
+
+    @Override
+    public List<Lease> findByPlacementAccount(int idAccount) {
+        return leaseDao.findByPlacementAccount(idAccount);
+    }
+
+    @Override
+    public boolean delete(Lease lease) {
+       return leaseDao.delete(lease);
+    }
+    
+    @Override
+    public boolean addCacheLease(Lease lease) {
+        ServerSpringApplication.cacheLease.put(lease.getIdLease(), lease);
+        return true;
+    }
+
+    @Override
+    public boolean deleteCacheLease(Integer idLease) {
+        ServerSpringApplication.cacheLease.asMap().remove(idLease);
+        return true;
+    }
+
+    @Override
+    public String activate(Lease lease) {
+        return leaseDao.activate(lease);
     }
     
 }

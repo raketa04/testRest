@@ -38,7 +38,7 @@ public class PlacementDto {
 
     @Null(groups = {addPlacment.class})
     @NotNull(groups = {updatePlacment.class, LeaseDto.addLease.class,PictuteresDto.deletePictures.class})
-    @JsonView({PictuteresDto.getPictures.class,addGetPlacment.class, getPlacmentSearach.class,getPlacement.class,  LeaseDto.getLeasePlacmentTenant.class, LeaseDto.getAddLease.class,LeaseDto.getLeaseTenant.class})
+    @JsonView({PictuteresDto.getPictures.class,addGetPlacment.class, getPlacmentSearach.class,getPlacement.class,  LeaseDto.getLeasePlacmentTenant.class, LeaseDto.getAddLease.class,LeaseDto.getLeaseTenant.class,LeaseDto.getTempLease.class})
     private Integer idPlacement ;
 
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
@@ -78,42 +78,42 @@ public class PlacementDto {
 
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
-    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({addGetPlacment.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
     private float payMonth;
 
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
-    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({addGetPlacment.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
     private Integer children;
 
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
-    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacement.class,  LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({addGetPlacment.class,getPlacement.class,  LeaseDto.getLeasePlacmentTenant.class})
     private Integer adults;
 
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
-    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacement.class,  LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({addGetPlacment.class,getPlacement.class,  LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getAddLease.class,LeaseDto.getTempLease.class})
     private String phonePlacment;
 
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
-    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({addGetPlacment.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getAddLease.class,LeaseDto.getTempLease.class})
     private String alternativePhonePlacement;
     
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
-    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({addGetPlacment.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
     private String content;
     
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
-    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({addGetPlacment.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
     private String name;
     
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
-    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({addGetPlacment.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
     private boolean clining;
     
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
@@ -123,16 +123,16 @@ public class PlacementDto {
     
     @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @Null(groups = {LeaseDto.addLease.class})
-    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({addGetPlacment.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
     private  Float area;
 
     @Null(groups = {LeaseDto.addLease.class})
-    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({addGetPlacment.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
     private Set<ComfortsDto> comfortses = new HashSet<>();
 
     @NotNull(groups = {addPlacment.class})
     @Null(groups = {updatePlacment.class})
-    @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({addGetPlacment.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
     private CityDto city;
     
     @NotNull(groups = {addPlacment.class})
@@ -142,7 +142,7 @@ public class PlacementDto {
 
     @NotNull(groups = {addPlacment.class})
     @Null(groups = {updatePlacment.class})
-    @JsonView({getPlacement.class,LeaseDto.getLeaseTenant.class, LeaseDto.getLeasePlacmentTenant.class})
+    @JsonView({getPlacement.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getAddLease.class})
     private AccountDto account;
 
     @Null(groups = {addPlacment.class, updatePlacment.class})
@@ -150,7 +150,7 @@ public class PlacementDto {
     private Set<LeaseDto> leases = new HashSet<>();
     
     
-    @JsonView({getPlacement.class,getPlacmentSearach.class})
+    @JsonView({getPlacement.class,getPlacmentSearach.class,LeaseDto.getLeaseTenant.class,})
     private Set<PictuteresDto> pictutereses = new HashSet<>();
 
     @JsonView({getPlacement.class})

@@ -19,8 +19,12 @@ public class LeaseDto {
     public interface addLease{
         
     }
-    
+
     public interface getAddLease{
+        
+    }
+    
+    public interface getTempLease{
         
     }
     public interface getLeasePlacmentTenant{
@@ -35,9 +39,13 @@ public class LeaseDto {
         
     }
     
+     public interface activateLease{
+        
+    }
+    
     @Null(groups = {addLease.class})
-    @NotNull(groups = {FeedbackDto.addFeedback.class})
-    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class})
+    @NotNull(groups = {FeedbackDto.addFeedback.class,activateLease.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class,getTempLease.class})
     private Integer idLease = null;
     
     @NotNull(groups = {addLease.class})
@@ -49,23 +57,27 @@ public class LeaseDto {
     private Long endLease;
     
     @NotNull(groups = {addLease.class})
-    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,PlacementDto.getPlacement.class})
     private Integer children;
 
     @NotNull(groups = {addLease.class})
-    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,PlacementDto.getPlacement.class})
     private Integer adults;
+    
+    @Null(groups = {addLease.class,getAddLease.class})
+    @NotNull(groups = {activateLease.class})
+    private String codeActivate;
 
-    @NotNull(groups = {addLease.class})
+    @Null(groups = {addLease.class})
     @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,PlacementDto.getPlacement.class})
     private AccountDto account;
 
     @NotNull(groups = {addLease.class})
-    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeaseTenant.class})
-    private PlacementDto placementLease;
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeaseTenant.class,getTempLease.class})
+    private PlacementDto placement;
 
     @Null(groups = {addLease.class})
-    @JsonView({getLeasePlacmentTenant.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class})
+    @JsonView({getLeasePlacmentTenant.class,getLeasePlacement.class,PlacementDto.getPlacement.class})
     private FeedbackDto feedback;
 
     public LeaseDto() {
@@ -76,7 +88,7 @@ public class LeaseDto {
         this.startLease = startLease;
         this.endLease = endLease;
         this.account = account;
-        this.placementLease = placement;
+        this.placement = placement;
         this.feedback = feedback;
         this.adults = adults;
         this.children =children;
@@ -106,8 +118,8 @@ public class LeaseDto {
         return children;
     }
     
-    public PlacementDto getPlacementLease() {
-        return placementLease;
+    public PlacementDto getPlacement() {
+        return placement;
     }
 
     public FeedbackDto getFeedback() {
@@ -130,8 +142,8 @@ public class LeaseDto {
         this.account = account;
     }
 
-    public void setPlacementLease(PlacementDto placementLease) {
-        this.placementLease = placementLease;
+    public void setPlacement(PlacementDto placement) {
+        this.placement = placement;
     }
 
     public void setFeedback(FeedbackDto feedback) {
@@ -143,6 +155,18 @@ public class LeaseDto {
     }
 
     public void setChildern(Integer children) {
+        this.children = children;
+    }
+
+    public void setCodeActivate(String codeActivate) {
+        this.codeActivate = codeActivate;
+    }
+
+    public String getCodeActivate() {
+        return codeActivate;
+    }
+
+    public void setChildren(Integer children) {
         this.children = children;
     }
     
