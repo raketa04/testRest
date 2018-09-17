@@ -45,7 +45,6 @@ public class DirectoryDto {
     private String name;
     
     @Null(groups = {addDirectory.class,updateDirectory.class,deleteDirectory.class})
-    @JsonView({getDirectory.class})
     private Set<FavoriteDto> favorites;
     
 
