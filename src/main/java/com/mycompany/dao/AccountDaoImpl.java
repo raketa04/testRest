@@ -15,6 +15,7 @@ import com.mycompany.resurse.Authority;
 import java.util.List;
 import java.util.Random;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,7 +35,13 @@ public class AccountDaoImpl implements AccountDao{
     @Override
     public Account findByAccount(String userName) {
         String hql = "FROM Account WHERE email = '" + userName +"'";
-	Account result =  entityManager.createQuery(hql,Account.class).getSingleResult();
+        Account result;
+	try{
+            result =  entityManager.createQuery(hql,Account.class).getSingleResult();
+        }
+        catch(NoResultException exception){
+            result = null;
+        }
 	return result;
     }
 
