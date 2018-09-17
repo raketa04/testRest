@@ -103,13 +103,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 "/account/activation",
                 "/placement/search_number",  
                 "/placement/search/{page}",
-                "/city/findbyname",
-                "/region/all"
+                "/city/findbyname"
             )
             .antMatchers(
                 HttpMethod.GET,
                 "/file/getPic/{id}",
-                "/account/avatar/get/{id}"
+                "/account/avatar/get/{id}",
+                "/region/all"
             );
     }
 }

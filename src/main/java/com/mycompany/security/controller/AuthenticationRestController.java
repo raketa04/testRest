@@ -27,7 +27,11 @@ import com.mycompany.security.JwtTokenUtil;
 import com.mycompany.security.JwtUser;
 import com.mycompany.security.service.JwtAuthenticationResponse;
 import com.mycompany.service.AccountService;
+import javax.servlet.http.HttpServletResponse;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 
 @RestController
 public class AuthenticationRestController {
@@ -80,6 +84,7 @@ public class AuthenticationRestController {
         }
     }
 
+    
     @ExceptionHandler({AuthenticationException.class})
     public ResponseEntity<String> handleAuthenticationException(AuthenticationException e) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());

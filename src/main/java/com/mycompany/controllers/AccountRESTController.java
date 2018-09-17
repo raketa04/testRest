@@ -19,6 +19,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -30,8 +31,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -72,17 +76,14 @@ public class AccountRESTController {
     private AuthenticationManager authenticationManager;
     
     @GetMapping("logout")
-    @JsonView(AccountDto.autarificationOut.class)
-    public ResponseEntity<?> logout(HttpServletRequest request) {
-        String authToken = request.getHeader(tokenHeader);
-        final String token = authToken.substring(7);
-        String username = jwtTokenUtil.getUsernameFromToken(token);
-        JwtUser user = (JwtUser) userDetailsService.loadUserByUsername(username);
-        UsernamePasswordAuthenticationToken temp = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
-        temp.setAuthenticated(false);
-        authenticationManager.authenticate(temp);
-        return new ResponseEntity<>("logout", HttpStatus.OK);
+public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+    authenticationManager.authenticate(auth);
+    if (auth != null){    
+        new SecurityContextLogoutHandler().logout(request, response, auth);
     }
+    return "redirect:/login?logout";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
+}
     
     @RequestMapping(value ="activation", method = RequestMethod.POST)
     public ResponseEntity<String> activation(@Validated(AccountDto.activation.class)@RequestBody AccountDto accountDto) {

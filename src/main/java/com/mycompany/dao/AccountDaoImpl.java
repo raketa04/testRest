@@ -34,8 +34,8 @@ public class AccountDaoImpl implements AccountDao{
     @Override
     public Account findByAccount(String userName) {
         String hql = "FROM Account WHERE email = '" + userName +"'";
-	List <Account> result =  entityManager.createQuery(hql,Account.class).getResultList();
-	return result.get(0);
+	Account result =  entityManager.createQuery(hql,Account.class).getSingleResult();
+	return result;
     }
 
     @Override
