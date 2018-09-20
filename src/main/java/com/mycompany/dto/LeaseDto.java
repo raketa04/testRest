@@ -46,7 +46,7 @@ public class LeaseDto {
     @Null(groups = {addLease.class})
     @NotNull(groups = {FeedbackDto.addFeedback.class,activateLease.class})
     @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class,getTempLease.class})
-    private Integer idLease = null;
+    private Integer idLease;
     
     @NotNull(groups = {addLease.class})
     @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class})
@@ -67,9 +67,15 @@ public class LeaseDto {
     @Null(groups = {addLease.class,getAddLease.class})
     @NotNull(groups = {activateLease.class})
     private String codeActivate;
+    
+    @Null(groups = {addLease.class,getAddLease.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class,getTempLease.class})
+    private String codePlacement;
+
+    private Long timeCreate;
 
     @Null(groups = {addLease.class})
-    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,PlacementDto.getPlacement.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacement.class,getTempLease.class})
     private AccountDto account;
 
     @NotNull(groups = {addLease.class})
@@ -83,16 +89,20 @@ public class LeaseDto {
     public LeaseDto() {
     }
 
-    public LeaseDto(Integer idLease, Long startLease,Long endLease, Integer children, Integer adults , AccountDto account, PlacementDto placement, FeedbackDto feedback) {
+    public LeaseDto(Integer idLease, Long startLease, Long endLease, Integer children, Integer adults, String codeActivate, String codePlacement, AccountDto account, PlacementDto placement, FeedbackDto feedback) {
         this.idLease = idLease;
         this.startLease = startLease;
         this.endLease = endLease;
+        this.children = children;
+        this.adults = adults;
+        this.codeActivate = codeActivate;
+        this.codePlacement = codePlacement;
         this.account = account;
         this.placement = placement;
         this.feedback = feedback;
-        this.adults = adults;
-        this.children =children;
     }
+
+    
 
     public Integer getIdLease() {
         return idLease;
@@ -126,6 +136,11 @@ public class LeaseDto {
         return feedback;
     }
 
+    public String getCodePlacement() {
+        return codePlacement;
+    }
+
+    
     public void setIdLease(Integer idLease) {
         this.idLease = idLease;
     }
@@ -169,6 +184,11 @@ public class LeaseDto {
     public void setChildren(Integer children) {
         this.children = children;
     }
+
+    public void setCodePlacement(String codePlacement) {
+        this.codePlacement = codePlacement;
+    }
+    
     
     
 }

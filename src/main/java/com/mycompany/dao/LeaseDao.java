@@ -15,6 +15,7 @@ import java.util.List;
 public interface LeaseDao {
     List<Lease> findAll();
     Lease findByid(int id);
+    Lease findByIdAccountId(int idAccount, int id);
     List<Lease> findByAccount(int idAccount);
     List<Lease> findByPlacment(int idPlacement);
     List<Lease> findByPlacementAccount(int idAccount);

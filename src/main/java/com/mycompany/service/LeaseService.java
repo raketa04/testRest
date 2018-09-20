@@ -24,4 +24,5 @@ public interface LeaseService {
     boolean addCacheLease(Lease lease);
     boolean deleteCacheLease(Integer idLease);
     String activate(Lease lease);
+    Lease findByIdAccountId(int idAccount, int id);
 }

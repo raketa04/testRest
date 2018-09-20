@@ -8,6 +8,7 @@ package com.mycompany.dao;
 import com.mycompany.resurse.Lease;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -81,6 +82,20 @@ public class LeaseDaoImpl implements LeaseDao{
         else {
             return "error!";
         }
+    }
+
+    @Override
+    public Lease findByIdAccountId(int idAccount, int id) {
+        String hql = "FROM Lease l where l.account = " + idAccount + " and idLease = " + id;
+        System.out.println(hql);
+        try{
+            Lease result =  entityManager.createQuery(hql,Lease.class).getSingleResult();
+            return result;
+        }
+        catch (NoResultException ex){
+            return null;
+        }
+        
     }
 
 }

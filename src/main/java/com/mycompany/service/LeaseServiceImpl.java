@@ -5,10 +5,13 @@
  */
 package com.mycompany.service;
 
+import com.mycompany.RandomString;
 import com.mycompany.ServerSpringApplication;
 import com.mycompany.dao.LeaseDao;
 import com.mycompany.resurse.Lease;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +47,10 @@ public class LeaseServiceImpl implements LeaseService{
     @Override
     public Lease add(Lease lease) {
         lease.setCodeActivate("1111");
+        RandomString gen = new RandomString(8, ThreadLocalRandom.current());
+        lease.setCodePlacement(gen.nextString());
+        Date d = new Date();
+        lease.setTimeCreate(d);
         return leaseDao.add(lease);
     }
 
@@ -54,7 +61,9 @@ public class LeaseServiceImpl implements LeaseService{
 
     @Override
     public boolean delete(Lease lease) {
-       return leaseDao.delete(lease);
+       Date d = new Date();
+       if(d.getTime() - lease.getTimeCreate().getTime() <= 10800000) return leaseDao.delete(lease);
+       else return false;
     }
     
     @Override
@@ -72,6 +81,11 @@ public class LeaseServiceImpl implements LeaseService{
     @Override
     public String activate(Lease lease) {
         return leaseDao.activate(lease);
+    }
+
+    @Override
+    public Lease findByIdAccountId(int idAccount, int id) {
+        return leaseDao.findByIdAccountId(idAccount, id);
     }
     
 }

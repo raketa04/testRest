@@ -33,11 +33,11 @@ public class Lease {
     @Column (name = "id_lease")
     private Integer idLease;
     
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column (name = "start_lease")
     private Date startLease;
     
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column (name = "end_lease")
     private Date endLease;
     
@@ -50,8 +50,16 @@ public class Lease {
     @Column (name = "is_active")
     private boolean active;
     
+    
     @Column (name = "code_activate")
     private String codeActivate;
+    
+    @Column (name = "code_placement")
+    private String codePlacement;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column (name = "time_create")
+    private Date timeCreate;
     
     @ManyToOne
     @JoinColumn(name="account")
@@ -67,7 +75,7 @@ public class Lease {
     public Lease() {
     }
 
-    public Lease(Integer idLease, Date startLease, Date endLease, Integer children, Integer adults, boolean active, String codeActivate, Account account, Placement placement, Feedback feedback) {
+    public Lease(Integer idLease, Date startLease, Date endLease, Integer children, Integer adults, boolean active, String codeActivate, String codePlacement, Date timeCreate, Account account, Placement placement, Feedback feedback) {
         this.idLease = idLease;
         this.startLease = startLease;
         this.endLease = endLease;
@@ -75,10 +83,14 @@ public class Lease {
         this.adults = adults;
         this.active = active;
         this.codeActivate = codeActivate;
+        this.codePlacement = codePlacement;
+        this.timeCreate = timeCreate;
         this.account = account;
         this.placement = placement;
         this.feedback = feedback;
     }
+
+    
 
     public Integer getIdLease() {
         return idLease;
@@ -110,6 +122,14 @@ public class Lease {
 
     public Feedback getFeedback() {
         return feedback;
+    }
+
+    public String getCodePlacement() {
+        return codePlacement;
+    }
+
+    public Date getTimeCreate() {
+        return timeCreate;
     }
 
     public void setIdLease(Integer idLease) {
@@ -159,4 +179,13 @@ public class Lease {
     public void setCodeActivate(String codeActivate) {
         this.codeActivate = codeActivate;
     }
+
+    public void setCodePlacement(String codePlacement) {
+        this.codePlacement = codePlacement;
+    }
+
+    public void setTimeCreate(Date timeCreate) {
+        this.timeCreate = timeCreate;
+    }
+    
 }

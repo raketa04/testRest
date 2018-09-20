@@ -8,6 +8,7 @@ package com.mycompany.controllers;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.mycompany.dto.AccountDto;
 import com.mycompany.dto.LeaseDto;
+import com.mycompany.resurse.Account;
 import com.mycompany.resurse.Lease;
 import com.mycompany.security.JwtTokenUtil;
 import com.mycompany.service.AccountService;
@@ -71,6 +72,26 @@ public class LeaseRESTController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
     
+    @RequestMapping(value ="delete/{id}", method = RequestMethod.GET)
+    public ResponseEntity<?> deleteLease(@PathVariable int id,HttpServletRequest request) {
+        String authToken = request.getHeader(tokenHeader);
+        final String token = authToken.substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        Account account = accountService.findByAccount(username);
+        Lease lease = leaseService.findByIdAccountId(account.getIdAccount(), id);
+        if(lease != null){
+            if(leaseService.delete(lease)){
+                return new ResponseEntity<>("done!", HttpStatus.OK);
+            }
+            else{
+                return new ResponseEntity<>("Время на удаление бронирования истекло", HttpStatus.NOT_FOUND);
+            }
+        }
+        else {
+            return new ResponseEntity<>("Нету заказа", HttpStatus.NOT_FOUND);
+        }
+
+    }
     
     @RequestMapping(value ="{id}", method = RequestMethod.GET)
     @JsonView(LeaseDto.getLeasePlacmentTenant.class)
