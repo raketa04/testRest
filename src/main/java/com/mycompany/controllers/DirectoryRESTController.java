@@ -16,7 +16,10 @@ import com.mycompany.security.JwtTokenUtil;
 import com.mycompany.service.AccountService;
 import com.mycompany.service.FavoriteService;
 import com.mycompany.service.DirectoryService;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
@@ -96,34 +99,94 @@ public class DirectoryRESTController {
     
     @RequestMapping(value ="directory/{id}", method = RequestMethod.GET)
     @JsonView(PlacementDto.getPlacmentSearach.class)
-    public ResponseEntity<?> getPlacementDirectory(@PathVariable int id) {
+    public ResponseEntity<List<PlacementDto>> getPlacementDirectory(@PathVariable int id) {
         List<Placement> temp = favoriteService.findByDirectory(id);
-        if(temp != null){
-            List<PlacementDto> result = favoriteService.findByDirectory(id).stream()
+        List<PlacementDto> result = null;
+            result = favoriteService.findByDirectory(id).stream()
                 .map(authority -> modelMapper.map(authority ,PlacementDto.class))
                 .collect(Collectors.toList());
             return new ResponseEntity<>(result, HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>("", HttpStatus.OK);
-        }
     }
     
+    @RequestMapping(value ="directory/placement/{id}", method = RequestMethod.GET)
+    @JsonView(DirectoryDto.getDirectoryPlacement.class)
+    public ResponseEntity<List<DirectoryDto>> getDirectoryPlacement(HttpServletRequest request, @PathVariable int id) {
+        String authToken = request.getHeader(tokenHeader);
+        final String token = authToken.substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        List<DirectoryDto> result = directoryService.findByAccount(accountService.findByAccount(username)).stream()
+            .map(authority -> modelMapper.map(authority ,DirectoryDto.class))
+            .collect(Collectors.toList());
+        for(DirectoryDto directoryDto:result){
+            directoryDto.setThereIsPlacement(false);
+            for(FavoriteDto favoriteDto:directoryDto.getFavorites()){
+                if(favoriteDto.getPlacement() == id) {
+                    directoryDto.setThereIsPlacement(true);
+                    break;
+                }
+            }
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+    
+    @RequestMapping(value ="directory/placement/{id}", method = RequestMethod.POST)
+    @JsonView(DirectoryDto.getDirectoryPlacement.class)
+    public ResponseEntity<List<DirectoryDto>> setDirectoryPlacement(HttpServletRequest request, @PathVariable Integer id,@Validated (DirectoryDto.getDirectoryPlacement.class)@RequestBody List<DirectoryDto> directoryDto) {
+        String authToken = request.getHeader(tokenHeader);
+        final String token = authToken.substring(7);
+        String username = jwtTokenUtil.getUsernameFromToken(token);
+        List<DirectoryDto> result = directoryService.findByAccount(accountService.findByAccount(username)).stream()
+            .map(authority -> modelMapper.map(authority ,DirectoryDto.class))
+            .collect(Collectors.toList());
+        for(DirectoryDto dto:result){
+            dto.setThereIsPlacement(false);
+            for(FavoriteDto favoriteDto:dto.getFavorites()){
+                if(favoriteDto.getPlacement() == id) {
+                    dto.setThereIsPlacement(true);
+                    break;
+                }
+            }
+        }
+
+        Favorite f;
+        for(DirectoryDto dto:directoryDto){
+            for(DirectoryDto dto1:result){
+                if(Objects.equals(dto.getIdDirectory(), dto1.getIdDirectory()) && dto.isThereIsPlacement() != dto1.isThereIsPlacement()){
+                    if(dto.isThereIsPlacement() == true) {
+                        f = new Favorite();
+                        f.setPlacement(id);
+                        f.setDirectory(modelMapper.map(dto1,Directory.class));
+                        favoriteService.add(f);
+                        break;
+                    }
+                    else{
+                        f = new Favorite();
+                        f.setPlacement(id);
+                        f.setDirectory(modelMapper.map(dto1,Directory.class));
+                        favoriteService.delete(f);
+                        break;
+                    }
+                }
+            }
+        }
+        
+        return new ResponseEntity<>(directoryDto, HttpStatus.OK);
+    }
+    /*
     @RequestMapping(value ="directory/favorite/add", method = RequestMethod.POST)
     @JsonView(FavoriteDto.getFavorite.class)
     public ResponseEntity<?> addNewFavorite(@Validated(FavoriteDto.addFavorite.class) @RequestBody FavoriteDto favoriteDto) {
         Favorite result = favoriteService.add(modelMapper.map(favoriteDto, Favorite.class));
         return new ResponseEntity<>(modelMapper.map(result, FavoriteDto.class), HttpStatus.OK);
     }
-    
-    
+
+    */
     @RequestMapping(value ="directory/favorite/delete", method = RequestMethod.POST)
     public ResponseEntity<?> deleteFavorite(@Validated(DirectoryDto.deleteDirectory.class) @RequestBody FavoriteDto favoriteDto) {
         boolean b = favoriteService.delete(modelMapper.map(favoriteDto, Favorite.class));
         return new ResponseEntity<>(b, HttpStatus.OK);
     }
-    
-    
+
     @RequestMapping(value ="directory/favorite/placement/{id}", method = RequestMethod.GET)
     public ResponseEntity<?> isFavorite(HttpServletRequest request, @PathVariable int id) {
         String authToken = request.getHeader(tokenHeader);

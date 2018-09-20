@@ -58,7 +58,6 @@ public class AuthenticationRestController {
     public ResponseEntity<AccountDto> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticationRequest) throws AuthenticationException {
 
         authenticate(authenticationRequest.getLogin(), authenticationRequest.getPassword());
-
         // Reload password post-security so we can generate the token
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getLogin());
         final String token = jwtTokenUtil.generateToken(userDetails);
@@ -99,6 +98,7 @@ public class AuthenticationRestController {
 
         try {
             UsernamePasswordAuthenticationToken temp = new UsernamePasswordAuthenticationToken(username, password);
+            //temp.setAuthenticated(false);
             authenticationManager.authenticate(temp);
         } catch (DisabledException e) {
             throw new AuthenticationException("User is disabled!", e);

@@ -35,8 +35,14 @@ public class FavoriteServiceImpl implements FavoriteService{
     }
 
     @Override
-    public boolean delete(Favorite favorite) {
-        favoriteRepository.delete(favoriteRepository.findByPlacementAndDirectoryIdDirectory(favorite.getPlacement(),favorite.getDirectory().getIdDirectory()));
+    public boolean delete(Favorite favorite){
+        try{
+            Favorite deleteFavorite = favoriteRepository.findByPlacementAndDirectoryIdDirectory(favorite.getPlacement(), favorite.getDirectory().getIdDirectory());
+            favoriteRepository.deleteById(deleteFavorite.getIdFavorite());
+        }
+        catch(Exception ex){
+            System.out.println(ex);
+        }
         return true;
     }
 
@@ -56,5 +62,9 @@ public class FavoriteServiceImpl implements FavoriteService{
         if(favoriteRepository.findByPlacementAndDirectoryAccount(placement, account) != null) return true;
         return false;
     }
-    
+
+    @Override
+    public Favorite findByPlacementAndDirectoryIdDirectory(Integer placement, Integer Direcrory) {
+        return favoriteRepository.findByPlacementAndDirectoryIdDirectory(placement, Direcrory);
+    }
 }

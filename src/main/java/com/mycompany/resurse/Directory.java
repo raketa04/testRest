@@ -39,7 +39,7 @@ public class Directory implements Serializable {
     @JoinColumn(name="account")
     private Account account;
     
-    @OneToMany(mappedBy = "directory", cascade=CascadeType.ALL,    orphanRemoval=true)
+    @OneToMany(mappedBy = "directory", cascade=CascadeType.REMOVE,    orphanRemoval=true)
     private Set<Favorite> favorites = new HashSet<>();
 
     public Directory() {

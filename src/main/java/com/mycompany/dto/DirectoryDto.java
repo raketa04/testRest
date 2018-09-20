@@ -28,6 +28,9 @@ public class DirectoryDto {
     public interface getDirectory {
     }
     
+    public interface getDirectoryPlacement extends getDirectory{
+    }
+    
     public interface getDirectoryAdd {
     }
     
@@ -46,7 +49,8 @@ public class DirectoryDto {
     
     @Null(groups = {addDirectory.class,updateDirectory.class,deleteDirectory.class})
     private Set<FavoriteDto> favorites;
-    
+    @JsonView({getDirectoryPlacement.class})
+    private boolean thereIsPlacement;
 
     public DirectoryDto() {
     }
@@ -80,4 +84,14 @@ public class DirectoryDto {
     public void setFavorites(Set<FavoriteDto> favorites) {
         this.favorites = favorites;
     }
+
+    public boolean isThereIsPlacement() {
+        return thereIsPlacement;
+    }
+
+    public void setThereIsPlacement(boolean thereIsPlacement) {
+        this.thereIsPlacement = thereIsPlacement;
+    }
+    
+    
 }

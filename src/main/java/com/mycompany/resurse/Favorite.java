@@ -6,6 +6,7 @@
 package com.mycompany.resurse;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,9 +23,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "favorite")
 public class Favorite implements Serializable {
-     @Id
+    @Id
     @GeneratedValue(strategy = IDENTITY)
-    @Column (name = "id_bookmarks")
+    @Column (name = "id_favorite")
     private Integer idFavorite;
     
     
@@ -32,7 +33,7 @@ public class Favorite implements Serializable {
     private Integer placement;
     
     @ManyToOne
-    @JoinColumn(name="directory")
+    @JoinColumn(name="directory" )
     private Directory directory;
 
     public Favorite() {

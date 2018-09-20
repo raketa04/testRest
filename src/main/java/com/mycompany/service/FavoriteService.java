@@ -16,7 +16,8 @@ import java.util.List;
  */
 public interface FavoriteService {
     Favorite add(Favorite bookmarks);
-    boolean  delete(Favorite bookmarks);
+    boolean  delete(Favorite favorite);
     boolean  isFavorite(Integer placement, Account account);
     List<Placement> findByDirectory(Integer idDirectory);
+    Favorite findByPlacementAndDirectoryIdDirectory(Integer placement,Integer Direcrory);
 }
