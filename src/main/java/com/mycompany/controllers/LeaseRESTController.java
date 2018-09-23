@@ -15,7 +15,11 @@ import com.mycompany.service.AccountService;
 import com.mycompany.service.LeaseService;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
@@ -67,9 +71,15 @@ public class LeaseRESTController {
     
     @RequestMapping(value ="activate", method = RequestMethod.POST)
     public ResponseEntity<?> activateLease(@Validated(LeaseDto.activateLease.class)@RequestBody LeaseDto leaseDto) {
-        String result = leaseService.activate(modelMapper.map(leaseDto, Lease.class));
-        leaseService.deleteCacheLease(leaseDto.getIdLease());
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        boolean result = leaseService.activate(modelMapper.map(leaseDto, Lease.class));
+        if (result){
+            leaseService.deleteCacheLease(leaseDto.getIdLease());
+            return new ResponseEntity<>("done!", HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>("error!", HttpStatus.BAD_REQUEST);
+        }
+        
     }
     
     @RequestMapping(value ="delete/{id}", method = RequestMethod.GET)
@@ -118,14 +128,14 @@ public class LeaseRESTController {
     
     @RequestMapping(value ="account", method = RequestMethod.GET)
     @JsonView(LeaseDto.getLeaseTenant.class)
-    public ResponseEntity<ArrayList<ArrayList<LeaseDto>>> getAllLeaseAccount(HttpServletRequest request) {
+    public ResponseEntity<Map<String,ArrayList<LeaseDto>>> getAllLeaseAccount(HttpServletRequest request) {
         String authToken = request.getHeader(tokenHeader);
         final String token = authToken.substring(7);
         String username = jwtTokenUtil.getUsernameFromToken(token);
         List<LeaseDto> list = leaseService.findByAccount(accountService.findByAccount(username).getIdAccount()).stream()
                 .map(authority -> modelMapper.map(authority ,LeaseDto.class))
                 .collect(Collectors.toList());
-        ArrayList<ArrayList<LeaseDto>> sendList =  new ArrayList<>();
+        TreeMap<String,ArrayList<LeaseDto>> sendList =  new TreeMap<>();
         ArrayList<LeaseDto> complete  =  new ArrayList<>();
         ArrayList<LeaseDto> future  =  new ArrayList<>();
         ArrayList<LeaseDto> current  =  new ArrayList<>();
@@ -135,9 +145,11 @@ public class LeaseRESTController {
             if(lease.getEndLease() < d.getTime() && lease.getStartLease() > d.getTime()) current.add(lease);
             if(lease.getStartLease() > d.getTime()) future.add(lease);
         }
-        sendList.add(complete);
-        sendList.add(current);
-        sendList.add(future);
+        
+        sendList.put("complete",complete);
+        sendList.put("current",current);
+        sendList.put("future",future);
+        
         return new ResponseEntity<>(sendList, HttpStatus.OK);
     }
 }

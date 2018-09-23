@@ -99,13 +99,18 @@ public class DirectoryRESTController {
     
     @RequestMapping(value ="directory/{id}", method = RequestMethod.GET)
     @JsonView(PlacementDto.getPlacmentSearach.class)
-    public ResponseEntity<List<PlacementDto>> getPlacementDirectory(@PathVariable int id) {
-        List<Placement> temp = favoriteService.findByDirectory(id);
+    public ResponseEntity<?> getPlacementDirectory(@PathVariable int id) {
         List<PlacementDto> result = null;
+        try{
             result = favoriteService.findByDirectory(id).stream()
                 .map(authority -> modelMapper.map(authority ,PlacementDto.class))
                 .collect(Collectors.toList());
+            
             return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+        catch (NullPointerException ex){
+            return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+        }
     }
     
     @RequestMapping(value ="directory/placement/{id}", method = RequestMethod.GET)

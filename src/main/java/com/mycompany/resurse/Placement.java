@@ -7,7 +7,6 @@ package com.mycompany.resurse;
 
 
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import static javax. persistence. GenerationType. IDENTITY;

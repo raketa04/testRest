@@ -35,6 +35,8 @@ public class PlacementDto {
     public interface getPlacmentSearach {
     }
 
+    public interface getPlacementLease extends getPlacement {
+    }
 
     @Null(groups = {addPlacment.class})
     @NotNull(groups = {updatePlacment.class, LeaseDto.addLease.class,PictuteresDto.deletePictures.class})
@@ -142,11 +144,11 @@ public class PlacementDto {
 
     @NotNull(groups = {addPlacment.class})
     @Null(groups = {updatePlacment.class})
-    @JsonView({getPlacement.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getAddLease.class})
+    @JsonView({LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getAddLease.class})
     private AccountDto account;
 
     @Null(groups = {addPlacment.class, updatePlacment.class})
-    @JsonView({getPlacement.class})
+    @JsonView({getPlacementLease.class})
     private Set<LeaseDto> leases = new HashSet<>();
     
     

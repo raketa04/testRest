@@ -21,5 +21,5 @@ public interface LeaseDao {
     List<Lease> findByPlacementAccount(int idAccount);
     Lease add(Lease lease);
     boolean delete(Lease lease);
-    String activate(Lease lease);   
+    boolean activate(Lease lease);   
 }

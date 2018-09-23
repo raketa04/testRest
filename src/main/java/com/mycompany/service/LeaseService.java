@@ -23,6 +23,6 @@ public interface LeaseService {
     boolean delete(Lease lease);
     boolean addCacheLease(Lease lease);
     boolean deleteCacheLease(Integer idLease);
-    String activate(Lease lease);
+    boolean activate(Lease lease);
     Lease findByIdAccountId(int idAccount, int id);
 }

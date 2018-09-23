@@ -79,7 +79,7 @@ public class LeaseServiceImpl implements LeaseService{
     }
 
     @Override
-    public String activate(Lease lease) {
+    public boolean activate(Lease lease) {
         return leaseDao.activate(lease);
     }
 

@@ -68,14 +68,14 @@ public class PlacementRESTController {
     @Value("${jwt.header}")
     private String tokenHeader;
     
-    @GetMapping("account/placments")
+    @GetMapping("account/placements")
     @JsonView(PlacementDto.getPlacement.class)
     public ResponseEntity<List<PlacementDto>> getPlacments(HttpServletRequest request) {
         String authToken = request.getHeader(tokenHeader);
         final String token = authToken.substring(7);
         String username = jwtTokenUtil.getUsernameFromToken(token);
         Account account = accountService.findByAccount(username);
-        List<PlacementDto> list = placementService.findByIdAccount(account.getIdAccount()).stream()
+        List<PlacementDto> list = account.getPlacements().stream()
                 .map(authority -> modelMapper.map(authority ,PlacementDto.class))
                 .collect(Collectors.toList());
         return new ResponseEntity<>(list, HttpStatus.OK);

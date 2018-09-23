@@ -117,10 +117,15 @@ public class PlacementDaoImpl implements PlacementDao{
 
     @Override
     public Placement findById(int id) {
-        Placement placement = entityManager.find(Placement.class, id);
-        entityManager.flush();
-        System.out.println(placement.getLeases().size());
-        return placement;
+        Placement placement = null;
+        try{
+            placement = entityManager.find(Placement.class, id);
+            entityManager.flush();
+            System.out.println(placement.getLeases().size());
+        }
+        finally{
+            return placement;
+        }
     }
 
     @Override
@@ -170,9 +175,17 @@ public class PlacementDaoImpl implements PlacementDao{
 
     @Override
     public List<Placement> findByIdAccount(int idLandlord) {
-        String hql = "FROM Placement where Account.idAccount = " + idLandlord;
-	List<Placement> result =  entityManager.createQuery(hql,Placement.class).getResultList();
-	return result;
+        
+        
+        try {
+            String hql = "FROM Placement where Placement.account.idAccount = " + idLandlord;
+            List<Placement> result =  entityManager.createQuery(hql,Placement.class).getResultList();
+            return result;
+        }
+        catch (NullPointerException ex){
+            return null;
+        }
+            
     }
 
     @Override

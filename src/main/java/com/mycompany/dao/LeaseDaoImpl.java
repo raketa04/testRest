@@ -72,15 +72,15 @@ public class LeaseDaoImpl implements LeaseDao{
     }
 
     @Override
-    public String activate(Lease lease) {
+    public  boolean activate(Lease lease) {
         Lease result = entityManager.find(Lease.class, lease.getIdLease());
         if(result.getCodeActivate().equals(lease.getCodeActivate())){
            result.setActive(true);
            entityManager.merge(result);
-           return "done!";
+           return true;
         }
         else {
-            return "error!";
+            return false;
         }
     }
 
