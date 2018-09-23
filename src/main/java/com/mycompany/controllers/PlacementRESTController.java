@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
@@ -83,7 +84,7 @@ public class PlacementRESTController {
        
     @GetMapping("account/lease")
     @JsonView(LeaseDto.getLeaseTenant.class)
-    public ResponseEntity<ArrayList<ArrayList<LeaseDto>>> getLease(HttpServletRequest request) {
+    public ResponseEntity<?> getLease(HttpServletRequest request) {
         String authToken = request.getHeader(tokenHeader);
         final String token = authToken.substring(7);
         String username = jwtTokenUtil.getUsernameFromToken(token);
@@ -92,7 +93,7 @@ public class PlacementRESTController {
         List<LeaseDto> list = leaseService.findByPlacementAccount(account.getIdAccount()).stream()
                 .map(authority -> modelMapper.map(authority ,LeaseDto.class))
                 .collect(Collectors.toList());
-        ArrayList<ArrayList<LeaseDto>> sendList =  new ArrayList<>();
+        TreeMap<String,ArrayList<LeaseDto>> sendList =  new TreeMap<>();
         ArrayList<LeaseDto> complete  =  new ArrayList<>();
         ArrayList<LeaseDto> active  =  new ArrayList<>();
         Date d = new Date();
@@ -100,8 +101,8 @@ public class PlacementRESTController {
             if(lease.getEndLease() < d.getTime() && lease.getStartLease() > d.getTime()) active.add(lease);
             else complete.add(lease);
         });
-        sendList.add(complete);
-        sendList.add(active);
+        sendList.put("complete",complete);
+        sendList.put("active",active);
         return new ResponseEntity<>(sendList, HttpStatus.OK);
     }
     
