@@ -70,7 +70,7 @@ public class PlacementRESTController {
     private String tokenHeader;
     
     @GetMapping("account/placements")
-    @JsonView(PlacementDto.getPlacement.class)
+    @JsonView(PlacementDto.getPlacmentSearach.class)
     public ResponseEntity<List<PlacementDto>> getPlacments(HttpServletRequest request) {
         String authToken = request.getHeader(tokenHeader);
         final String token = authToken.substring(7);
