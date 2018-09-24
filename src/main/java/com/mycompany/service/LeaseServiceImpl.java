@@ -46,7 +46,7 @@ public class LeaseServiceImpl implements LeaseService{
 
     @Override
     public Lease add(Lease lease) {
-        lease.setCodeActivate("1111");
+        lease.setCodeActivate("11111");
         RandomString gen = new RandomString(8, ThreadLocalRandom.current());
         lease.setCodePlacement(gen.nextString());
         Date d = new Date();
