@@ -109,7 +109,7 @@ public class DirectoryRESTController {
             return new ResponseEntity<>(result, HttpStatus.OK);
         }
         catch (NullPointerException ex){
-            return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(new ArrayList<PlacementDto>(), HttpStatus.OK);
         }
     }
     
