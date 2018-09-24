@@ -65,7 +65,7 @@ public class LeaseRESTController {
         AccountDto account = modelMapper.map(accountService.findByAccount(username),AccountDto.class);
         leaseDto.setAccount(account);
         Lease result = leaseService.add(modelMapper.map(leaseDto, Lease.class));
-        leaseService.addCacheLease(result);
+        //leaseService.addCacheLease(result);
         return new ResponseEntity<>(modelMapper.map(result,LeaseDto.class), HttpStatus.OK);
     }
     
