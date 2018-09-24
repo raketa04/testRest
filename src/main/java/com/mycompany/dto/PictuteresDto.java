@@ -26,7 +26,7 @@ public class PictuteresDto {
     }
     
     @NotNull(groups = {deletePictures.class})
-    @JsonView({getPictures.class,PlacementDto.getPlacement.class,PlacementDto.getPlacmentSearach.class})
+    @JsonView({getPictures.class,PlacementDto.getPlacement.class,PlacementDto.getPlacmentSearach.class,LeaseDto.getLeaseTenant.class})
     private Integer idPicPlacement = null;
 
     public PictuteresDto(Integer idPicPlacement) {

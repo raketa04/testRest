@@ -152,7 +152,7 @@ public class PlacementDto {
     private Set<LeaseDto> leases = new HashSet<>();
     
     
-    @JsonView({getPlacement.class,getPlacmentSearach.class,LeaseDto.getLeaseTenant.class,})
+    @JsonView({getPlacement.class,getPlacmentSearach.class,LeaseDto.getLeaseTenant.class})
     private Set<PictuteresDto> pictutereses = new HashSet<>();
 
     @JsonView({getPlacement.class})
