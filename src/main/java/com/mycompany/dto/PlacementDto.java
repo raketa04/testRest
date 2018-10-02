@@ -129,25 +129,22 @@ public class PlacementDto {
     private  Float area;
 
     @Null(groups = {LeaseDto.addLease.class})
+    @NotNull(groups = {addPlacment.class, updatePlacment.class})
     @JsonView({addGetPlacment.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
     private Set<ComfortsDto> comfortses = new HashSet<>();
 
-    @NotNull(groups = {addPlacment.class})
-    @Null(groups = {updatePlacment.class})
-    @JsonView({addGetPlacment.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
+    @NotNull(groups = {addPlacment.class,updatePlacment.class})
+    @JsonView({getPlacmentSearach.class,addGetPlacment.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
     private CityDto city;
     
-    @NotNull(groups = {addPlacment.class})
-    @Null(groups = {updatePlacment.class})
+    @NotNull(groups = {addPlacment.class,updatePlacment.class})
     @JsonView({addGetPlacment.class,LeaseDto.getLeaseTenant.class,getPlacement.class, LeaseDto.getLeasePlacmentTenant.class})
     private TypePlacamentDto typePlacament;
 
-    @NotNull(groups = {addPlacment.class})
-    @Null(groups = {updatePlacment.class})
+    @NotNull(groups = {addPlacment.class,updatePlacment.class})
     @JsonView({LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getAddLease.class})
     private AccountDto account;
 
-    @Null(groups = {addPlacment.class, updatePlacment.class})
     @JsonView({getPlacementLease.class})
     private Set<LeaseDto> leases = new HashSet<>();
     

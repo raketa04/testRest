@@ -23,7 +23,7 @@ public class AvatarDto {
     }
     
     @NotNull(groups = {deleteAvatar.class})
-    @JsonView({getAvatar.class,AccountDto.token.class,PlacementDto.getPlacmentSearach.class})
+    @JsonView({getAvatar.class,AccountDto.token.class,PlacementDto.getPlacmentSearach.class,FeedbackDto.getFeedbackOrder.class})
     private Integer idAvatar = null;
 
     public AvatarDto() {

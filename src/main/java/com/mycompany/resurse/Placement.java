@@ -115,6 +115,9 @@ public class Placement implements Serializable{
     @JoinColumn (name = "type_placement")
     private TypePlacament typePlacament;
     
+    @OneToOne(mappedBy = "placement", cascade=CascadeType.DETACH,    orphanRemoval=true)
+    private CliningCompanyPlacement cliningCompanyPlacement;
+    
     public Integer getIdPlacement() {
         return idPlacement;
     }
@@ -185,6 +188,11 @@ public class Placement implements Serializable{
         return clining;
     }
 
+    public CliningCompanyPlacement getCliningCompanyPlacement() {
+        return cliningCompanyPlacement;
+    }
+
+    
     public Placement(Integer idPlacement, String street, int house, int apartment, int room, boolean isActive, float payDay, float payMonth, Integer children, Integer adults, String phonePlacment, String alternativePhonePlacement, String content, String housing, boolean clining, Integer sleeping_area, Float area, String name, Set<Comforts> comfortses, Account account, City city, Set<Pictuteres> pictutereses, Set<Lease> leases, Location location) {
         this.idPlacement = idPlacement;
         this.street = street;
@@ -363,4 +371,10 @@ public class Placement implements Serializable{
     public void setTypePlacament(TypePlacament typePlacament) {
         this.typePlacament = typePlacament;
     }
+
+    public void setCliningCompanyPlacement(CliningCompanyPlacement cliningCompanyPlacement) {
+        this.cliningCompanyPlacement = cliningCompanyPlacement;
+    }
+    
+    
 }

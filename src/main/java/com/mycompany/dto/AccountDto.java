@@ -34,7 +34,7 @@ public class AccountDto {
     
     @Null(groups = {add.class , autarificationIn.class,})
     @NotNull(groups = {update.class})
-    @JsonView({autarificationOut.class,DirectoryDto.getDirectory.class,DirectoryDto.getDirectoryAdd.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getAddLease.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class,LeaseDto.getTempLease.class})
+    @JsonView({autarificationOut.class,DirectoryDto.getDirectory.class,DirectoryDto.getDirectoryAdd.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getAddLease.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class,LeaseDto.getTempLease.class,FeedbackDto.getFeedback.class})
     private Integer idAccount;
     
     @NotNull(groups = {add.class , autarificationIn.class})
@@ -64,14 +64,14 @@ public class AccountDto {
     private String token;
     
     @NotNull(groups = {add.class,update.class})
-    @JsonView({autarificationOut.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
+    @JsonView({autarificationOut.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class,FeedbackDto.getFeedbackOrder.class})
     private String FIO;
     @NotNull(groups = {add.class,update.class})
     @JsonView({AccountDto.autarificationOut.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
     private String phone;
    
     @Null(groups = {add.class, update.class, autarificationIn.class,activation.class})
-    @JsonView({AccountDto.token.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
+    @JsonView({AccountDto.token.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class,FeedbackDto.getFeedbackOrder.class})
     private AvatarDto avatar;
     public AccountDto() {
     }

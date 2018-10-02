@@ -27,6 +27,10 @@ public class FeedbackDto {
         
     }
     
+    public interface getFeedbackOrder extends getFeedback{
+        
+    }
+    
     
     
     @Null(groups = {addFeedback.class})
@@ -41,9 +45,11 @@ public class FeedbackDto {
     @NotNull(groups = {addFeedback.class,editFeedback.class})
     @JsonView({getFeedback.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class})
     private int rating;
+    
     @NotNull(groups = {addFeedback.class})
     @Null(groups = {editFeedback.class})
-    //@JsonView({getFeedback.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class,LeaseDto.getLeaseTenant.class})
+
+    @JsonView({getFeedbackOrder.class,LeaseDto.getLeasePlacmentTenant.class,LeaseDto.getLeasePlacement.class})
     LeaseDto lease;
 
     public FeedbackDto() {

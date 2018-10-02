@@ -15,8 +15,6 @@ import com.mycompany.service.AccountService;
 import com.mycompany.service.LeaseService;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;

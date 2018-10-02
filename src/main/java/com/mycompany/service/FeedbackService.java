@@ -17,5 +17,6 @@ public interface FeedbackService {
     List <Feedback> findAll(int id);
     List <Feedback> findByPlacement(Integer idPlacment);
     float findRating(int id);
-    Feedback save(Feedback feedback); 
+    Feedback save(Feedback feedback);
+    Feedback getFeedback(Integer idFeedback);
 }

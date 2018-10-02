@@ -44,5 +44,10 @@ public class FeedbackServiceImpl implements FeedbackService{
     public List<Feedback> findByPlacement(Integer idPlacment) {
         return feedbackDao.findByPlacement(idPlacment);
     }
+
+    @Override
+    public Feedback getFeedback(Integer idFeedback) {
+        return feedbackDao.getFeedback(idFeedback);
+    }
     
 }

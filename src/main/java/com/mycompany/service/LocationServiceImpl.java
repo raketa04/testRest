@@ -6,19 +6,16 @@
 package com.mycompany.service;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApi;
+import com.google.maps.errors.ApiException;
+import com.google.maps.model.GeocodingResult;
 import com.mycompany.dao.CityDao;
-import com.mycompany.resurse.City;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import com.mycompany.resurse.Location;
 import com.mycompany.resurse.Placement;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,30 +34,28 @@ public class LocationServiceImpl implements LocationService{
     CityDao cityDao;
     @Override
     public Location addLocation(Placement placement) {
-//        
-//        try {
-//            String url = "http://maps.google.com/maps/api/geocode/json?address=";
-//            url += cityDao.findById(placement.getCity().getIdCity()).getNameCity();
-//            url += " " + placement.getStreet();
-//            url += " " + placement.getHouse();
-//            URL obj = new URL(url);
-//            HttpRequest<String> httpRequest = HttpRequestBuilder.createGet(uri, String.class)
-//                .responseDeserializer(ResponseDeserializer.ignorableDeserializer()).build();
-//            String input = response.toString();
-//            JSONObject jsonObj = new JSONObject(input);
-//            double lat = (double) jsonObj.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lat");
-//            double lng = (double) jsonObj.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").get("lng");
-//            location.setLat(lat);
-//            location.setLng(lng);
-//            
-//        } catch (MalformedURLException ex) {
-//            Logger.getLogger(LocationServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (IOException ex) {
-//            Logger.getLogger(LocationServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-//        } catch (JSONException ex) {
-//            Logger.getLogger(LocationServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        return location;
+        try {
+            String adress = placement.getCity().getNameCity() + " " + placement.getStreet() + " д." +
+                    placement.getHousing() + " " + placement.getHouse();
+            
+            GeoApiContext context = new GeoApiContext.Builder()
+                    .apiKey("AIzaSyD44m9V4ePkQXZKrSXKtAGsBrpEcDyQiyc")
+                    .build();
+            GeocodingResult[] results =  GeocodingApi.geocode(context,adress).await();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            System.out.println(gson.toJson(results[0].geometry.location));
+            location.setLat(results[0].geometry.location.lat);
+            location.setLng(results[0].geometry.location.lng);
+        } catch (ApiException ex) {
+            Logger.getLogger(LocationServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(LocationServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(LocationServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally{
+            return location;
+        }
     }
     
 }

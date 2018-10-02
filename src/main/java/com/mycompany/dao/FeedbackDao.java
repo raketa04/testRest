@@ -17,5 +17,6 @@ public interface  FeedbackDao {
     List <Feedback> findByPlacement(Integer idPlacment);
     List <Feedback> findAll(int id);
     float findRating(int id);
-    Feedback save(Feedback feedback); 
+    Feedback save(Feedback feedback);
+    Feedback getFeedback(Integer idFeedback);
 }

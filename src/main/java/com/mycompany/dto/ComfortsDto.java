@@ -7,6 +7,7 @@ package com.mycompany.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import java.io.Serializable;
+import javax.validation.constraints.NotNull;
 
 
 /**
@@ -17,6 +18,7 @@ import java.io.Serializable;
 
 public class ComfortsDto implements Serializable {
     
+    @NotNull(groups = {PlacementDto.addPlacment.class,PlacementDto.updatePlacment.class})
     @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class,LeaseDto.getLeasePlacmentTenant.class})
     private Integer idComforts = null;
     @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class,LeaseDto.getLeasePlacmentTenant.class})

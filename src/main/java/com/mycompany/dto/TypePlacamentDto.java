@@ -6,12 +6,14 @@
 package com.mycompany.dto;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import javax.validation.constraints.NotNull;
 
 /**
  *
  * @author ADMIN
  */
 public class TypePlacamentDto {
+    @NotNull(groups = {PlacementDto.addPlacment.class,PlacementDto.updatePlacment.class})
     @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class,LeaseDto.getLeasePlacmentTenant.class})
     private Integer idTypePlacament;
     @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class,LeaseDto.getLeasePlacmentTenant.class})

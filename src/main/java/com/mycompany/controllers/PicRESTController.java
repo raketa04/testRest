@@ -84,13 +84,16 @@ public class PicRESTController {
                 .contentLength(f.length()) //
                 .body(resource);
     }
-    /*
+    
     @RequestMapping(value = "deletePic/{id}",method = RequestMethod.DELETE)
-    public ResponseEntity<> deleteFile(@PathVariable int id) throws IOException{ 
-        File f = picturesService.findById(id);
-        InputStreamResource resource = new InputStreamResource(new FileInputStream(f));
- 
-        return ResponseEntity.ok()
+    public ResponseEntity<?> deleteFile(@PathVariable int id){ 
+        if(picturesService.delete(id)) {
+            return new ResponseEntity<>(true,HttpStatus.OK);
+        }      
+        else{
+            return new ResponseEntity<>(false,HttpStatus.BAD_REQUEST);
+        }
     }
-*/
+
+    
 } 

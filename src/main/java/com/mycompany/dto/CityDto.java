@@ -19,11 +19,12 @@ public class CityDto{
 
     public interface findCity{
     }
+    @NotNull(groups = {PlacementDto.addPlacment.class,PlacementDto.updatePlacment.class})
     @Null(groups = {findCity.class})
-    @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class,LeaseDto.getLeasePlacmentTenant.class,PlacementDto.getPlacmentSearach.class})
+    @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class,LeaseDto.getLeasePlacmentTenant.class})
     private Integer id = null;
     @NotNull(groups = {findCity.class})
-    @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class,LeaseDto.getLeasePlacmentTenant.class,PlacementDto.getPlacmentSearach.class})
+    @JsonView({PlacementDto.getPlacmentSearach.class,PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class,LeaseDto.getLeasePlacmentTenant.class,PlacementDto.getPlacmentSearach.class})
     private String name;
     @Null(groups = {findCity.class})
     @JsonView({PlacementDto.addGetPlacment.class,LeaseDto.getLeaseTenant.class,PlacementDto.getPlacement.class,LeaseDto.getLeasePlacmentTenant.class})

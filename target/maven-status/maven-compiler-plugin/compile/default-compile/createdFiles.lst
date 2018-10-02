@@ -3,6 +3,7 @@ com\mycompany\dto\PictuteresDto$getPictures.class
 com\mycompany\controllers\TypePlacementRESTController.class
 com\mycompany\resurse\Favorite.class
 com\mycompany\service\LocationServiceImpl.class
+com\mycompany\resurse\CliningCompanyPlacement.class
 com\mycompany\dao\ComfortsDaoImpl.class
 com\mycompany\dto\ComfortsDto.class
 com\mycompany\resurse\AuthorityName.class
@@ -30,9 +31,9 @@ com\mycompany\dto\LeaseDto$getLeasePlacmentTenant.class
 com\mycompany\security\controller\AuthenticationRestController.class
 com\mycompany\service\ComfortsService.class
 com\mycompany\service\LocationService.class
+com\mycompany\dto\DirectoryDto$getDirectoryPlacement.class
 com\mycompany\service\FeedbackServiceImpl.class
 com\mycompany\security\JwtAuthorizationTokenFilter.class
-com\mycompany\dto\FavoriteDto$updateFavorite.class
 com\mycompany\service\ComfortsServiceImpl.class
 com\mycompany\service\StorageService.class
 com\mycompany\dao\AccountDao.class
@@ -40,6 +41,7 @@ com\mycompany\dao\NotificationDao.class
 com\mycompany\WebSecurityConfig.class
 com\mycompany\dto\AvatarDto.class
 com\mycompany\service\RegionService.class
+com\mycompany\resurse\CliningCompany.class
 com\mycompany\service\CityService.class
 com\mycompany\dao\PlacementDaoImpl$sorted.class
 com\mycompany\service\LeaseServiceImpl.class
@@ -56,8 +58,10 @@ com\mycompany\resurse\Placement.class
 com\mycompany\service\LeaseService.class
 com\mycompany\repository\FavoriteRepository.class
 com\mycompany\dto\PlacementDto$addPlacment.class
+com\mycompany\repository\PicCliningRepository.class
 com\mycompany\dao\FeedbackDaoImpl.class
 com\mycompany\dao\PlacementDaoImpl.class
+com\mycompany\RandomString.class
 com\mycompany\resurse\Authority.class
 com\mycompany\service\AccountServiceImpl.class
 com\mycompany\dto\DirectoryDto$getDirectoryAdd.class
@@ -71,10 +75,11 @@ com\mycompany\dto\AccountDto$update.class
 com\mycompany\resurse\Avatar.class
 com\mycompany\dao\LeaseDao.class
 com\mycompany\security\JwtAuthenticationRequest.class
-com\mycompany\dto\FavoriteDto$isFavorite.class
 com\mycompany\resurse\Notification.class
 com\mycompany\service\AuthorityService.class
+com\mycompany\repository\OrderCliningRepository.class
 com\mycompany\resurse\Pictuteres.class
+com\mycompany\service\CliningCompanyService.class
 com\mycompany\dto\LeaseDto$getLeaseTenant.class
 com\mycompany\dto\FavoriteDto.class
 com\mycompany\service\FavoriteServiceImpl.class
@@ -83,6 +88,7 @@ com\mycompany\dto\TypeComfortsDto.class
 com\mycompany\dto\LeaseDto.class
 com\mycompany\controllers\PicRESTController.class
 com\mycompany\dto\TypePlacamentDto.class
+com\mycompany\service\CliningCompanyServiceImpl.class
 com\mycompany\resurse\City.class
 com\mycompany\repository\DirectoryRepository.class
 com\mycompany\security\JwtUserFactory.class
@@ -98,6 +104,7 @@ com\mycompany\dto\AvatarDto$addAvatar.class
 com\mycompany\dao\AuthorityDaoImpl.class
 com\mycompany\dto\AuthorityDto.class
 com\mycompany\service\AuthorityServiceImpl.class
+com\mycompany\resurse\OrderClining.class
 com\mycompany\resurse\Account.class
 com\mycompany\dao\PictuteresDaoImpl.class
 com\mycompany\security\controller\AuthenticationException.class
@@ -117,6 +124,8 @@ com\mycompany\dto\PictuteresDto.class
 com\mycompany\security\JwtUser.class
 com\mycompany\dto\LeaseDto$getAddLease.class
 com\mycompany\controllers\RegionRESTController.class
+com\mycompany\dto\LeaseDto$activateLease.class
+com\mycompany\repository\CliningCompanyPlacementRepository.class
 com\mycompany\service\notificationServiceImpl.class
 com\mycompany\dto\DirectoryDto.class
 com\mycompany\service\FeedbackService.class
@@ -127,9 +136,11 @@ com\mycompany\service\notificationService.class
 com\mycompany\dto\LocationDto.class
 com\mycompany\service\typeNotification.class
 com\mycompany\security\controller\MethodProtectedRestController.class
+com\mycompany\repository\CliningCompanyRepository.class
 com\mycompany\dto\PictuteresDto$addPictures.class
 com\mycompany\resurse\Directory.class
 com\mycompany\dto\CityDto.class
+com\mycompany\resurse\PicClining.class
 com\mycompany\dao\RegionDaoImpl.class
 com\mycompany\service\RegionServiceImpl.class
 com\mycompany\dao\ComfortsDao.class
@@ -138,6 +149,7 @@ com\mycompany\service\PlacementServiceImpl.class
 com\mycompany\dao\AuthorityDao.class
 com\mycompany\dto\AccountDto$add.class
 com\mycompany\dto\Search.class
+com\mycompany\dto\PlacementDto$getPlacementLease.class
 com\mycompany\service\TypePlacamentServiceImpl.class
 com\mycompany\dto\DirectoryDto$getDirectoryUpdate.class
 com\mycompany\dto\SearchDto.class
@@ -151,6 +163,7 @@ com\mycompany\controllers\FeedbackRESTController.class
 com\mycompany\dto\AvatarDto$getAvatar.class
 com\mycompany\dto\AccountDto.class
 com\mycompany\dao\AvatarDaoImpl.class
+com\mycompany\dto\LeaseDto$getTempLease.class
 com\mycompany\resurse\Feedback.class
 com\mycompany\resurse\Location.class
 com\mycompany\dto\ComfortsGroupDto.class

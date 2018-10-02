@@ -18,5 +18,5 @@ public interface PicturesService {
     List<Pictuteres> findByPlacement(Integer id);
     File findById (Integer id);
     Pictuteres add(MultipartFile uploadedFileRef, Integer id);
-    Pictuteres delete(Pictuteres pic);
+    boolean delete(Integer idPictuteres);
 }

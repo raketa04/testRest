@@ -37,8 +37,15 @@ public class PictuteresDaoImpl implements PictuteresDao{
     }
 
     @Override
-    public Pictuteres delete(Pictuteres pic) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean delete(Pictuteres pic) {
+        try{
+            entityManager.remove(pic);
+            return true;
+        }
+        catch(Exception ex){
+            return false;
+        }
+        
     }
 
     @Override

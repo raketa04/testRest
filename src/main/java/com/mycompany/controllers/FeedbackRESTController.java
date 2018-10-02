@@ -48,6 +48,14 @@ public class FeedbackRESTController {
         return new ResponseEntity<>(modelMapper.map(result, FeedbackDto.class), HttpStatus.OK);
     }
     
+    @JsonView(FeedbackDto.getFeedbackOrder.class)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
+    //@PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity <FeedbackDto> getFeedback(@PathVariable int id) {
+         FeedbackDto list = modelMapper.map(feedbackService.getFeedback(id),FeedbackDto.class);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+    
     @JsonView(FeedbackDto.getFeedback.class)
     @RequestMapping(value = "placement/{id}", method = RequestMethod.GET)
     //@PreAuthorize("hasRole('ADMIN')")

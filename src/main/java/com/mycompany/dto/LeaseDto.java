@@ -75,7 +75,7 @@ public class LeaseDto {
     private Long timeCreate;
 
     @Null(groups = {addLease.class})
-    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacementLease.class,getTempLease.class})
+    @JsonView({getLeasePlacmentTenant.class,getAddLease.class,getLeasePlacement.class,getLeaseTenant.class,PlacementDto.getPlacementLease.class,getTempLease.class,FeedbackDto.getFeedbackOrder.class})
     private AccountDto account;
 
     @NotNull(groups = {addLease.class})
@@ -83,7 +83,7 @@ public class LeaseDto {
     private PlacementDto placement;
 
     @Null(groups = {addLease.class})
-    @JsonView({getLeasePlacmentTenant.class,getLeasePlacement.class,PlacementDto.getPlacementLease.class})
+    @JsonView({getLeasePlacmentTenant.class,getLeasePlacement.class,PlacementDto.getPlacementLease.class,getLeaseTenant.class})
     private FeedbackDto feedback;
 
     public LeaseDto() {

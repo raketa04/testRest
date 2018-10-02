@@ -70,8 +70,11 @@ public class PicturesServiceImpl implements PicturesService{
     }
 
     @Override
-    public Pictuteres delete(Pictuteres pic) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean delete(Integer idPictuteres) {
+        Pictuteres pictuteres = pictuteresDao.findById(idPictuteres);
+        //File file = new File(pictuteres.getAdressPic());
+        //if(file.isFile()) file.delete();
+        return pictuteresDao.delete(pictuteres);
     }
     
 }

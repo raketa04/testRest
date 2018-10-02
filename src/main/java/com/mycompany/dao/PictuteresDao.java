@@ -16,5 +16,5 @@ public interface PictuteresDao {
     List<Pictuteres> findByPlacement(Integer id);
     Pictuteres findById(Integer id);
     Pictuteres add(Pictuteres pic);
-    Pictuteres delete(Pictuteres pic);
+    boolean delete(Pictuteres pic);
 }

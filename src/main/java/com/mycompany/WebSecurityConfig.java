@@ -109,7 +109,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 HttpMethod.GET,
                 "/file/getPic/{id}",
                 "/account/avatar/get/{id}",
-                "/region/all"
+                "/region/all",
+                "/region/{id}",
+                "/placement/{id}"
             );
     }
 }

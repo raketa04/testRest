@@ -82,5 +82,10 @@ public class FeedbackDaoImpl implements FeedbackDao{
 	List<Feedback> result =  query.getResultList();
 	return result;
     }
+
+    @Override
+    public Feedback getFeedback(Integer idFeedback) {
+        return entityManager.find(Feedback.class, idFeedback);
+    }
     
 }

@@ -134,25 +134,7 @@ public class PlacementDaoImpl implements PlacementDao{
            entityManager.persist(placement);
         }
         else{
-            Placement updatePlacement = entityManager.find(Placement.class,placement.getIdPlacement());
-            if(!updatePlacement.getStreet().equals(placement.getStreet())) updatePlacement.setStreet(placement.getStreet());
-            if(updatePlacement.getHouse() != placement.getHouse()) updatePlacement.setHouse(placement.getHouse());
-            if(updatePlacement.getApartment() != placement.getApartment()) updatePlacement.setApartment(placement.getApartment());
-            if(updatePlacement.getRoom()!= placement.getRoom()) updatePlacement.setRoom(placement.getRoom());
-            if(updatePlacement.getPayDay()!= placement.getPayDay()) updatePlacement.setPayDay(placement.getPayDay());
-            if(updatePlacement.getPayMonth()!= placement.getPayMonth()) updatePlacement.setPayMonth(placement.getPayMonth());
-            if(updatePlacement.getAdults()!= placement.getAdults()) updatePlacement.setAdults(placement.getAdults());
-            if(updatePlacement.getChildren() != placement.getChildren()) updatePlacement.setChildren(placement.getChildren());
-            if(updatePlacement.getHousing() != placement.getHousing()) updatePlacement.setHousing(placement.getHousing());
-            if(!updatePlacement.getPhonePlacment().equals(placement.getPhonePlacment())) updatePlacement.setPhonePlacment(placement.getPhonePlacment());
-            if(!updatePlacement.getAlternativePhonePlacement().equals(placement.getAlternativePhonePlacement())) updatePlacement.setAlternativePhonePlacement(placement.getAlternativePhonePlacement());
-            if(!updatePlacement.getComfortses().equals(placement.getComfortses())) updatePlacement.setComfortses(placement.getComfortses());
-            if(!updatePlacement.isIsActive() != placement.isIsActive()) updatePlacement.setIsActive(placement.isIsActive());
-            if(!updatePlacement.getContent().equals(placement.getContent())) updatePlacement.setContent(placement.getContent());
-            if(!updatePlacement.getName().equals(placement.getName())) updatePlacement.setName(placement.getName());
-            if(updatePlacement.getSleeping_area() != placement.getSleeping_area()) updatePlacement.setSleeping_area(placement.getSleeping_area());
-            if(updatePlacement.getArea() != placement.getArea()) updatePlacement.setArea(placement.getArea());
-            entityManager.merge(updatePlacement);
+              entityManager.merge(placement);
         }
         entityManager.flush();
         entityManager.clear();
